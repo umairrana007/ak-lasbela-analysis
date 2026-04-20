@@ -74,6 +74,6 @@ if __name__ == "__main__":
     
     # Simple simulation demo
     df = pd.read_csv(csv_path)
-    for t in ['gm', 'ls1', 'ak']:
+    for t in ['gm', 'ls1', 'ak', 'ls2', 'ls3']:
         sims = generate_poisson_simulations(df, t)
         print(f"Poisson Simulation Top 5 for {t}: {sims}")

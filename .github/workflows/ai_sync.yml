@@ -2,8 +2,10 @@ name: AI Prediction Sync
 
 on:
   schedule:
-    - cron: '0 */6 * * *' # Every 6 hours
+    - cron: '*/30 * * * *' # Every 30 minutes
   workflow_dispatch: # Allows manual trigger from GitHub UI
+  repository_dispatch: # Allows trigger from Dashboard button
+    types: [re-sync-ai]
 
 jobs:
   build:

@@ -31,3 +31,6 @@ Thumbs.db
 .env
 .env.local
 node_modules
+*.json
+!frontend/src/*.json
+!ml/*.json
