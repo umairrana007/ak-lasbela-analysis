@@ -33,4 +33,5 @@ Thumbs.db
 node_modules
 *.json
 !frontend/src/*.json
+!frontend/src/**/*.json
 !ml/*.json
