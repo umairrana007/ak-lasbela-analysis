@@ -692,12 +692,12 @@ const App = () => {
                 <thead>
                     <tr>
                         <th>Date</th>
-                        <th>Day</th>
                         <th className="gm-column">GM</th>
                         <th className="ls1-column">LS1</th>
                         <th className="ak-column">AK</th>
                         <th className="ls2-column">LS2</th>
                         <th className="ls3-column">LS3</th>
+                        <th>Day</th>
                         {isAdmin && <th>Actions</th>}
                     </tr>
                 </thead>
@@ -705,12 +705,12 @@ const App = () => {
                     {filteredRecords.length > 0 ? filteredRecords.map((record, index) => (
                         <tr key={record.id || index}>
                             <td>{formatDate(record.date)}</td>
-                            <td>{record.day}</td>
                             <td className="gm-column">{record.gm || '-'}</td>
                             <td className="ls1-column">{record.ls1 || '-'}</td>
                             <td className="ak-column">{record.ak || '-'}</td>
                             <td className="ls2-column">{record.ls2 || '-'}</td>
                             <td className="ls3-column">{record.ls3 || '-'}</td>
+                            <td>{record.day}</td>
                             {isAdmin && (
                                 <td className="action-buttons">
                                     <button className="btn btn-edit" onClick={() => handleEdit(record)}>✏️</button>
