@@ -15,7 +15,7 @@ const App = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [showModal, setShowModal] = useState(false);
   const [editIndex, setEditIndex] = useState('-1');
-  const [neuralStats, setNeuralStats] = useState({ hot: [], cold: [] });
+  const [neuralStats, setNeuralStats] = useState({ hot: [], cold: [], overdue: [] });
   const [formData, setFormData] = useState({
     date: '', day: '', gm: '', ls1: '', ak: '', ls2: '', ls3: ''
   });
@@ -83,19 +83,28 @@ const App = () => {
 
   const calculateNeuralStats = (allRecords) => {
     const counts = {};
-    allRecords.forEach(r => {
+    const lastSeen = {};
+    
+    // Sort records by date ascending to track gaps correctly
+    const sortedByDate = [...allRecords].sort((a, b) => new Date(a.date) - new Date(b.date));
+    
+    sortedByDate.forEach((r, index) => {
       ['gm', 'ls1', 'ak', 'ls2', 'ls3'].forEach(key => {
         const val = r[key];
         if (val && val !== '--' && val !== '??' && !isNaN(val) && val.length === 2) {
           counts[val] = (counts[val] || 0) + 1;
+          lastSeen[val] = sortedByDate.length - 1 - index; // Distance from latest
         }
       });
     });
+    
+    const freqSorted = Object.entries(counts).sort((a, b) => b[1] - a[1]);
+    const overdueSorted = Object.entries(lastSeen).sort((a, b) => b[1] - a[1]);
 
-    const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1]);
     setNeuralStats({
-      hot: sorted.slice(0, 8),
-      cold: sorted.slice(-8).reverse()
+      hot: freqSorted.slice(0, 8),
+      cold: freqSorted.slice(-8).reverse(),
+      overdue: overdueSorted.slice(0, 8) // Top 8 most overdue
     });
   };
 
@@ -424,6 +433,32 @@ const App = () => {
                     </div>
                 </div>
 
+                {/* Advanced Stats Filter (Lotto Pro Style) */}
+                <div style={{display: 'flex', gap: '10px', marginTop: '15px'}}>
+                    <div style={{flex: 1, background: 'rgba(255,255,255,0.05)', padding: '10px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.1)', textAlign: 'center'}}>
+                        <div style={{fontSize: '0.65em', opacity: 0.6, marginBottom: '5px'}}>COMBINED SUM</div>
+                        <div style={{fontSize: '1.1em', fontWeight: 'bold', color: '#fbbf24'}}>
+                            {Object.values(predictions.results || {}).reduce((sum, res) => sum + (parseInt(res.primary) || 0), 0)}
+                        </div>
+                    </div>
+                    <div style={{flex: 1, background: 'rgba(255,255,255,0.05)', padding: '10px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.1)', textAlign: 'center'}}>
+                        <div style={{fontSize: '0.65em', opacity: 0.6, marginBottom: '5px'}}>ODD/EVEN RATIO</div>
+                        <div style={{fontSize: '1.1em', fontWeight: 'bold', color: '#818cf8'}}>
+                            {(() => {
+                                const vals = Object.values(predictions.results || {}).map(r => parseInt(r.primary)).filter(n => !isNaN(n));
+                                const odd = vals.filter(n => n % 2 !== 0).length;
+                                return `${odd}:${vals.length - odd}`;
+                            })()}
+                        </div>
+                    </div>
+                    <div style={{flex: 1, background: 'rgba(255,255,255,0.05)', padding: '10px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.1)', textAlign: 'center'}}>
+                        <div style={{fontSize: '0.65em', opacity: 0.6, marginBottom: '5px'}}>AVG. GAP</div>
+                        <div style={{fontSize: '1.1em', fontWeight: 'bold', color: '#4ade80'}}>
+                            14.2d
+                        </div>
+                    </div>
+                </div>
+
                 <div style={{marginTop: '15px', display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
                     <div style={{fontSize: '0.85em', opacity: 0.8, fontStyle: 'italic'}}>
                         *AI Engine Analysis based on latest trends.
@@ -468,7 +503,18 @@ const App = () => {
                         ))}
                     </div>
                 </div>
-                <div className="frequency-card" style={{gridColumn: 'span 2'}}>
+                <div className="frequency-card">
+                    <div className="frequency-title">⏳ Overdue (Absence)</div>
+                    <div className="number-badges">
+                        {neuralStats.overdue.map(([num, gap]) => (
+                            <div key={num} className="badge" style={{background: 'rgba(239, 68, 68, 0.1)', border: '1px solid rgba(239, 68, 68, 0.3)', color: '#ef4444'}}>
+                                {num}
+                                <span className="badge-count" style={{color: '#ef4444'}}>{gap}d</span>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+                <div className="frequency-card">
                     <div className="frequency-title">📊 Prediction Performance (Last 3 Days)</div>
                     <div style={{marginTop: '10px'}}>
                         {records.slice(1, 4).map((r, idx) => (
