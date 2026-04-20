@@ -200,9 +200,22 @@ const App = () => {
 
   const triggerSync = async () => {
     setIsSyncing(true);
-    setSyncStatus('AI Sync is managed automatically via GitHub Actions. Predictions update daily!');
-    setIsSyncing(false);
-    setTimeout(() => setSyncStatus(''), 5000);
+    setSyncStatus('Triggering AI Sync...');
+    try {
+      // Secure call — token server-side pe rehta hai, browser ko nahi milta
+      const response = await fetch('/api/trigger-sync', { method: 'POST' });
+      const data = await response.json();
+      if (response.ok) {
+        setSyncStatus('✅ AI Sync Started! Check back in 2-3 mins.');
+      } else {
+        setSyncStatus('❌ Sync failed: ' + (data.error || 'Unknown error'));
+      }
+    } catch {
+      setSyncStatus('❌ Network error. Try again!');
+    } finally {
+      setIsSyncing(false);
+      setTimeout(() => setSyncStatus(''), 6000);
+    }
   };
 
   const handleDelete = async (record) => {
