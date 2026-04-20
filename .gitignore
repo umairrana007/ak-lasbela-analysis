@@ -1,0 +1,33 @@
+# Node modules
+node_modules/
+dist/
+dist-ssr/
+*.local
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+ENV/
+
+# Firebase
+.firebase/
+fire-debug.log*
+
+# IDEs
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# ML models (Optional: remove if you want to keep models in git)
+# ml/*.pkl
+
+# Environment variables
+.env
+.env.local
+node_modules

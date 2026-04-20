@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lottery Analysis & Prediction WebApp | Developer Specification v2.0</title>
+  <style>
+    :root {
+      --primary: #0f3460;
+      --secondary: #1a1a2e;
+      --accent: #e94560;
+      --bg: #f8f9fa;
+      --card: #ffffff;
+      --text: #2d3436;
+      --muted: #636e72;
+      --success: #00b894;
+      --warning: #fdcb6e;
+      --danger: #d63031;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; line-height: 1.6; color: var(--text); background: var(--bg); padding: 20px; }
+    header { background: var(--secondary); color: #fff; padding: 24px; border-radius: 10px; margin-bottom: 24px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+    header h1 { font-size: 1.8rem; margin-bottom: 8px; }
+    header p { opacity: 0.9; font-size: 0.95rem; }
+    .disclaimer { background: #fff8e1; border-left: 4px solid var(--warning); padding: 14px; margin: 20px 0; border-radius: 6px; font-size: 0.9rem; }
+    h2 { color: var(--primary); margin: 28px 0 12px; border-bottom: 2px solid #e0e0e0; padding-bottom: 6px; font-size: 1.4rem; }
+    h3 { color: var(--secondary); margin: 18px 0 10px; font-size: 1.15rem; }
+    table { width: 100%; border-collapse: collapse; margin: 16px 0; background: var(--card); border-radius: 8px; overflow: hidden; box-shadow: 0 2px 6px rgba(0,0,0,0.05); }
+    th, td { padding: 10px 14px; text-align: left; border-bottom: 1px solid #eee; }
+    th { background: var(--primary); color: #fff; font-weight: 600; }
+    tr:hover { background: #f5f7fa; }
+    pre { background: #1e1e1e; color: #d4d4d4; padding: 14px; border-radius: 8px; overflow-x: auto; font-family: 'Consolas', 'Monaco', monospace; font-size: 0.9rem; margin: 12px 0; }
+    code { font-family: inherit; background: #f0f0f0; padding: 2px 6px; border-radius: 4px; font-size: 0.88rem; }
+    pre code { background: none; padding: 0; }
+    .badge { display: inline-block; padding: 3px 9px; border-radius: 12px; font-size: 0.8rem; color: #fff; font-weight: 500; }
+    .high { background: var(--danger); }
+    .med { background: #f39c12; }
+    .low { background: var(--success); }
+    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; margin: 16px 0; }
+    .card { background: var(--card); padding: 16px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.06); }
+    .workflow { display: flex; flex-wrap: wrap; gap: 12px; margin: 16px 0; }
+    .step { background: var(--card); padding: 14px; border-radius: 8px; flex: 1; min-width: 220px; box-shadow: 0 2px 6px rgba(0,0,0,0.06); border-left: 4px solid var(--primary); }
+    .step span { font-weight: 600; color: var(--accent); }
+    footer { margin-top: 40px; padding: 18px; text-align: center; color: var(--muted); border-top: 1px solid #e0e0e0; font-size: 0.9rem; }
+    @media (max-width: 768px) {
+      .grid-2, .workflow { grid-template-columns: 1fr; flex-direction: column; }
+      table { font-size: 0.88rem; }
+      th, td { padding: 8px 10px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>🎯 Lottery Analysis & Prediction WebApp</h1>
+  <p><strong>Client:</strong> Umair | <strong>Data Format:</strong> 5 Independent Draws (GM, LS1, AK, LS2, LS3) | <strong>Range:</strong> 00-99 | <strong>Version:</strong> 2.0</p>
+  <p><strong>Objective:</strong> Build a secure, scalable web app that ingests daily historical draw data, PDF notes, and user-defined patterns. System must analyze each draw independently + optional cross-draw correlations, then generate next-day suggestions with probability scores.</p>
+</header>
+
+<div class="disclaimer">
+  ⚠️ <strong>MANDATORY DISCLAIMER:</strong> Lottery outcomes are fundamentally random. This application is for <strong>statistical analysis, pattern tracking, and entertainment only</strong>. It does NOT guarantee wins. All outputs must include responsible gaming notices. Never promote gambling or financial risk.
+</div>
+
+<h2>📊 1. Data Specification & Format</h2>
+<table>
+  <thead>
+    <tr><th>Column</th><th>Description</th><th>Range</th><th>Type</th><th>Example</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>date</code></td><td>Draw Date</td><td>YYYY-MM-DD</td><td>Date</td><td><code>2025-01-15</code></td></tr>
+    <tr><td><code>GM</code></td><td>Gold Main (Draw 1)</td><td>00-99</td><td>Integer</td><td><code>42</code></td></tr>
+    <tr><td><code>LS1</code></td><td>Lucky Star 1 (Draw 2)</td><td>00-99</td><td>Integer</td><td><code>07</code></td></tr>
+    <tr><td><code>AK</code></td><td>Additional Key (Draw 3)</td><td>00-99</td><td>Integer</td><td><code>23</code></td></tr>
+    <tr><td><code>LS2</code></td><td>Lucky Star 2 (Draw 4)</td><td>00-99</td><td>Integer</td><td><code>88</code></td></tr>
+    <tr><td><code>LS3</code></td><td>Lucky Star 3 (Draw 5)</td><td>00-99</td><td>Integer</td><td><code>15</code></td></tr>
+  </tbody>
+</table>
+
+<h3>✅ CSV Template (Append-Only Daily Upload)</h3>
+<pre><code>date,GM,LS1,AK,LS2,LS3
+2025-01-15,42,07,23,88,15
+2025-01-16,18,34,56,12,91
+2025-01-17,05,99,44,01,67</code></pre>
+
+<h2>🔍 2. Historical Data Analysis (403 Records | Records.txt)</h2>
+<p>Based on deep parsing of the provided dataset, the following statistically observed relationships exist:</p>
+
+<table>
+  <thead><tr><th>Pattern Type</th><th>Observation</th><th>Implementation Rule</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Frequency</strong></td><td>GM: 49(9x), 01/08/48(8x) | LS1: 08/41/47(9x) | AK: 40(8x) | LS2: 82(10x) | LS3: 86/35(9x)</td><td><code>hot_streak_boost</code> → +15% if appeared ≥2x in last 10 draws</td></tr>
+    <tr><td><strong>Cross-Draw Correlation</strong></td><td>Pearson &lt; 0.1 (largely independent). Slight GM↔AK positive (0.06)</td><td>Soft boost only. Never force cross-draw dependency</td></tr>
+    <tr><td><strong>Same-Day Duplicates</strong></td><td>85.4% days: 0 duplicates | 13.9%: 1 duplicate | Most common: AK=GM, LS1=LS3</td><td><code>avoid_same_day_duplicate</code> → Reduce weight if number already suggested</td></tr>
+    <tr><td><strong>Previous Day Repeat</strong></td><td>GM: 6.2% | AK: 7.0% | Others: ~4.5-5.2%</td><td><code>cross_draw_repeat_boost</code> → +5% if appeared in ANY draw yesterday</td></tr>
+    <tr><td><strong>Ending Digits</strong></td><td>GM prefers 9/8/4 | LS1 prefers 1/0/7 | AK prefers 3/6/4 | LS3 prefers 1/2/8</td><td><code>ending_digit_weight</code> → User-defined lucky endings get +20%</td></tr>
+    <tr><td><strong>Sum Ranges</strong></td><td>GM+LS1+AK mean=148 (range 130-170) | LS2+LS3 mean=101 (85-120)</td><td><code>sum_range_filter</code> → Prioritize combos within historical bands</td></tr>
+    <tr><td><strong>Co-occurring Pairs</strong></td><td>13+94 (6x), 43+90 (5x), 01+32 (5x), 32+57 (5x)</td><td><code>pair_cooccur_boost</code> → Suggest historically paired numbers</td></tr>
+  </tbody>
+</table>
+
+<h2>🧩 3. Rule Engine & Scoring Logic</h2>
+<h3>🎯 Priority Rules (Configurable via UI)</h3>
+<table>
+  <thead><tr><th>Priority</th><th>Rule Name</th><th>Logic</th><th>Impact</th></tr></thead>
+  <tbody>
+    <tr><td><span class="badge high">High</span></td><td><code>skip_recent</code></td><td>Exclude numbers drawn in last 2-3 days for same draw</td><td>High</td></tr>
+    <tr><td><span class="badge high">High</span></td><td><code>hot_streak_boost</code></td><td>Boost numbers appearing ≥2x in last 10 draws</td><td>Medium-High</td></tr>
+    <tr><td><span class="badge med">Medium</span></td><td><code>ending_digit_weight</code></td><td>User lucky ending digits (e.g., 3,7,9) → +20%</td><td>Personalization</td></tr>
+    <tr><td><span class="badge med">Medium</span></td><td><code>sum_range_filter</code></td><td>GM+LS1+AK ∈ [130-170], LS2+LS3 ∈ [85-120]</td><td>Statistical</td></tr>
+    <tr><td><span class="badge med">Medium</span></td><td><code>cross_draw_repeat</code></td><td>+5% if number appeared in any draw yesterday</td><td>Edge Case</td></tr>
+    <tr><td><span class="badge low">Low</span></td><td><code>pair_cooccur_boost</code></td><td>Suggest historically paired numbers</td><td>Nice-to-have</td></tr>
+    <tr><td><span class="badge low">Low</span></td><td><code>avoid_consecutive</code></td><td>Reduce weight for consecutive pairs (23,24)</td><td>Rare</td></tr>
+  </tbody>
+</table>
+
+<h3>⚙️ Scoring Formula</h3>
+<pre><code>Final Score (per number per draw) = 
+  (Statistical Probability × 0.50) + 
+  (Draw-Specific Pattern Match × 0.30) + 
+  (Cross-Draw Correlation × 0.10) + 
+  (PDF/LLM Insight × 0.10)
+
+Output: Top 10 suggestions per draw (00-99) + confidence % (0-100%)</code></pre>
+
+<h2>🚀 4. Advanced Features (New Additions)</h2>
+<div class="grid-2">
+  <div class="card">
+    <h3>📈 Backtesting & Transparency Dashboard</h3>
+    <p>Auto-compare past 30 days suggestions vs actual draws. Show hit rate, rule impact, and confidence calibration. Exportable audit log.</p>
+  </div>
+  <div class="card">
+    <h3>🤖 A/B Rule Testing</h3>
+    <p>Let users test two rule configurations side-by-side. System tracks which setup yields higher historical hit rate over time.</p>
+  </div>
+  <div class="card">
+    <h3>📱 PWA & Offline Support</h3>
+    <p>Installable web app. Works offline for viewing cached predictions & history. Syncs when online.</p>
+  </div>
+  <div class="card">
+    <h3>🌍 Urdu/English Toggle</h3>
+    <p>Full i18n support. UI, reports, and disclaimers switch instantly based on user preference.</p>
+  </div>
+  <div class="card">
+    <h3>📤 Smart Export & Share</h3>
+    <p>Export as PDF/CSV. One-click WhatsApp share with formatted prediction card + disclaimer.</p>
+  </div>
+  <div class="card">
+    <h3>🔒 Audit Trail & Versioning</h3>
+    <p>Every rule change, data upload, and prediction generation is timestamped & logged. Rollback support.</p>
+  </div>
+</div>
+
+<h2>🏗️ 5. Technical Architecture & Stack</h2>
+<table>
+  <thead><tr><th>Layer</th><th>Technology</th><th>Purpose</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Frontend</strong></td><td>Next.js 14 + React + Tailwind + Recharts/Chart.js</td><td>Responsive UI, 5 draw panels, interactive heatmaps, dark/light mode</td></tr>
+    <tr><td><strong>Backend</strong></td><td>FastAPI (Python) + Celery + Redis</td><td>REST API, daily batch processing, rule engine execution</td></tr>
+    <tr><td><strong>Database</strong></td><td>PostgreSQL + pgvector (optional)</td><td>Structured draws, rule configs, stats cache, audit logs</td></tr>
+    <tr><td><strong>ML/Stats</strong></td><td>pandas, numpy, scikit-learn, mlxtend (Apriori)</td><td>Frequency, gap analysis, association rules, probability scoring</td></tr>
+    <tr><td><strong>NLP/GenAI</strong></td><td>LangChain + OpenAI/Llama3 + Unstructured.io</td><td>PDF parsing, rule extraction, daily explanation reports</td></tr>
+    <tr><td><strong>Monitoring</strong></td><td>MLflow + Prometheus/Grafana (or custom logging)</td><td>Data drift, accuracy tracking, rule impact metrics</td></tr>
+    <tr><td><strong>DevOps</strong></td><td>Docker + GitHub Actions + Render/AWS/Vercel</td><td>CI/CD, staging/production deployment, backups</td></tr>
+  </tbody>
+</table>
+
+<h2>🖥️ 6. UI/UX Dashboard Layout</h2>
+<pre><code>📅 Date: [Auto] | [Upload CSV] [Generate Predictions] [Settings]
+
+┌─────────────────────────────────────┐
+│ 🔷 GM DRAW (Gold Main)              │
+│ ┌─────────────────────────┐         │
+│ │ 🔥 Hot: 42, 18, 77      │         │
+│ │ ❄️ Cold: 03, 55, 91     │         │
+│ │ 💡 Top 3: 24(78%) 67(72%) 09(69%)│
+│ │ 📝 Why? "24: High freq + │        │
+│ │    matches lucky end + not drawn│  │
+│ │    in 5 days"            │         │
+│ └─────────────────────────┘         │
+└─────────────────────────────────────┘
+[Repeat for LS1, AK, LS2, LS3]
+
+🔗 CROSS-DRAW INSIGHTS (Toggle)
+• GM high (70-99) + AK low (00-29) → 68% correlation
+• Avoid LS1=LS3 duplicates today (rare combo)
+
+🤖 AI DAILY REPORT
+"Aaj GM ke liye 24, 67, 09 strong hain kyunke...
+⚠️ Responsible Play: Ye suggestions analysis ke liye hain."
+
+📊 BACKTESTING PANEL
+Last 7 Days: GM 4/7 hits | LS1 3/7 | AK 5/7 | Overall: 48.2%</code></pre>
+
+<h2>🔄 7. Daily Workflow (User Routine)</h2>
+<div class="workflow">
+  <div class="step"><span>1️⃣ Upload</span><br>New CSV + optional PDFs</div>
+  <div class="step"><span>2️⃣ Configure</span><br>Toggle rules, set lucky digits</div>
+  <div class="step"><span>3️⃣ Generate</span><br>Run pipeline → get suggestions</div>
+  <div class="step"><span>4️⃣ Review</span><br>Check confidence, AI report</div>
+  <div class="step"><span>5️⃣ Export</span><br>CSV/PDF/WhatsApp share</div>
+  <div class="step"><span>6️⃣ Track</span><br>Next day: compare vs actual</div>
+</div>
+
+<h2>📦 8. Deliverables & Developer Questions</h2>
+<h3>✅ Must Deliver</h3>
+<ul>
+  <li>Fully functional web app with auth (Admin/User)</li>
+  <li>CSV parser + validation (00-99, ISO date, append-only)</li>
+  <li>Per-draw + cross-draw rule engine (UI configurable)</li>
+  <li>Automated daily pipeline: upload → parse → analyze → suggest</li>
+  <li>Backtesting dashboard + export/audit logs</li>
+  <li>API endpoints for future mobile integration</li>
+  <li>Documentation: Setup, rule config, deployment, scaling guide</li>
+  <li>Staging + Production deployment with backups</li>
+</ul>
+
+<h3>❓ Questions for Developer</h3>
+<ol>
+  <li>How will you structure the DB to support per-draw + cross-draw analysis efficiently?</li>
+  <li>How will user rules be scoped (per-draw vs global vs cross-draw)?</li>
+  <li>What backtesting metrics will you show? (Hit rate, confidence calibration, rule impact)</li>
+  <li>How will daily incremental updates work without full retrain?</li>
+  <li>Estimated timeline, cost breakdown, and tech justification?</li>
+  <li>How will you handle data drift & accuracy drop alerts?</li>
+</ol>
+
+<footer>
+  <p>📄 <strong>Specification Version:</strong> 2.0 | <strong>Prepared For:</strong> Developer Handoff | <strong>Client:</strong> Umair</p>
+  <p>🔒 All predictions must include responsible gaming disclaimer. No guaranteed outcomes. Play responsibly.</p>
+</footer>
+
+</body>
+</html>

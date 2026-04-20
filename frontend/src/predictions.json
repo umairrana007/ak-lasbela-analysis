@@ -1,0 +1,225 @@
+{
+  "date": "2026-04-11",
+  "results": {
+    "gm": {
+      "primary": 45,
+      "poisson": [
+        47,
+        54,
+        52,
+        49,
+        48
+      ],
+      "family": [
+        40,
+        90,
+        45,
+        95
+      ],
+      "patterns": [],
+      "recommendations": [
+        45,
+        90,
+        47,
+        54
+      ],
+      "reasoning": "Expert Intelligence: Following 30, our system identified a GM recursive pattern. XGBoost forecasts 45, while historical clusters suggest standard volume. Mirror logic points to 90."
+    },
+    "ls1": {
+      "primary": 36,
+      "poisson": [
+        52,
+        50,
+        45,
+        48,
+        46
+      ],
+      "family": [
+        81,
+        36,
+        86,
+        31
+      ],
+      "patterns": [
+        74,
+        4,
+        9,
+        61,
+        24
+      ],
+      "recommendations": [
+        36,
+        74,
+        4,
+        52,
+        50
+      ],
+      "reasoning": "Neural Convergence: Pattern analysis of 17 indicates a high-probability shift towards 36. Bayesian inference supports [74, 4] as strong secondary nodes."
+    },
+    "ak": {
+      "primary": 46,
+      "poisson": [
+        49,
+        52,
+        50,
+        48,
+        53
+      ],
+      "family": [
+        96,
+        41,
+        91,
+        46
+      ],
+      "patterns": [],
+      "recommendations": [
+        46,
+        41,
+        49,
+        52
+      ],
+      "reasoning": "Sequence Alert: The AK node is showing harmonic resonance with the 87 sequence. Predicted target: 46. Cross-validation suggests standard volume."
+    },
+    "ls2": {
+      "primary": 57,
+      "poisson": [
+        47,
+        48,
+        49,
+        50,
+        46
+      ],
+      "family": [],
+      "patterns": [],
+      "recommendations": [
+        57,
+        47,
+        48
+      ],
+      "reasoning": "Historical Volume analysis for LS2 shows high density around 57 with a 15-day moving average of 76.0."
+    },
+    "ls3": {
+      "primary": 53,
+      "poisson": [
+        51,
+        47,
+        52,
+        49,
+        48
+      ],
+      "family": [],
+      "patterns": [],
+      "recommendations": [
+        53,
+        51,
+        47
+      ],
+      "reasoning": "Historical Volume analysis for LS3 shows high density around 53 with a 15-day moving average of 63.0."
+    }
+  },
+  "global_stats": {
+    "frequency_heatmap": {
+      "20": 1.0,
+      "8": 0.913,
+      "99": 0.826,
+      "65": 0.826,
+      "32": 0.783,
+      "89": 0.783,
+      "4": 0.783,
+      "48": 0.783,
+      "54": 0.783,
+      "1": 0.783,
+      "63": 0.783,
+      "43": 0.739,
+      "55": 0.739,
+      "12": 0.739,
+      "13": 0.739,
+      "40": 0.739,
+      "22": 0.696,
+      "79": 0.696,
+      "98": 0.696,
+      "59": 0.696,
+      "61": 0.696,
+      "3": 0.696,
+      "62": 0.696,
+      "47": 0.696,
+      "11": 0.652,
+      "17": 0.652,
+      "92": 0.652,
+      "49": 0.652,
+      "42": 0.652,
+      "74": 0.652,
+      "14": 0.652,
+      "9": 0.652,
+      "90": 0.652,
+      "91": 0.652,
+      "31": 0.652,
+      "78": 0.652,
+      "86": 0.652,
+      "41": 0.652,
+      "94": 0.609,
+      "60": 0.609,
+      "95": 0.609,
+      "57": 0.609,
+      "16": 0.609,
+      "18": 0.609,
+      "30": 0.609,
+      "82": 0.609,
+      "44": 0.609,
+      "96": 0.609,
+      "72": 0.609,
+      "7": 0.609,
+      "26": 0.609,
+      "0": 0.609,
+      "33": 0.565,
+      "29": 0.565,
+      "46": 0.565,
+      "77": 0.565,
+      "93": 0.565,
+      "19": 0.565,
+      "35": 0.565,
+      "75": 0.565,
+      "73": 0.565,
+      "56": 0.565,
+      "87": 0.565,
+      "36": 0.522,
+      "27": 0.522,
+      "70": 0.522,
+      "51": 0.522,
+      "84": 0.522,
+      "76": 0.522,
+      "69": 0.522,
+      "81": 0.522,
+      "25": 0.522,
+      "52": 0.522,
+      "15": 0.522,
+      "85": 0.522,
+      "6": 0.522,
+      "38": 0.478,
+      "39": 0.478,
+      "71": 0.478,
+      "83": 0.478,
+      "21": 0.478,
+      "88": 0.478,
+      "64": 0.478,
+      "58": 0.478,
+      "67": 0.435,
+      "37": 0.435,
+      "34": 0.391,
+      "80": 0.391,
+      "50": 0.391,
+      "66": 0.391,
+      "5": 0.391,
+      "97": 0.391,
+      "28": 0.391,
+      "23": 0.391,
+      "24": 0.348,
+      "53": 0.348,
+      "10": 0.304,
+      "68": 0.261,
+      "2": 0.217,
+      "45": 0.043
+    },
+    "total_records": 447
+  }
+}

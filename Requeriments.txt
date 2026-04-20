@@ -1,0 +1,91 @@
+FINAL MASTER SPECIFICATION V2 (ENHANCED)
+Project: Advanced Number Analysis & Prediction System
+
+🎯 1. Project Objective
+Build a fully automated, private web-based intelligent system that:
+- Collects daily draw data automatically from websites (GM, LS1, AK, LS2, LS3)
+- Maintains 2+ years of historical dataset (Current: Jan 2025 - April 2026)
+- Performs statistical + pattern analysis with mathematical distributions
+- Uses Hybrid Meta-Learning & Deep Learning models for maximum accuracy
+- Generates multi-number predictions with a success-tracking feedback loop
+- Integrates structured external knowledge (Rules, Patterns, Hijri Calendar)
+- Self-optimizes its own parameters automatically
+
+🎮 2. Draw Configuration
+Draw Name | Column | Timing | Action
+----------|--------|--------|-------
+GM        | Draw1  | 7:10 PM| Fetch full number
+LS1       | Draw2  | 9:10 PM| Fetch full number
+AK        | Draw3  | 10:10PM| Fetch 1st digit
+AK        | Draw3  | 1:10 AM| Fetch 2nd digit & Combine
+LS2       | Draw4  | 12:10AM| Fetch full number
+LS3       | Draw5  | 2:40 AM| Fetch full number
+
+📊 3. Data Structure
+Date | GM | LS1 | AK | LS2 | LS3 | Day
+Example: 2026-04-15 | 57 | 23 | 17 | 11 | 46 | Monday
+
+🌐 4. Data Source & Scraping System
+- Configurable “DATA SOURCE CONFIG PANEL”
+- Multiple website support with fallback logic
+- Automatic scraping with retry-on-failure
+- Data validation & duplicate prevention
+
+⚙️ 5. Automation Pipeline
+1. Fetch data (Scheduled Cron)
+2. Validate & Store (Firebase)
+3. Feature Engineering (Generate 50+ statistical features)
+4. Train/Retrain Ensemble Models
+5. Generate Hybrid Predictions
+6. Performance Evaluation (Actual vs Prediction)
+7. Send Real-time Alerts
+
+🤖 6. Advanced Machine Learning System
+6.1 Mandatory Models:
+- XGBoost, LightGBM, Random Forest
+- Time-series models (Prophet)
+6.2 Hybrid Meta-Learning (NEW):
+- Use a "Stacking Regressor" where a Meta-Model learns how to weigh predictions from individual models based on their recent accuracy.
+6.3 Deep Learning Core (NEW):
+- LSTM (Long Short-Term Memory) or Transformer-based models to capture long-term sequence dependencies.
+6.4 Poisson & Monte Carlo Simulation (NEW):
+- Use Poisson Distribution to calculate the mathematical probability of each number (00-99).
+- Run 10,000+ Monte Carlo simulations to find the most probable "paths".
+
+🔁 7. Self-Learning & Optimization
+- Track accuracy per model per draw type.
+- Adjust model weights dynamically (Dynamic Ensemble).
+- Auto-Hyperparameter Optimization (NEW): System uses Optuna to find the best settings for its models automatically during retraining.
+
+🔗 8. External Knowledge & Calendar Integration
+- Hijri Calendar Signals (Islamic Date correlation)
+- Gregorian Date patterns (First/Last of month, specific days)
+- Custom Rules: "IF 57 occurs today → boost 16 for tomorrow"
+- Image/Document Processing: OCR logic to extract patterns from provided notes/images.
+
+🖥️ 9. Dashboard & UI (Premium Design)
+- Live Draw Updates with countdowns.
+- Prediction Cards (Multiple numbers per draw).
+- Accuracy Tracker (Win/Loss percentage over time).
+- Explainable AI (NEW): Visualize "Why this number?" (e.g., "High Friday freq" + "7-day gap pattern").
+- Knowledge Manager: UI to add/edit rules and upload patterns.
+
+🔔 10. Real-time Alerts (NEW)
+- Telegram Bot Integration: Send predictions and results immediately.
+- Push Notifications: Browser-based alerts for critical draws.
+
+🔐 11. Tech Stack
+- Frontend: React / Next.js (Vercel)
+- Backend: Python (FastAPI / Flask)
+- Database: Firebase (Firestore + Auth)
+- ML Engine: Python (Scikit-learn, PyTorch/TensorFlow, Optuna)
+- Automation: GitHub Actions or dedicated VPS Cron.
+
+⚠️ 12. Critical Requirements
+- Fully Automated: No manual data entry.
+- Modular Design: Easy to add new draw types.
+- Robust Logging: Detailed logs for scraping or ML failures.
+- Secure Access: Private dashboard with login.
+
+✅ FINAL INSTRUCTION TO DEVELOPER
+Build a state-of-the-art Hybrid Intelligent System that combines historical data, statistical probability, and advanced machine learning to predict draw results. The system must be self-correcting, visually stunning, and fully automated.
