@@ -7,7 +7,7 @@ import masterChart from "./data/masterChart.json";
 
 // High Accuracy Lookup (Calculated from 450+ records)
 const accuracyScores = {
-    "21": 84, "15": 83, "16": 82, "82": 82, "98": 81, "32": 80, "48": 80, "09": 79, "37": 79, "19": 79, "75": 79, "65": 78, "55": 78, "73": 78, "68": 77, "56": 75, "92": 73, "95": 73, "14": 73, "99": 73, "54": 90, "73": 88, "06": 86, "42": 86, "13": 82
+    "21": 84, "15": 83, "16": 82, "82": 82, "98": 81, "32": 80, "48": 80, "09": 79, "37": 79, "19": 79, "75": 79, "65": 78, "55": 78, "73": 78, "68": 77, "56": 75, "92": 73, "95": 73, "14": 73, "99": 73, "54": 90, "06": 86, "42": 86, "13": 82
 };
 
 const App = () => {
@@ -28,6 +28,36 @@ const App = () => {
   const [syncStatus, setSyncStatus] = useState('');
   
   const fileInputRef = useRef(null);
+
+  const calculateNeuralStats = (allRecords) => {
+    const counts = {};
+    const lastSeen = {};
+    
+    const sortedByDate = [...allRecords].sort((a, b) => new Date(a.date) - new Date(b.date));
+    
+    sortedByDate.forEach((r, index) => {
+      ['gm', 'ls1', 'ak', 'ls2', 'ls3'].forEach(key => {
+        const val = r[key];
+        if (val && val !== '--' && val !== '??' && !isNaN(val) && val.length === 2) {
+          counts[val] = (counts[val] || 0) + 1;
+          lastSeen[val] = sortedByDate.length - 1 - index;
+        }
+      });
+    });
+    
+    const freqSorted = Object.entries(counts).sort((a, b) => b[1] - a[1]);
+    const overdueSorted = Object.entries(lastSeen).sort((a, b) => b[1] - a[1]);
+
+    setNeuralStats({
+      hot: freqSorted.slice(0, 8),
+      cold: freqSorted.slice(-8).reverse(),
+      overdue: overdueSorted.slice(0, 8)
+    });
+  };
+
+  const calculateAccuracy = () => {
+    // Basic accuracy logic
+  };
 
   useEffect(() => {
     // We fetch from firebase, but we also append parsed_records.
@@ -81,36 +111,6 @@ const App = () => {
     return () => unsubPreds();
   }, []);
 
-  const calculateNeuralStats = (allRecords) => {
-    const counts = {};
-    const lastSeen = {};
-    
-    // Sort records by date ascending to track gaps correctly
-    const sortedByDate = [...allRecords].sort((a, b) => new Date(a.date) - new Date(b.date));
-    
-    sortedByDate.forEach((r, index) => {
-      ['gm', 'ls1', 'ak', 'ls2', 'ls3'].forEach(key => {
-        const val = r[key];
-        if (val && val !== '--' && val !== '??' && !isNaN(val) && val.length === 2) {
-          counts[val] = (counts[val] || 0) + 1;
-          lastSeen[val] = sortedByDate.length - 1 - index; // Distance from latest
-        }
-      });
-    });
-    
-    const freqSorted = Object.entries(counts).sort((a, b) => b[1] - a[1]);
-    const overdueSorted = Object.entries(lastSeen).sort((a, b) => b[1] - a[1]);
-
-    setNeuralStats({
-      hot: freqSorted.slice(0, 8),
-      cold: freqSorted.slice(-8).reverse(),
-      overdue: overdueSorted.slice(0, 8) // Top 8 most overdue
-    });
-  };
-
-  const calculateAccuracy = (allRecords) => {
-    // Basic accuracy logic
-  };
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -231,7 +231,7 @@ const App = () => {
         } else {
             setSyncStatus('Failed to trigger sync. Check token permissions.');
         }
-    } catch (err) {
+    } catch {
         setSyncStatus('Network Error triggering sync.');
     } finally {
         setIsSyncing(false);
@@ -247,7 +247,7 @@ const App = () => {
     if (window.confirm('Are you sure you want to delete this record?')) {
         try {
             await deleteDoc(doc(db, "draws", record.id));
-        } catch (err) {
+        } catch {
             alert("Error deleting record.");
         }
     }
@@ -295,7 +295,7 @@ const App = () => {
                 continue;
             }
 
-            const dateMatch = trimmed.match(/^(\d{2})[\/.](\d{2})/);
+            const dateMatch = trimmed.match(/^(\d{2})[/.](\d{2})/);
             if (!dateMatch) continue;
             
             const dayNum = dateMatch[1];
