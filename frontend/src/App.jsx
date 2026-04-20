@@ -200,43 +200,9 @@ const App = () => {
 
   const triggerSync = async () => {
     setIsSyncing(true);
-    setSyncStatus('Triggering AI Sync...');
-    
-    // In a real production environment, you'd call a backend or Vercel Edge function 
-    // to avoid exposing your GitHub Token in the frontend.
-    // For now, we use a placeholder or check if token exists.
-    const GITHUB_TOKEN = import.meta.env?.VITE_GITHUB_TOKEN;
-    const REPO_OWNER = "umairrana007"; // Based on your corpus name
-    const REPO_NAME = "ak-lasbela-analysis";
-
-    if (!GITHUB_TOKEN) {
-        setSyncStatus('Error: GitHub Token not found in .env');
-        setIsSyncing(false);
-        return;
-    }
-
-    try {
-        const response = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/dispatches`, {
-            method: 'POST',
-            headers: {
-                'Authorization': `Bearer ${GITHUB_TOKEN}`,
-                'Accept': 'application/vnd.github.v3+json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ event_type: 're-sync-ai' })
-        });
-
-        if (response.ok) {
-            setSyncStatus('AI Sync Started! Check back in 2-3 mins.');
-        } else {
-            setSyncStatus('Failed to trigger sync. Check token permissions.');
-        }
-    } catch {
-        setSyncStatus('Network Error triggering sync.');
-    } finally {
-        setIsSyncing(false);
-        setTimeout(() => setSyncStatus(''), 5000);
-    }
+    setSyncStatus('AI Sync is managed automatically via GitHub Actions. Predictions update daily!');
+    setIsSyncing(false);
+    setTimeout(() => setSyncStatus(''), 5000);
   };
 
   const handleDelete = async (record) => {
