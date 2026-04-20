@@ -422,7 +422,7 @@ tbody tr:hover {
 /* Mobile Responsive Enhancements */
 @media (max-width: 768px) {
     body {
-        padding: 10px;
+        padding: 5px;
     }
 
     .header {
@@ -479,22 +479,24 @@ tbody tr:hover {
     }
 
     .table-container {
-        padding: 5px;
+        padding: 0;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    table {
+        min-width: 480px; /* Table ko scroll karwao, columns hide mat karo */
     }
 
     th, td {
-        padding: 8px 4px;
-        font-size: 0.85em;
+        padding: 7px 5px;
+        font-size: 0.78em;
+        white-space: nowrap;
     }
 
-    /* Hide less important columns on very small screens if needed */
-    @media (max-width: 480px) {
-        .ls2-column, .ls3-column {
-            display: none;
-        }
-        .prediction-grid {
-            grid-template-columns: repeat(2, 1fr);
-        }
+    /* Sab columns show honge — koi bhi hide nahi hoga */
+    .ls2-column, .ls3-column {
+        display: table-cell !important;
     }
 }
 
