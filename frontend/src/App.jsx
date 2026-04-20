@@ -31,22 +31,36 @@ const App = () => {
 
   const calculateNeuralStats = (allRecords) => {
     const counts = {};
-    const lastSeen = {};
-    
+    const lastSeenDate = {}; // actual date store karega
+
     const sortedByDate = [...allRecords].sort((a, b) => new Date(a.date) - new Date(b.date));
-    
-    sortedByDate.forEach((r, index) => {
+
+    sortedByDate.forEach((r) => {
       ['gm', 'ls1', 'ak', 'ls2', 'ls3'].forEach(key => {
         const val = r[key];
         if (val && val !== '--' && val !== '??' && !isNaN(val) && val.length === 2) {
           counts[val] = (counts[val] || 0) + 1;
-          lastSeen[val] = sortedByDate.length - 1 - index;
+          // Har number ki last appearance ki actual date save karo
+          if (!lastSeenDate[val] || new Date(r.date) > new Date(lastSeenDate[val])) {
+            lastSeenDate[val] = r.date;
+          }
         }
       });
     });
-    
+
+    // Aaj ki date se actual calendar days ka farq calculate karo
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const overdueWithDays = Object.entries(lastSeenDate).map(([num, date]) => {
+      const lastDate = new Date(date);
+      lastDate.setHours(0, 0, 0, 0);
+      const diffDays = Math.floor((today - lastDate) / (1000 * 60 * 60 * 24));
+      return [num, diffDays];
+    });
+
     const freqSorted = Object.entries(counts).sort((a, b) => b[1] - a[1]);
-    const overdueSorted = Object.entries(lastSeen).sort((a, b) => b[1] - a[1]);
+    const overdueSorted = overdueWithDays.sort((a, b) => b[1] - a[1]);
 
     setNeuralStats({
       hot: freqSorted.slice(0, 8),
