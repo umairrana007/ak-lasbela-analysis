@@ -13,6 +13,7 @@ const App = () => {
   const [formData, setFormData] = useState({
     date: '', day: '', gm: '', ls1: '', ak: '', ls2: '', ls3: ''
   });
+  const [predictions, setPredictions] = useState(predictionsData);
   
   const fileInputRef = useRef(null);
 
@@ -37,6 +38,16 @@ const App = () => {
       calculateNeuralStats(combined);
     });
     return () => unsubscribe();
+  }, []);
+
+  useEffect(() => {
+    // Live listener for AI Predictions
+    const unsubPreds = onSnapshot(doc(db, "metadata", "predictions"), (snapshot) => {
+        if (snapshot.exists()) {
+            setPredictions(snapshot.data());
+        }
+    });
+    return () => unsubPreds();
   }, []);
 
   const calculateNeuralStats = (allRecords) => {
@@ -273,23 +284,23 @@ const App = () => {
                 <div className="prediction-grid">
                     <div className="prediction-item">
                         <div className="prediction-label">GM</div>
-                        <div className="prediction-value">{predictionsData.results.gm.primary}</div>
+                        <div className="prediction-value">{predictions.results?.gm?.primary || '??'}</div>
                     </div>
                     <div className="prediction-item">
                         <div className="prediction-label">LS1</div>
-                        <div className="prediction-value">{predictionsData.results.ls1.primary}</div>
+                        <div className="prediction-value">{predictions.results?.ls1?.primary || '??'}</div>
                     </div>
                     <div className="prediction-item">
                         <div className="prediction-label">AK</div>
-                        <div className="prediction-value">{predictionsData.results.ak.primary}</div>
+                        <div className="prediction-value">{predictions.results?.ak?.primary || '??'}</div>
                     </div>
                     <div className="prediction-item">
                         <div className="prediction-label">LS2</div>
-                        <div className="prediction-value">{predictionsData.results.ls2.primary}</div>
+                        <div className="prediction-value">{predictions.results?.ls2?.primary || '??'}</div>
                     </div>
                     <div className="prediction-item">
                         <div className="prediction-label">LS3</div>
-                        <div className="prediction-value">{predictionsData.results.ls3.primary}</div>
+                        <div className="prediction-value">{predictions.results?.ls3?.primary || '??'}</div>
                     </div>
                 </div>
                 <div style={{marginTop: '15px', fontSize: '0.85em', opacity: 0.8, fontStyle: 'italic'}}>

@@ -224,8 +224,20 @@ def generate_predictions():
     output_paths = ['ml/predictions.json', 'frontend/src/predictions.json']
     
     for path in output_paths:
-        with open(path, 'w') as f:
-            json.dump(final_output, f, indent=2)
+        try:
+            with open(path, 'w') as f:
+                json.dump(final_output, f, indent=2)
+        except Exception as e:
+            print(f"Warning: Could not save to {path}: {e}")
+    
+    # NEW: Upload to Firestore for real-time online dashboard
+    try:
+        from google.cloud import firestore
+        db = firestore.Client(project='ak-analysis-system-umair')
+        db.collection('metadata').document('predictions').set(final_output)
+        print("Predictions successfully uploaded to Firestore metadata/predictions.")
+    except Exception as e:
+        print(f"Warning: Failed to upload to Firestore: {e}")
     
     print("Predictions generated successfully with Expert Follow-up Logic & Frequency Heatmap.")
 
