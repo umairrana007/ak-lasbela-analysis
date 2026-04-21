@@ -441,17 +441,17 @@ const App = () => {
                         boxShadow: '0 8px 32px rgba(129, 140, 248, 0.15)',
                         marginBottom: 0
                     }}>
-                        <div className="neural-title" style={{color: '#818cf8', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '15px', borderBottom: '1px solid rgba(129, 140, 248, 0.2)', paddingBottom: '10px'}}>
+                        <div className="neural-title" style={{color: '#fbbf24', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '15px', borderBottom: '1px solid rgba(251, 191, 36, 0.3)', paddingBottom: '10px'}}>
                             <span style={{display: 'flex', alignItems: 'center', gap: '8px'}}>
                                 <span style={{fontSize: '1.2em'}}>🎯</span> Elite Sniper Targets (Top Picks)
                             </span>
-                            <span style={{fontSize: '0.6em', background: '#818cf8', color: '#fff', padding: '4px 10px', borderRadius: '20px', fontWeight: '900'}}>95.2% ACC.</span>
+                            <span style={{fontSize: '0.6em', background: '#fbbf24', color: '#000', padding: '4px 10px', borderRadius: '20px', fontWeight: '900'}}>95.2% ACC.</span>
                         </div>
 
                         <div style={{display: 'flex', flexDirection: 'column', gap: '15px'}}>
                             <div style={{display: 'flex', gap: '15px'}}>
                                 <div style={{flex: 1}}>
-                                    <div style={{fontSize: '0.75em', color: '#fff', marginBottom: '8px', fontWeight: '950', textTransform: 'uppercase', letterSpacing: '1.5px', borderLeft: '3px solid #818cf8', paddingLeft: '8px'}}>OPEN SET</div>
+                                    <div style={{fontSize: '0.75em', color: '#fff', marginBottom: '8px', fontWeight: '950', textTransform: 'uppercase', letterSpacing: '1.5px', borderLeft: '3px solid #fbbf24', paddingLeft: '8px'}}>OPEN SET</div>
                                     <div style={{display: 'flex', gap: '6px', flexWrap: 'wrap'}}>
                                         {predictions.triple_x_trick.open_set.map(d => (
                                             <span key={d} style={{background: '#fff', color: '#000', padding: '6px 12px', borderRadius: '6px', border: '2px solid #818cf8', fontWeight: '950', fontSize: '1.2em', boxShadow: '0 4px 10px rgba(0,0,0,0.3)'}}>{d}</span>
@@ -459,7 +459,7 @@ const App = () => {
                                     </div>
                                 </div>
                                 <div style={{flex: 1}}>
-                                    <div style={{fontSize: '0.75em', color: '#fff', marginBottom: '8px', fontWeight: '950', textTransform: 'uppercase', letterSpacing: '1.5px', borderLeft: '3px solid #818cf8', paddingLeft: '8px'}}>CLOSE SET</div>
+                                    <div style={{fontSize: '0.75em', color: '#fff', marginBottom: '8px', fontWeight: '950', textTransform: 'uppercase', letterSpacing: '1.5px', borderLeft: '3px solid #fbbf24', paddingLeft: '8px'}}>CLOSE SET</div>
                                     <div style={{display: 'flex', gap: '6px', flexWrap: 'wrap'}}>
                                         {predictions.triple_x_trick.close_set.map(d => (
                                             <span key={d} style={{background: '#fff', color: '#000', padding: '6px 12px', borderRadius: '6px', border: '2px solid #818cf8', fontWeight: '950', fontSize: '1.2em', boxShadow: '0 4px 10px rgba(0,0,0,0.3)'}}>{d}</span>
@@ -534,8 +534,8 @@ const App = () => {
             </div>
 
             {/* ROW 2: INTELLIGENCE CENTER (Full Width) */}
-            <div className="neural-card" style={{border: '1px solid rgba(255,255,255,0.1)', background: 'rgba(255,255,255,0.02)', marginBottom: '20px'}}>
-                <div className="neural-title" style={{color: '#fff', fontSize: '1.1em', opacity: 0.9, marginBottom: '20px', borderBottom: '1px solid rgba(255,255,255,0.08)', paddingBottom: '12px', display: 'flex', alignItems: 'center', gap: '10px'}}>
+            <div className="neural-card" style={{border: '1px solid rgba(255,255,255,0.1)', background: 'rgba(0,0,0,0.4)', marginBottom: '20px'}}>
+                <div className="neural-title" style={{color: '#fbbf24', fontSize: '1.1em', opacity: 1, marginBottom: '20px', borderBottom: '1px solid rgba(251, 191, 36, 0.2)', paddingBottom: '12px', display: 'flex', alignItems: 'center', gap: '10px'}}>
                     <span>🔍</span> DETAILED DRAW INTELLIGENCE CENTER
                 </div>
 
