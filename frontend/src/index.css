@@ -534,10 +534,10 @@ tbody tr:nth-child(even) .day-column {
     .header-responsive {
         display: flex !important;
         flex-direction: column !important;
-        gap: 15px !important;
-        padding: 30px 15px !important;
+        gap: 12px !important;
+        padding: 20px 10px !important;
         height: auto !important;
-        min-height: 120px !important;
+        min-height: 100px !important;
         align-items: center !important;
         text-align: center !important;
         background: linear-gradient(180deg, rgba(30, 41, 59, 1) 0%, rgba(15, 23, 42, 1) 100%) !important;
@@ -546,12 +546,12 @@ tbody tr:nth-child(even) .day-column {
     }
 
     .header-title {
-        font-size: 1.3em !important;
+        font-size: 1.1em !important;
         width: 100% !important;
         margin: 0 !important;
-        line-height: 1.4 !important;
+        line-height: 1.3 !important;
         color: #fff !important;
-        text-shadow: 0 0 10px rgba(240, 147, 251, 0.5) !important;
+        text-shadow: 0 0 10px rgba(240, 147, 251, 0.4) !important;
     }
 
     .admin-toggle-btn {
@@ -562,11 +562,11 @@ tbody tr:nth-child(even) .day-column {
         background: rgba(255,255,255,0.1) !important;
         border: 1px solid rgba(255,255,255,0.3) !important;
         color: #fff !important;
-        padding: 10px 25px !important;
-        border-radius: 25px !important;
-        font-size: 0.85em !important;
+        padding: 8px 20px !important;
+        border-radius: 20px !important;
+        font-size: 0.8em !important;
         width: auto !important;
-        margin-top: 5px !important;
+        margin-top: 2px !important;
         display: inline-block !important;
     }
 
@@ -585,9 +585,22 @@ tbody tr:nth-child(even) .day-column {
 
     .status-primary {
         flex-direction: column !important;
-        gap: 8px !important;
+        gap: 10px !important;
         display: flex !important;
         align-items: center !important;
+    }
+
+    .neural-calibration-content {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 5px !important;
+        align-items: center !important;
+    }
+
+    .neural-engine-label, .cycle-pulse-label {
+        font-size: 0.75em !important;
+        white-space: nowrap !important;
+        color: #94a3b8 !important;
     }
 
     .status-divider {
@@ -636,13 +649,38 @@ tbody tr:nth-child(even) .day-column {
         display: none;
     }
 
-    .neural-card, .prediction-item {
-        width: calc(100vw - 60px) !important; /* Adjusted for better fit */
+    .analysis-grid {
+        display: flex !important;
+        overflow-x: auto !important;
+        scroll-snap-type: x mandatory !important;
+        gap: 15px !important;
+        padding: 10px 5px !important;
+        margin: 0 -15px !important;
+        width: calc(100% + 30px) !important;
+        -webkit-overflow-scrolling: touch !important;
+    }
+
+    .prediction-item {
+        width: calc(100vw - 60px) !important;
         min-width: calc(100vw - 60px) !important;
         scroll-snap-align: center !important;
         flex-shrink: 0 !important;
         margin: 0 !important;
         box-sizing: border-box !important;
+        padding: 15px !important;
+    }
+
+    .main-value {
+        font-size: 2em !important;
+    }
+
+    .draw-name {
+        font-size: 0.85em !important;
+    }
+
+    .neural-title {
+        font-size: 1em !important;
+        padding-bottom: 8px !important;
     }
 
     /* Table Fix */
@@ -719,17 +757,36 @@ tbody tr:nth-child(even) .day-column {
     }
 
     .intelligence-footer {
-        padding: 20px 10px !important;
+        padding: 15px 10px !important;
         justify-content: center !important;
-        gap: 15px !important;
+        gap: 10px !important;
     }
 
     .footer-divider {
         display: none !important;
     }
 
-    .intelligence-footer > div {
-        flex: 1 1 40% !important;
+    .footer-stat {
+        flex: 1 1 30% !important;
+        min-width: 80px !important;
+        text-align: center !important;
+    }
+
+    .footer-stat-label {
+        font-size: 0.6em !important;
+        opacity: 0.6 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 1px !important;
+        margin-bottom: 5px !important;
+    }
+
+    .footer-stat-value {
+        font-size: 1.2em !important;
+        fontWeight: 950 !important;
+    }
+
+    .intelligence-footer [style*="font-size: 1.5em"] {
+        display: none !important; /* Cleanup old inline */
     }
 
     /* Heatmap Label Fix */

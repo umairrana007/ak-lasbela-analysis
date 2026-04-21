@@ -550,11 +550,11 @@ const App = () => {
             <div className="ai-status-banner">
                 <div className="status-primary">
                     <span className="ai-status-indicator"></span>
-                    <span className="neural-calibration-text">
-                        NEURAL ENGINE: <span style={{color: '#fff', marginLeft: '5px'}}>ACTIVE</span> 
+                    <div className="neural-calibration-content">
+                        <span className="neural-engine-label">NEURAL ENGINE: <span style={{color: '#fff', marginLeft: '5px'}}>ACTIVE</span></span>
                         <span className="status-divider">|</span>
-                        CYCLE PULSE: <span style={{color: '#4ade80', marginLeft: '5px', animation: 'pulse 2s infinite', fontWeight: 'bold'}}>WINNING MODE</span>
-                    </span>
+                        <span className="cycle-pulse-label">CYCLE PULSE: <span style={{color: '#4ade80', marginLeft: '5px', animation: 'pulse 2s infinite', fontWeight: 'bold'}}>WINNING MODE</span></span>
+                    </div>
                 </div>
                 <div className="neural-calibration-text status-secondary" style={{opacity: 0.8, fontSize: '0.75em'}}>
                     LAST CALIBRATION: {calibrationTime}
@@ -788,7 +788,7 @@ const App = () => {
                             
                             <div className="main-section" style={{background: 'linear-gradient(135deg, #4ade80 0%, #22c55e 100%)', borderRadius: '10px', padding: '15px', marginTop: '10px'}}>
                                 <div className="main-label" style={{color: 'rgba(0,0,0,0.6)', fontWeight: '800', fontSize: '0.7em'}}>MAIN TARGET</div>
-                                <div className="main-value" style={{color: '#000', fontWeight: '950', fontSize: '2.5em', lineHeight: '1'}}>
+                                <div className="main-value" style={{color: '#000', fontWeight: '950', lineHeight: '1'}}>
                                     {predictions.results?.[key]?.primary !== undefined ? String(predictions.results[key].primary).padStart(2, '0') : '??'}
                                 </div>
                             </div>
@@ -811,16 +811,16 @@ const App = () => {
 
                 {/* Intelligence Footer Stats */}
                 <div className="intelligence-footer" style={{display: 'flex', gap: '15px', marginTop: '25px', padding: '20px', background: 'rgba(0,0,0,0.3)', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.08)', flexWrap: 'wrap'}}>
-                    <div style={{flex: '1 1 100px', textAlign: 'center'}}>
-                        <div style={{fontSize: '0.65em', opacity: 0.6, textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '5px'}}>COMBINED SUM</div>
-                        <div style={{fontSize: '1.5em', fontWeight: '950', color: '#fbbf24'}}>
+                    <div className="footer-stat">
+                        <div className="footer-stat-label">COMBINED SUM</div>
+                        <div className="footer-stat-value" style={{color: '#fbbf24'}}>
                             {Object.values(predictions.results || {}).reduce((sum, res) => sum + (parseInt(res.primary) || 0), 0)}
                         </div>
                     </div>
                     <div className="footer-divider" style={{width: '1px', background: 'rgba(255,255,255,0.1)'}}></div>
-                    <div style={{flex: '1 1 100px', textAlign: 'center'}}>
-                        <div style={{fontSize: '0.65em', opacity: 0.6, textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '5px'}}>O/E RATIO</div>
-                        <div style={{fontSize: '1.5em', fontWeight: '950', color: '#818cf8'}}>
+                    <div className="footer-stat">
+                        <div className="footer-stat-label">O/E RATIO</div>
+                        <div className="footer-stat-value" style={{color: '#818cf8'}}>
                             {(() => {
                                 const vals = Object.values(predictions.results || {}).map(r => parseInt(r.primary)).filter(n => !isNaN(n));
                                 const odd = vals.filter(n => n % 2 !== 0).length;
@@ -829,9 +829,9 @@ const App = () => {
                         </div>
                     </div>
                     <div className="footer-divider" style={{width: '1px', background: 'rgba(255,255,255,0.1)'}}></div>
-                    <div style={{flex: '1 1 100px', textAlign: 'center'}}>
-                        <div style={{fontSize: '0.65em', opacity: 0.6, textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '5px'}}>AVG GAP</div>
-                        <div style={{fontSize: '1.5em', fontWeight: '950', color: '#4ade80'}}>14.2d</div>
+                    <div className="footer-stat">
+                        <div className="footer-stat-label">AVG GAP</div>
+                        <div className="footer-stat-value" style={{color: '#4ade80'}}>14.2d</div>
                     </div>
                 </div>
 
