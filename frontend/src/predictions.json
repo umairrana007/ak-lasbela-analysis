@@ -1,168 +1,110 @@
 {
-  "date": "2026-04-21",
+  "last_updated": "2026-04-21T09:18:45.896712",
+  "target_date": "2026-04-21",
   "results": {
     "gm": {
       "primary": 49,
-      "poisson": [
-        45,
-        48,
-        49,
-        53,
-        47
-      ],
-      "family": [
-        49,
-        99,
-        44,
-        94
-      ],
-      "patterns": [],
-      "recommendations": [
-        49,
-        9,
-        19
-      ],
-      "reasoning": "Expert Intelligence: Following 98, our system identified a GM recursive pattern. XGBoost forecasts 49, while historical clusters suggest standard volume. Mirror logic points to 99.",
-      "pattern_found": "Date-wise Single Haruf Trick",
       "confidence": "79%",
-      "confidence_val": 79
+      "confidence_val": 79,
+      "pattern_found": "Neural Sequence",
+      "recommendations": [
+        6,
+        7,
+        49
+      ],
+      "reasoning": "Predicting 49 for GM based on Neural Sequence logic."
     },
     "ls1": {
       "primary": 39,
-      "poisson": [
-        47,
-        49,
-        53,
-        50,
-        51
-      ],
-      "family": [
-        89,
-        34,
-        84,
+      "confidence": "72%",
+      "confidence_val": 72,
+      "pattern_found": "Neural Sequence",
+      "recommendations": [
+        6,
+        7,
         39
       ],
-      "patterns": [],
-      "recommendations": [
-        39,
-        9,
-        19
-      ],
-      "reasoning": "Neural Convergence: Pattern analysis of 50 indicates a high-probability shift towards 39. Bayesian inference supports standard volume as strong secondary nodes.",
-      "pattern_found": "Date-wise Single Haruf Trick",
-      "confidence": "80%",
-      "confidence_val": 80
+      "reasoning": "Predicting 39 for LS1 based on Neural Sequence logic."
     },
     "ak": {
       "primary": 50,
-      "poisson": [
-        55,
-        48,
-        53,
-        44,
-        46
-      ],
-      "family": [
-        0,
-        50,
-        5,
-        55
-      ],
-      "patterns": [],
+      "confidence": "62%",
+      "confidence_val": 62,
+      "pattern_found": "Neural Sequence",
       "recommendations": [
-        50,
-        9,
-        19
+        6,
+        7,
+        50
       ],
-      "reasoning": "Sequence Alert: The AK node is showing harmonic resonance with the 88 sequence. Predicted target: 50. Cross-validation suggests standard volume.",
-      "pattern_found": "Standard AI + Mirror Logic",
-      "confidence": "50%",
-      "confidence_val": 50
+      "reasoning": "Predicting 50 for AK based on Neural Sequence logic."
     },
     "ls2": {
       "primary": 45,
-      "poisson": [
-        47,
-        49,
-        51,
-        46,
-        52
-      ],
-      "family": [],
-      "patterns": [],
+      "confidence": "61%",
+      "confidence_val": 61,
+      "pattern_found": "Neural Sequence",
       "recommendations": [
-        45,
-        9,
-        19
+        6,
+        7,
+        45
       ],
-      "reasoning": "Historical Volume analysis for LS2 shows high density around 45 based on Standard AI + Mirror Logic.",
-      "pattern_found": "Standard AI + Mirror Logic",
-      "confidence": "47%",
-      "confidence_val": 47
+      "reasoning": "Predicting 45 for LS2 based on Neural Sequence logic."
     },
     "ls3": {
       "primary": 35,
-      "poisson": [
-        51,
-        47,
-        49,
-        52,
-        50
-      ],
-      "family": [],
-      "patterns": [],
+      "confidence": "66%",
+      "confidence_val": 66,
+      "pattern_found": "Neural Sequence",
       "recommendations": [
-        35,
-        9,
-        19
+        6,
+        7,
+        35
       ],
-      "reasoning": "Historical Volume analysis for LS3 shows high density around 35 based on Standard AI + Mirror Logic.",
-      "pattern_found": "Standard AI + Mirror Logic",
-      "confidence": "56%",
-      "confidence_val": 56
+      "reasoning": "Predicting 35 for LS3 based on Neural Sequence logic."
     }
   },
   "sniper_targets": [
     {
-      "number": 39,
-      "draw": "LS1",
-      "confidence": 80,
-      "trick": "Date-wise Single Haruf Trick"
-    },
-    {
       "number": 49,
       "draw": "GM",
       "confidence": 79,
-      "trick": "Date-wise Single Haruf Trick"
+      "trick": "Neural Sequence"
+    },
+    {
+      "number": 39,
+      "draw": "LS1",
+      "confidence": 72,
+      "trick": "Neural Sequence"
     },
     {
       "number": 35,
       "draw": "LS3",
-      "confidence": 56,
-      "trick": "Standard AI + Mirror Logic"
+      "confidence": 66,
+      "trick": "Neural Sequence"
     },
     {
       "number": 50,
       "draw": "AK",
-      "confidence": 50,
-      "trick": "Standard AI + Mirror Logic"
+      "confidence": 62,
+      "trick": "Neural Sequence"
     }
   ],
   "master_target": {
-    "number": 39,
-    "draw": "LS1",
-    "confidence": 80,
-    "trick": "Date-wise Single Haruf Trick"
+    "number": 49,
+    "draw": "GM",
+    "confidence": 79,
+    "trick": "Neural Sequence"
   },
   "yesterday_match": {
     "status": "Hit Confirmed",
-    "details": "AI predicted the LS1 (50) movement yesterday!",
+    "details": "AI predicted the movement pattern successfully!",
     "type": "Direct"
   },
   "elite_cycle": [
     {
       "val": 51,
-      "appeared_in": "LS1",
+      "appeared_in": "LS1 (18/04)",
+      "target_date": "2026-04-21",
       "target_draws": [
         "LS1",
         "AK"
@@ -179,112 +121,9 @@
       ]
     },
     {
-      "val": 50,
-      "appeared_in": "GM",
-      "target_draws": [
-        "GM",
-        "LS1"
-      ],
-      "family": [
-        0,
-        5,
-        50,
-        55
-      ]
-    },
-    {
-      "val": 37,
-      "appeared_in": "AK",
-      "target_draws": [
-        "AK",
-        "LS2"
-      ],
-      "family": [
-        23,
-        28,
-        32,
-        37,
-        73,
-        78,
-        82,
-        87
-      ]
-    },
-    {
-      "val": 97,
-      "appeared_in": "LS2",
-      "target_draws": [
-        "LS2",
-        "LS3"
-      ],
-      "family": [
-        24,
-        29,
-        42,
-        47,
-        74,
-        79,
-        92,
-        97
-      ]
-    },
-    {
-      "val": 71,
-      "appeared_in": "LS3",
-      "target_draws": [
-        "LS3",
-        "GM"
-      ],
-      "family": [
-        12,
-        17,
-        21,
-        26,
-        62,
-        67,
-        71,
-        76
-      ]
-    },
-    {
-      "val": 89,
-      "appeared_in": "AK",
-      "target_draws": [
-        "AK",
-        "LS2"
-      ],
-      "family": [
-        34,
-        39,
-        43,
-        48,
-        84,
-        89,
-        93,
-        98
-      ]
-    },
-    {
-      "val": 95,
-      "appeared_in": "LS2",
-      "target_draws": [
-        "LS2",
-        "LS3"
-      ],
-      "family": [
-        4,
-        9,
-        40,
-        45,
-        54,
-        59,
-        90,
-        95
-      ]
-    },
-    {
       "val": 94,
-      "appeared_in": "LS1",
+      "appeared_in": "LS1 (17/04)",
+      "target_date": "2026-04-21",
       "target_draws": [
         "LS1",
         "AK"
@@ -297,29 +136,12 @@
       ]
     },
     {
-      "val": 20,
-      "appeared_in": "GM",
-      "target_draws": [
-        "GM",
-        "LS1"
-      ],
-      "family": [
-        2,
-        7,
-        20,
-        25,
-        52,
-        57,
-        70,
-        75
-      ]
-    },
-    {
       "val": 92,
-      "appeared_in": "LS3",
+      "appeared_in": "LS1 (16/04)",
+      "target_date": "2026-04-21",
       "target_draws": [
-        "LS3",
-        "GM"
+        "LS1",
+        "AK"
       ],
       "family": [
         24,
@@ -331,111 +153,25 @@
         92,
         97
       ]
-    }
-  ],
-  "global_stats": {
-    "frequency_heatmap": {
-      "20": 1.0,
-      "08": 0.88,
-      "89": 0.8,
-      "99": 0.76,
-      "65": 0.76,
-      "54": 0.76,
-      "32": 0.72,
-      "04": 0.72,
-      "48": 0.72,
-      "01": 0.72,
-      "63": 0.72,
-      "40": 0.72,
-      "61": 0.68,
-      "43": 0.68,
-      "98": 0.68,
-      "59": 0.68,
-      "55": 0.68,
-      "92": 0.68,
-      "03": 0.68,
-      "13": 0.68,
-      "79": 0.64,
-      "12": 0.64,
-      "90": 0.64,
-      "31": 0.64,
-      "62": 0.64,
-      "86": 0.64,
-      "47": 0.64,
-      "22": 0.6,
-      "94": 0.6,
-      "11": 0.6,
-      "57": 0.6,
-      "17": 0.6,
-      "82": 0.6,
-      "49": 0.6,
-      "42": 0.6,
-      "74": 0.6,
-      "14": 0.6,
-      "09": 0.6,
-      "91": 0.6,
-      "78": 0.6,
-      "56": 0.6,
-      "41": 0.6,
-      "46": 0.56,
-      "95": 0.56,
-      "16": 0.56,
-      "18": 0.56,
-      "30": 0.56,
-      "35": 0.56,
-      "81": 0.56,
-      "44": 0.56,
-      "72": 0.56,
-      "07": 0.56,
-      "00": 0.56,
-      "33": 0.52,
-      "60": 0.52,
-      "27": 0.52,
-      "77": 0.52,
-      "93": 0.52,
-      "70": 0.52,
-      "51": 0.52,
-      "19": 0.52,
-      "76": 0.52,
-      "75": 0.52,
-      "52": 0.52,
-      "15": 0.52,
-      "73": 0.52,
-      "88": 0.52,
-      "26": 0.52,
-      "87": 0.52,
-      "64": 0.48,
-      "29": 0.48,
-      "36": 0.48,
-      "84": 0.48,
-      "69": 0.48,
-      "25": 0.48,
-      "71": 0.48,
-      "96": 0.48,
-      "85": 0.48,
-      "06": 0.48,
-      "50": 0.44,
-      "38": 0.44,
-      "39": 0.44,
-      "83": 0.44,
-      "21": 0.44,
-      "37": 0.44,
-      "58": 0.44,
-      "97": 0.4,
-      "67": 0.4,
-      "23": 0.4,
-      "24": 0.36,
-      "34": 0.36,
-      "80": 0.36,
-      "66": 0.36,
-      "05": 0.36,
-      "53": 0.32,
-      "28": 0.32,
-      "02": 0.28,
-      "10": 0.28,
-      "68": 0.28,
-      "45": 0.04
     },
-    "total_records": 459
-  }
+    {
+      "val": 35,
+      "appeared_in": "LS1 (15/04)",
+      "target_date": "2026-04-21",
+      "target_draws": [
+        "LS1",
+        "AK"
+      ],
+      "family": [
+        3,
+        8,
+        30,
+        35,
+        53,
+        58,
+        80,
+        85
+      ]
+    }
+  ]
 }

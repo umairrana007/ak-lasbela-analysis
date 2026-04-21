@@ -734,7 +734,16 @@ const App = () => {
                                             {op.target_draws.join(', ')}
                                         </span>
                                     </div>
-                                    <div style={{fontSize: '0.7em', opacity: 0.6}}>4th/5th Day</div>
+                                    <div style={{
+                                        fontSize: '0.75em', 
+                                        fontWeight: 'bold',
+                                        background: '#fbbf24',
+                                        color: '#000',
+                                        padding: '2px 6px',
+                                        borderRadius: '4px'
+                                    }}>
+                                        📅 {op.target_date}
+                                    </div>
                                 </div>
                             </div>
                         ))}
