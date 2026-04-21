@@ -477,7 +477,7 @@ const App = () => {
                                             fontWeight: '900',
                                             animation: 'pulse 1.5s infinite'
                                         }}>
-                                            🏆 MASTER: {String(predictions.master_target.number).padStart(2, '0')}
+                                            👑 MASTER MAIN: {String(predictions.master_target.number).padStart(2, '0')}
                                         </div>
                                     )}
                                 </div>
@@ -491,9 +491,9 @@ const App = () => {
                                             padding: '10px',
                                             textAlign: 'center'
                                         }}>
-                                            <div style={{fontSize: '0.55em', color: '#fbbf24', fontWeight: 'bold'}}>{target.draw}</div>
+                                            <div style={{fontSize: '0.55em', color: '#fbbf24', fontWeight: 'bold'}}>{target.draw} (MAIN)</div>
                                             <div style={{fontSize: '1.8em', fontWeight: '950', color: '#fff'}}>{String(target.number).padStart(2, '0')}</div>
-                                            <div style={{fontSize: '0.55em', color: '#4ade80'}}>{target.confidence}%</div>
+                                            <div style={{fontSize: '0.55em', color: '#4ade80'}}>{target.confidence}% ACCURACY</div>
                                         </div>
                                     ))}
                                 </div>
@@ -517,12 +517,12 @@ const App = () => {
                         <div className="prediction-grid" style={{marginTop: 0}}>
                             {['gm', 'ls1', 'ak', 'ls2', 'ls3'].map(key => (
                                 <div key={key} className="prediction-item" style={{padding: '10px'}}>
-                                    <div className="prediction-label">{key.toUpperCase()}</div>
-                                    <div className="prediction-value" style={{fontSize: '1.5em'}}>
+                                    <div className="prediction-label">{key.toUpperCase()} MAIN</div>
+                                    <div className="prediction-value" style={{fontSize: '1.5em', color: '#fff'}}>
                                         {predictions.results?.[key]?.primary !== undefined ? String(predictions.results[key].primary).padStart(2, '0') : '??'}
                                     </div>
-                                    <div style={{fontSize: '0.6em', color: '#4ade80'}}>{predictions.results?.[key]?.confidence || '0%'}</div>
-                                    <div style={{fontSize: '0.5em', opacity: 0.6}}>Recs: {predictions.results?.[key]?.recommendations?.map(n => String(n).padStart(2, '0')).join(',') || '--'}</div>
+                                    <div style={{fontSize: '0.6em', color: '#4ade80'}}>{predictions.results?.[key]?.confidence || '0%'} CONFIDENCE</div>
+                                    <div style={{fontSize: '0.5em', opacity: 0.8, color: '#fbbf24'}}>SUPPORT: {predictions.results?.[key]?.recommendations?.map(n => String(n).padStart(2, '0')).join(',') || '--'}</div>
                                 </div>
                             ))}
                         </div>
@@ -621,8 +621,9 @@ const App = () => {
         {predictions.elite_cycle && predictions.elite_cycle.length > 0 && (
             <div style={{padding: '0 20px 20px 20px'}}>
                 <div className="neural-card" style={{border: '1px solid #fbbf24', background: 'rgba(251, 191, 36, 0.05)'}}>
-                    <div className="neural-title" style={{color: '#fbbf24', marginBottom: '20px'}}>
-                        ⭐ User Master Trick (Elite Cycle)
+                    <div className="neural-title" style={{color: '#fbbf24', marginBottom: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+                        <span>⭐ User Master Trick (Elite Cycle) - SUPPORT BACKUP</span>
+                        <span style={{fontSize: '0.6em', background: '#fbbf24', color: '#000', padding: '4px 12px', borderRadius: '20px', fontWeight: '900'}}>CYCLE ANALYSIS</span>
                     </div>
                     <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '15px'}}>
                         {predictions.elite_cycle.map((op, idx) => (
