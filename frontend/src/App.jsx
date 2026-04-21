@@ -691,8 +691,8 @@ const App = () => {
                             <div key={idx} style={{padding: '12px', background: 'rgba(251, 191, 36, 0.1)', borderRadius: '12px', border: '1px dashed rgba(251, 191, 36, 0.4)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between'}}>
                                 <div>
                                     <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: '10px', alignItems: 'center'}}>
-                                        <span style={{fontWeight: 'bold', color: '#fbbf24', fontSize: '0.9em'}}>Detected: {op.appeared_in} Hit</span>
-                                        <span style={{opacity: 0.8, fontSize: '0.75em', background: '#fbbf24', color: '#000', padding: '2px 8px', borderRadius: '4px', fontWeight: 'bold'}}>CYCLE ALERT</span>
+                                        <span style={{fontWeight: 'bold', color: '#fbbf24', fontSize: '0.9em'}}>{op.source_info}</span>
+                                        <span style={{opacity: 0.8, fontSize: '0.75em', background: '#fbbf24', color: '#000', padding: '2px 8px', borderRadius: '4px', fontWeight: 'bold'}}>PLAY ALERT</span>
                                     </div>
                                     <div style={{display: 'flex', gap: '6px', flexWrap: 'wrap', marginBottom: '15px'}}>
                                         {op.family.map(num => {
@@ -742,7 +742,7 @@ const App = () => {
                                         padding: '2px 6px',
                                         borderRadius: '4px'
                                     }}>
-                                        📅 {op.target_date}
+                                        Play on: {op.target_date}
                                     </div>
                                 </div>
                             </div>

@@ -1,11 +1,11 @@
 {
-  "last_updated": "2026-04-21T09:18:45.896712",
+  "last_updated": "2026-04-21T09:28:19.519256",
   "target_date": "2026-04-21",
   "results": {
     "gm": {
       "primary": 49,
-      "confidence": "79%",
-      "confidence_val": 79,
+      "confidence": "66%",
+      "confidence_val": 66,
       "pattern_found": "Neural Sequence",
       "recommendations": [
         6,
@@ -16,8 +16,8 @@
     },
     "ls1": {
       "primary": 39,
-      "confidence": "72%",
-      "confidence_val": 72,
+      "confidence": "67%",
+      "confidence_val": 67,
       "pattern_found": "Neural Sequence",
       "recommendations": [
         6,
@@ -28,8 +28,8 @@
     },
     "ak": {
       "primary": 50,
-      "confidence": "62%",
-      "confidence_val": 62,
+      "confidence": "78%",
+      "confidence_val": 78,
       "pattern_found": "Neural Sequence",
       "recommendations": [
         6,
@@ -40,8 +40,8 @@
     },
     "ls2": {
       "primary": 45,
-      "confidence": "61%",
-      "confidence_val": 61,
+      "confidence": "68%",
+      "confidence_val": 68,
       "pattern_found": "Neural Sequence",
       "recommendations": [
         6,
@@ -52,8 +52,8 @@
     },
     "ls3": {
       "primary": 35,
-      "confidence": "66%",
-      "confidence_val": 66,
+      "confidence": "71%",
+      "confidence_val": 71,
       "pattern_found": "Neural Sequence",
       "recommendations": [
         6,
@@ -65,34 +65,34 @@
   },
   "sniper_targets": [
     {
-      "number": 49,
-      "draw": "GM",
-      "confidence": 79,
-      "trick": "Neural Sequence"
-    },
-    {
-      "number": 39,
-      "draw": "LS1",
-      "confidence": 72,
+      "number": 50,
+      "draw": "AK",
+      "confidence": 78,
       "trick": "Neural Sequence"
     },
     {
       "number": 35,
       "draw": "LS3",
-      "confidence": 66,
+      "confidence": 71,
       "trick": "Neural Sequence"
     },
     {
-      "number": 50,
-      "draw": "AK",
-      "confidence": 62,
+      "number": 45,
+      "draw": "LS2",
+      "confidence": 68,
+      "trick": "Neural Sequence"
+    },
+    {
+      "number": 39,
+      "draw": "LS1",
+      "confidence": 67,
       "trick": "Neural Sequence"
     }
   ],
   "master_target": {
-    "number": 49,
-    "draw": "GM",
-    "confidence": 79,
+    "number": 50,
+    "draw": "AK",
+    "confidence": 78,
     "trick": "Neural Sequence"
   },
   "yesterday_match": {
@@ -103,7 +103,7 @@
   "elite_cycle": [
     {
       "val": 51,
-      "appeared_in": "LS1 (18/04)",
+      "source_info": "Base: LS1 on 18/04",
       "target_date": "2026-04-21",
       "target_draws": [
         "LS1",
@@ -122,7 +122,7 @@
     },
     {
       "val": 94,
-      "appeared_in": "LS1 (17/04)",
+      "source_info": "Base: LS1 on 17/04",
       "target_date": "2026-04-21",
       "target_draws": [
         "LS1",
@@ -137,7 +137,7 @@
     },
     {
       "val": 92,
-      "appeared_in": "LS1 (16/04)",
+      "source_info": "Base: LS1 on 16/04",
       "target_date": "2026-04-21",
       "target_draws": [
         "LS1",
@@ -156,7 +156,7 @@
     },
     {
       "val": 35,
-      "appeared_in": "LS1 (15/04)",
+      "source_info": "Base: LS1 on 15/04",
       "target_date": "2026-04-21",
       "target_draws": [
         "LS1",

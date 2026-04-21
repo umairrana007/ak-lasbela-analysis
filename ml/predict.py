@@ -107,11 +107,11 @@ def generate_predictions():
         
         app_row = df[df['date'] == past_date]
         if not app_row.empty:
-            # Simple LS1 cycle logic
+            # Calculation based on User's 3-4 day cycle rule
             val = int(app_row.iloc[0]['ls1'])
             elite_cycle.append({
                 "val": val,
-                "appeared_in": f"LS1 ({past_date.strftime('%d/%m')})",
+                "source_info": f"Base: LS1 on {past_date.strftime('%d/%m')}",
                 "target_date": target_day.strftime('%Y-%m-%d'),
                 "target_draws": ["LS1", "AK"],
                 "family": get_full_family(val)
