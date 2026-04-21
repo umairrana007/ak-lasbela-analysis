@@ -25,7 +25,6 @@ const App = () => {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [loginPass, setLoginPass] = useState('');
   const [isSyncing, setIsSyncing] = useState(false);
-  const [syncStatus, setSyncStatus] = useState('');
   
   const fileInputRef = useRef(null);
 
@@ -428,277 +427,191 @@ const App = () => {
             </div>
         </div>
 
-        <div className="neural-center">
-            <div className="neural-card">
-                <div className="neural-title" style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-                    <span>🧠 Neural Prediction Center</span>
-                    <span style={{fontSize: '0.7em', background: 'rgba(99, 102, 241, 0.2)', padding: '4px 10px', borderRadius: '20px', border: '1px solid rgba(99, 102, 241, 0.4)'}}>
-                        Target Date: {predictions.date ? new Date(predictions.date).toLocaleDateString('en-GB') : 'Analyzing...'}
-                    </span>
-                </div>
+        {/* ELITE DASHBOARD SECTION */}
+        <div style={{padding: '0 20px'}}>
+            {/* ROW 1: ELITE SNIPER & RECOMMENDATIONS */}
+            <div style={{display: 'flex', gap: '20px', flexWrap: 'wrap', marginBottom: '20px'}}>
+                {/* Card 1: Elite Sniper Targets */}
+                {predictions.triple_x_trick && (
+                    <div className="neural-card" style={{
+                        flex: '1',
+                        minWidth: '350px',
+                        border: '2px solid #818cf8', 
+                        background: 'linear-gradient(135deg, rgba(129, 140, 248, 0.08) 0%, rgba(79, 70, 229, 0.05) 100%)',
+                        boxShadow: '0 8px 32px rgba(129, 140, 248, 0.15)',
+                        marginBottom: 0
+                    }}>
+                        <div className="neural-title" style={{color: '#818cf8', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '15px', borderBottom: '1px solid rgba(129, 140, 248, 0.2)', paddingBottom: '10px'}}>
+                            <span style={{display: 'flex', alignItems: 'center', gap: '8px'}}>
+                                <span style={{fontSize: '1.2em'}}>🎯</span> Elite Sniper Targets (Top Picks)
+                            </span>
+                            <span style={{fontSize: '0.6em', background: '#818cf8', color: '#fff', padding: '4px 10px', borderRadius: '20px', fontWeight: '900'}}>95.2% ACC.</span>
+                        </div>
 
-                <div className="neural-grid-layout">
-                    {/* LEFT COLUMN: Top Picks & Reasoning */}
-                    <div>
-                        {predictions && predictions.sniper_targets && predictions.sniper_targets.length > 0 && (
-                            <div style={{
-                                background: 'rgba(251, 191, 36, 0.05)',
-                                borderRadius: '16px',
-                                padding: '15px',
-                                border: '1px solid rgba(251, 191, 36, 0.2)',
-                                height: '100%'
-                            }}>
-                                <div style={{
-                                    display: 'flex', 
-                                    alignItems: 'center', 
-                                    justifyContent: 'space-between',
-                                    marginBottom: '15px',
-                                    borderBottom: '1px solid rgba(251, 191, 36, 0.1)',
-                                    paddingBottom: '10px'
-                                }}>
-                                    <div style={{display: 'flex', alignItems: 'center', gap: '10px'}}>
-                                        <span style={{fontSize: '1.5em'}}>🎯</span>
-                                        <div>
-                                            <div style={{fontSize: '0.9em', fontWeight: '900', color: '#fbbf24', textTransform: 'uppercase', letterSpacing: '1.5px'}}>
-                                                Elite Sniper Targets (Top Picks)
-                                            </div>
-                                            <div style={{fontSize: '0.65em', color: '#aaa'}}>
-                                                Target: <span style={{color: '#fbbf24'}}>{predictions.target_date ? formatDate(predictions.target_date) : 'Loading...'}</span>
-                                            </div>
-                                        </div>
+                        <div style={{display: 'flex', flexDirection: 'column', gap: '15px'}}>
+                            <div style={{display: 'flex', gap: '15px'}}>
+                                <div style={{flex: 1}}>
+                                    <div style={{fontSize: '0.75em', color: '#fff', marginBottom: '8px', fontWeight: '950', textTransform: 'uppercase', letterSpacing: '1.5px', borderLeft: '3px solid #818cf8', paddingLeft: '8px'}}>OPEN SET</div>
+                                    <div style={{display: 'flex', gap: '6px', flexWrap: 'wrap'}}>
+                                        {predictions.triple_x_trick.open_set.map(d => (
+                                            <span key={d} style={{background: '#fff', color: '#000', padding: '6px 12px', borderRadius: '6px', border: '2px solid #818cf8', fontWeight: '950', fontSize: '1.2em', boxShadow: '0 4px 10px rgba(0,0,0,0.3)'}}>{d}</span>
+                                        ))}
                                     </div>
-                                    {predictions.master_target && (
-                                        <div style={{
-                                            background: 'linear-gradient(45deg, #fbbf24, #f59e0b)',
-                                            color: '#000',
-                                            padding: '4px 10px',
-                                            borderRadius: '6px',
-                                            fontSize: '0.7em',
-                                            fontWeight: '900',
-                                            animation: 'pulse 1.5s infinite'
-                                        }}>
-                                            👑 MASTER MAIN: {String(predictions.master_target.number).padStart(2, '0')}
-                                        </div>
-                                    )}
                                 </div>
-                                
-                                <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(110px, 1fr))', gap: '10px'}}>
-                                    {predictions.sniper_targets.map((target, idx) => (
-                                        <div key={idx} style={{
-                                            background: 'rgba(255,255,255,0.03)',
-                                            border: '1px solid rgba(251, 191, 36, 0.2)',
-                                            borderRadius: '10px',
-                                            padding: '10px',
-                                            textAlign: 'center'
-                                        }}>
-                                            <div style={{fontSize: '0.55em', color: '#fbbf24', fontWeight: 'bold'}}>{target.draw} (MAIN)</div>
-                                            <div style={{fontSize: '1.8em', fontWeight: '950', color: '#fff'}}>{String(target.number).padStart(2, '0')}</div>
-                                            <div style={{fontSize: '0.55em', color: '#4ade80'}}>{target.confidence}% ACCURACY</div>
-                                        </div>
-                                    ))}
-                                </div>
-
-                                <div style={{
-                                    marginTop: '15px', 
-                                    padding: '10px', 
-                                    background: 'rgba(99, 102, 241, 0.1)', 
-                                    borderRadius: '8px', 
-                                    fontSize: '0.8em'
-                                }}>
-                                    <div style={{fontWeight: 'bold', color: '#818cf8', marginBottom: '4px'}}>🧠 AI Reasoning:</div>
-                                    <div style={{opacity: 0.8, fontSize: '0.9em'}}>{predictions.results?.ak?.reasoning || "Analyzing..."}</div>
+                                <div style={{flex: 1}}>
+                                    <div style={{fontSize: '0.75em', color: '#fff', marginBottom: '8px', fontWeight: '950', textTransform: 'uppercase', letterSpacing: '1.5px', borderLeft: '3px solid #818cf8', paddingLeft: '8px'}}>CLOSE SET</div>
+                                    <div style={{display: 'flex', gap: '6px', flexWrap: 'wrap'}}>
+                                        {predictions.triple_x_trick.close_set.map(d => (
+                                            <span key={d} style={{background: '#fff', color: '#000', padding: '6px 12px', borderRadius: '6px', border: '2px solid #818cf8', fontWeight: '950', fontSize: '1.2em', boxShadow: '0 4px 10px rgba(0,0,0,0.3)'}}>{d}</span>
+                                        ))}
+                                    </div>
                                 </div>
                             </div>
-                                     {/* RIGHT COLUMN: Draw Results & Stats */}
-                    <div style={{display: 'flex', flexDirection: 'column', gap: '20px'}}>
-                        
-                        {/* TOP ROW: Elite Targets & Recommendations */}
-                        <div style={{display: 'flex', gap: '20px', flexWrap: 'wrap', padding: '20px 20px 0 20px'}}>
                             
-                            {/* Card 1: Elite Sniper Targets (Triple-X renamed) */}
-                            {predictions.triple_x_trick && (
-                                <div className="neural-card" style={{
-                                    flex: '1',
-                                    minWidth: '350px',
-                                    border: '1px solid #818cf8', 
-                                    background: 'linear-gradient(135deg, rgba(129, 140, 248, 0.05) 0%, rgba(79, 70, 229, 0.05) 100%)',
-                                    boxShadow: '0 8px 32px rgba(129, 140, 248, 0.1)',
-                                    marginBottom: 0
-                                }}>
-                                    <div className="neural-title" style={{color: '#818cf8', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '15px'}}>
-                                        <span style={{display: 'flex', alignItems: 'center', gap: '8px'}}>
-                                            <span style={{fontSize: '1.2em'}}>🎯</span> Elite Sniper Targets (Top Picks)
-                                        </span>
-                                        <span style={{fontSize: '0.6em', background: '#818cf8', color: '#fff', padding: '4px 10px', borderRadius: '20px', fontWeight: '900'}}>95.2% ACC.</span>
-                                    </div>
-
-                                    <div style={{display: 'flex', flexDirection: 'column', gap: '15px'}}>
-                                        <div style={{display: 'flex', gap: '15px'}}>
-                                            <div style={{flex: 1}}>
-                                                <div style={{fontSize: '0.65em', color: '#000', marginBottom: '4px', fontWeight: '900', textTransform: 'uppercase'}}>OPEN SET</div>
-                                                <div style={{display: 'flex', gap: '4px', flexWrap: 'wrap'}}>
-                                                    {predictions.triple_x_trick.open_set.map(d => (
-                                                        <span key={d} style={{background: '#fff', color: '#000', padding: '4px 10px', borderRadius: '4px', border: '2px solid #818cf8', fontWeight: '900', fontSize: '1.1em'}}>{d}</span>
-                                                    ))}
-                                                </div>
-                                            </div>
-                                            <div style={{flex: 1}}>
-                                                <div style={{fontSize: '0.65em', color: '#000', marginBottom: '4px', fontWeight: '900', textTransform: 'uppercase'}}>CLOSE SET</div>
-                                                <div style={{display: 'flex', gap: '4px', flexWrap: 'wrap'}}>
-                                                    {predictions.triple_x_trick.close_set.map(d => (
-                                                        <span key={d} style={{background: '#fff', color: '#000', padding: '4px 10px', borderRadius: '4px', border: '2px solid #818cf8', fontWeight: '900', fontSize: '1.1em'}}>{d}</span>
-                                                    ))}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        
-                                        <div style={{background: 'rgba(0,0,0,0.2)', padding: '10px', borderRadius: '8px'}}>
-                                            <div style={{fontSize: '0.65em', color: '#818cf8', marginBottom: '8px', fontWeight: '900', textTransform: 'uppercase'}}>Optimal Targets</div>
-                                            <div style={{display: 'flex', gap: '8px'}}>
-                                                {predictions.triple_x_trick.target_draws.map(draw => (
-                                                    <span key={draw} style={{flex: 1, background: '#312e81', color: '#fff', padding: '5px', borderRadius: '4px', textAlign: 'center', fontSize: '0.9em', fontWeight: '900', border: '1px solid #818cf8'}}>{draw}</span>
-                                                ))}
-                                            </div>
-                                        </div>
-                                    </div>
+                            <div style={{background: 'rgba(0,0,0,0.3)', padding: '12px', borderRadius: '10px', border: '1px solid rgba(129, 140, 248, 0.2)'}}>
+                                <div style={{fontSize: '0.75em', color: '#a5b4fc', marginBottom: '10px', fontWeight: '950', textTransform: 'uppercase', letterSpacing: '2px', textAlign: 'center'}}>🎯 Optimal Target Draws</div>
+                                <div style={{display: 'flex', gap: '10px'}}>
+                                    {predictions.triple_x_trick.target_draws.map(draw => (
+                                        <span key={draw} style={{flex: 1, background: '#4338ca', color: '#fff', padding: '10px 5px', borderRadius: '8px', textAlign: 'center', fontSize: '1.1em', fontWeight: '950', border: '1px solid #818cf8', boxShadow: '0 4px 15px rgba(0,0,0,0.4)'}}>{draw}</span>
+                                    ))}
                                 </div>
-                            )}
+                            </div>
+                        </div>
+                    </div>
+                )}
 
-                            {/* Card 2: Elite Final Recommendations */}
-                            {predictions.final_recommendations && (
-                                <div className="neural-card" style={{
-                                    flex: '1.2',
-                                    minWidth: '350px',
-                                    border: '2px solid #fbbf24', 
-                                    background: 'linear-gradient(135deg, rgba(251, 191, 36, 0.1) 0%, rgba(217, 119, 6, 0.05) 100%)',
-                                    boxShadow: '0 8px 40px rgba(251, 191, 36, 0.15)',
-                                    marginBottom: 0
+                {/* Card 2: Elite Final Recommendations */}
+                {predictions.final_recommendations && (
+                    <div className="neural-card" style={{
+                        flex: '1.2',
+                        minWidth: '350px',
+                        border: '2px solid #fbbf24', 
+                        background: 'linear-gradient(135deg, rgba(251, 191, 36, 0.1) 0%, rgba(217, 119, 6, 0.05) 100%)',
+                        boxShadow: '0 8px 40px rgba(251, 191, 36, 0.2)',
+                        marginBottom: 0
+                    }}>
+                        <div className="neural-title" style={{color: '#fbbf24', borderBottom: '1px solid rgba(251, 191, 36, 0.3)', paddingBottom: '10px', marginBottom: '15px'}}>
+                            <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+                                <span style={{display: 'flex', alignItems: 'center', gap: '10px'}}>
+                                    <span style={{fontSize: '1.2em'}}>🏆</span> ELITE FINAL RECOMMENDATIONS
+                                </span>
+                                <span style={{fontSize: '0.65em', color: '#fbbf24', opacity: 0.9, fontWeight: 'bold', background: 'rgba(0,0,0,0.3)', padding: '2px 8px', borderRadius: '4px'}}>{predictions.target_date}</span>
+                            </div>
+                        </div>
+
+                        <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(110px, 1fr))', gap: '10px'}}>
+                            {Object.entries(predictions.final_recommendations).map(([draw, jodis]) => (
+                                <div key={draw} style={{
+                                    background: 'rgba(0,0,0,0.4)', 
+                                    borderRadius: '10px', 
+                                    padding: '10px', 
+                                    border: '1px solid rgba(251, 191, 36, 0.2)',
+                                    position: 'relative',
+                                    transition: 'transform 0.2s ease'
                                 }}>
-                                    <div className="neural-title" style={{color: '#fbbf24', borderBottom: '1px solid rgba(251, 191, 36, 0.2)', paddingBottom: '10px', marginBottom: '10px'}}>
-                                        <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-                                            <span style={{display: 'flex', alignItems: 'center', gap: '10px'}}>
-                                                <span style={{fontSize: '1.2em'}}>🏆</span> ELITE FINAL RECOMMENDATIONS
-                                            </span>
-                                            <span style={{fontSize: '0.6em', color: '#fbbf24', opacity: 0.8}}>{predictions.target_date}</span>
-                                        </div>
-                                    </div>
-
-                                    <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(100px, 1fr))', gap: '8px'}}>
-                                        {Object.entries(predictions.final_recommendations).map(([draw, jodis]) => (
-                                            <div key={draw} style={{
-                                                background: 'rgba(0,0,0,0.4)', 
-                                                borderRadius: '8px', 
-                                                padding: '8px', 
-                                                border: '1px solid rgba(251, 191, 36, 0.15)',
-                                                position: 'relative'
+                                    <div style={{fontSize: '0.7em', color: '#fbbf24', fontWeight: '900', textTransform: 'uppercase', marginBottom: '8px', borderBottom: '1px solid rgba(251, 191, 36, 0.1)', paddingBottom: '4px'}}>{draw}</div>
+                                    <div style={{display: 'flex', flexWrap: 'wrap', gap: '6px'}}>
+                                        {jodis.slice(0, 3).map((j, idx) => (
+                                            <div key={idx} style={{
+                                                background: j.type === 'MAIN' ? '#fbbf24' : 'rgba(255,255,255,0.08)',
+                                                color: j.type === 'MAIN' ? '#000' : '#fff',
+                                                padding: '4px 8px',
+                                                borderRadius: '6px',
+                                                fontSize: '1.1em',
+                                                fontWeight: '950',
+                                                border: j.type === 'MAIN' ? '2px solid #fff' : '1px solid rgba(255,255,255,0.1)',
+                                                boxShadow: j.type === 'MAIN' ? '0 0 15px rgba(251, 191, 36, 0.4)' : 'none'
                                             }}>
-                                                <div style={{fontSize: '0.6em', color: '#fbbf24', fontWeight: '900', textTransform: 'uppercase', marginBottom: '5px'}}>{draw}</div>
-                                                <div style={{display: 'flex', flexWrap: 'wrap', gap: '4px'}}>
-                                                    {jodis.slice(0, 3).map((j, idx) => (
-                                                        <div key={idx} style={{
-                                                            background: j.type === 'MAIN' ? '#fbbf24' : 'rgba(255,255,255,0.05)',
-                                                            color: j.type === 'MAIN' ? '#000' : '#fff',
-                                                            padding: '2px 6px',
-                                                            borderRadius: '4px',
-                                                            fontSize: '0.9em',
-                                                            fontWeight: '900',
-                                                            border: '1px solid rgba(255,255,255,0.1)'
-                                                        }}>
-                                                            {j.val.toString().padStart(2, '0')}
-                                                        </div>
-                                                    ))}
-                                                </div>
+                                                {j.val.toString().padStart(2, '0')}
                                             </div>
                                         ))}
                                     </div>
                                 </div>
-                            )}
+                            ))}
                         </div>
+                    </div>
+                )}
+            </div>
 
-                        {/* BOTTOM SECTION: Individual Draw Analysis Grouped */}
-                        <div style={{padding: '0 20px 20px 20px'}}>
-                            <div className="neural-card" style={{border: '1px solid rgba(255,255,255,0.1)', background: 'rgba(255,255,255,0.02)'}}>
-                                <div className="neural-title" style={{color: '#fff', fontSize: '1em', opacity: 0.8, marginBottom: '20px', borderBottom: '1px solid rgba(255,255,255,0.05)', paddingBottom: '10px'}}>
-                                    🔍 DETAILED DRAW INTELLIGENCE CENTER
+            {/* ROW 2: INTELLIGENCE CENTER (Full Width) */}
+            <div className="neural-card" style={{border: '1px solid rgba(255,255,255,0.1)', background: 'rgba(255,255,255,0.02)', marginBottom: '20px'}}>
+                <div className="neural-title" style={{color: '#fff', fontSize: '1.1em', opacity: 0.9, marginBottom: '20px', borderBottom: '1px solid rgba(255,255,255,0.08)', paddingBottom: '12px', display: 'flex', alignItems: 'center', gap: '10px'}}>
+                    <span>🔍</span> DETAILED DRAW INTELLIGENCE CENTER
+                </div>
+
+                <div className="prediction-grid" style={{marginTop: 0, border: 'none', background: 'none', boxShadow: 'none'}}>
+                    {['gm', 'ls1', 'ak', 'ls2', 'ls3'].map(key => (
+                        <div key={key} className="prediction-item" style={{background: 'rgba(0,0,0,0.4)', border: '1px solid rgba(255,255,255,0.08)', padding: '15px'}}>
+                            <div className="prediction-header">
+                                <div className="draw-name" style={{color: '#fff', fontWeight: '950', fontSize: '1em'}}>{key.toUpperCase()} ANALYSIS</div>
+                                <div style={{fontSize: '0.65em', color: '#4ade80', fontWeight: 'bold', background: 'rgba(74, 222, 128, 0.1)', padding: '2px 8px', borderRadius: '10px'}}>{predictions.results?.[key]?.confidence || '0%'} ACC.</div>
+                            </div>
+                            
+                            <div className="main-section" style={{background: 'linear-gradient(135deg, #4ade80 0%, #22c55e 100%)', borderRadius: '10px', padding: '15px', marginTop: '10px'}}>
+                                <div className="main-label" style={{color: 'rgba(0,0,0,0.6)', fontWeight: '800', fontSize: '0.7em'}}>MAIN TARGET</div>
+                                <div className="main-value" style={{color: '#000', fontWeight: '950', fontSize: '2.5em', lineHeight: '1'}}>
+                                    {predictions.results?.[key]?.primary !== undefined ? String(predictions.results[key].primary).padStart(2, '0') : '??'}
                                 </div>
+                            </div>
 
-                                <div className="prediction-grid" style={{marginTop: 0, border: 'none', background: 'none', boxShadow: 'none'}}>
-                                    {['gm', 'ls1', 'ak', 'ls2', 'ls3'].map(key => (
-                                        <div key={key} className="prediction-item" style={{background: 'rgba(0,0,0,0.3)', border: '1px solid rgba(255,255,255,0.05)'}}>
-                                            <div className="prediction-header">
-                                                <div className="draw-name" style={{color: '#fff', fontWeight: '900'}}>{key.toUpperCase()} ANALYSIS</div>
-                                                <div style={{fontSize: '0.6em', color: '#4ade80', fontWeight: 'bold'}}>{predictions.results?.[key]?.confidence || '0%'} ACC.</div>
-                                            </div>
-                                            
-                                            <div className="main-section">
-                                                <div className="main-label" style={{color: '#94a3b8'}}>MAIN</div>
-                                                <div className="main-value" style={{color: '#000', fontWeight: '950'}}>
-                                                    {predictions.results?.[key]?.primary !== undefined ? String(predictions.results[key].primary).padStart(2, '0') : '??'}
-                                                </div>
-                                            </div>
-
-                                            <div className="support-section">
-                                                <div className="support-header" style={{color: '#94a3b8'}}>Support / Backup</div>
-                                                <div className="support-numbers">
-                                                    {predictions.results?.[key]?.recommendations?.length > 0 ? (
-                                                        predictions.results[key].recommendations.map(n => (
-                                                            <span key={n} className="support-number" style={{color: '#000', fontWeight: '800'}}>{String(n).padStart(2, '0')}</span>
-                                                        ))
-                                                    ) : (
-                                                        <span style={{fontSize: '0.7em', opacity: 0.5}}>No backup</span>
-                                                    )}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
-
-                                {/* Shared Stats inside the card footer */}
-                                <div style={{display: 'flex', gap: '10px', marginTop: '20px', padding: '15px', background: 'rgba(0,0,0,0.2)', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)'}}>
-                                    <div style={{flex: 1, textAlign: 'center'}}>
-                                        <div style={{fontSize: '0.6em', opacity: 0.6, textTransform: 'uppercase'}}>SUM</div>
-                                        <div style={{fontSize: '1.2em', fontWeight: '900', color: '#fbbf24'}}>
-                                            {Object.values(predictions.results || {}).reduce((sum, res) => sum + (parseInt(res.primary) || 0), 0)}
-                                        </div>
-                                    </div>
-                                    <div style={{width: '1px', background: 'rgba(255,255,255,0.1)'}}></div>
-                                    <div style={{flex: 1, textAlign: 'center'}}>
-                                        <div style={{fontSize: '0.6em', opacity: 0.6, textTransform: 'uppercase'}}>O/E RATIO</div>
-                                        <div style={{fontSize: '1.2em', fontWeight: '900', color: '#818cf8'}}>
-                                            {(() => {
-                                                const vals = Object.values(predictions.results || {}).map(r => parseInt(r.primary)).filter(n => !isNaN(n));
-                                                const odd = vals.filter(n => n % 2 !== 0).length;
-                                                return `${odd}:${vals.length - odd}`;
-                                            })()}
-                                        </div>
-                                    </div>
-                                    <div style={{width: '1px', background: 'rgba(255,255,255,0.1)'}}></div>
-                                    <div style={{flex: 1, textAlign: 'center'}}>
-                                        <div style={{fontSize: '0.6em', opacity: 0.6, textTransform: 'uppercase'}}>AVG GAP</div>
-                                        <div style={{fontSize: '1.2em', fontWeight: '900', color: '#4ade80'}}>14.2d</div>
-                                    </div>
-                                </div>
-
-                                <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '15px', padding: '0 5px'}}>
-                                    <div style={{fontSize: '0.7em', opacity: 0.6, fontStyle: 'italic'}}>*AI Trend Analysis</div>
-                                    <div style={{display: 'flex', alignItems: 'center', gap: '15px'}}>
-                                        {predictions.last_updated && (
-                                            <div style={{fontSize: '0.6em', color: '#666'}}>
-                                                Last Sync: {new Date(predictions.last_updated).toLocaleString()}
-                                            </div>
-                                        )}
-                                        <button className={`btn ${isSyncing ? 'btn-disabled' : 'btn-primary'}`} onClick={triggerSync} disabled={isSyncing} style={{padding: '5px 15px', fontSize: '0.8em'}}>
-                                            {isSyncing ? 'Syncing...' : '⚡ Re-Sync'}
-                                        </button>
-                                    </div>
+                            <div className="support-section" style={{marginTop: '15px'}}>
+                                <div className="support-header" style={{color: '#fff', fontSize: '0.7em', fontWeight: '950', textTransform: 'uppercase', marginBottom: '10px', opacity: 0.9}}>Support / Backup</div>
+                                <div className="support-numbers" style={{display: 'flex', gap: '6px', flexWrap: 'wrap'}}>
+                                    {predictions.results?.[key]?.recommendations?.length > 0 ? (
+                                        predictions.results[key].recommendations.map(n => (
+                                            <span key={n} style={{background: '#fff', color: '#000', padding: '5px 12px', borderRadius: '6px', fontWeight: '950', fontSize: '1.1em', border: '2px solid rgba(255,255,255,0.8)', boxShadow: '0 4px 10px rgba(0,0,0,0.5)'}}>{String(n).padStart(2, '0')}</span>
+                                        ))
+                                    ) : (
+                                        <span style={{fontSize: '0.7em', opacity: 0.5}}>No backup</span>
+                                    )}
                                 </div>
                             </div>
                         </div>
+                    ))}
+                </div>
+
+                {/* Intelligence Footer Stats */}
+                <div style={{display: 'flex', gap: '15px', marginTop: '25px', padding: '20px', background: 'rgba(0,0,0,0.3)', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.08)'}}>
+                    <div style={{flex: 1, textAlign: 'center'}}>
+                        <div style={{fontSize: '0.65em', opacity: 0.6, textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '5px'}}>COMBINED SUM</div>
+                        <div style={{fontSize: '1.5em', fontWeight: '950', color: '#fbbf24'}}>
+                            {Object.values(predictions.results || {}).reduce((sum, res) => sum + (parseInt(res.primary) || 0), 0)}
+                        </div>
                     </div>
-             )}
+                    <div style={{width: '1px', background: 'rgba(255,255,255,0.1)'}}></div>
+                    <div style={{flex: 1, textAlign: 'center'}}>
+                        <div style={{fontSize: '0.65em', opacity: 0.6, textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '5px'}}>O/E RATIO</div>
+                        <div style={{fontSize: '1.5em', fontWeight: '950', color: '#818cf8'}}>
+                            {(() => {
+                                const vals = Object.values(predictions.results || {}).map(r => parseInt(r.primary)).filter(n => !isNaN(n));
+                                const odd = vals.filter(n => n % 2 !== 0).length;
+                                return `${odd}:${vals.length - odd}`;
+                            })()}
+                        </div>
+                    </div>
+                    <div style={{width: '1px', background: 'rgba(255,255,255,0.1)'}}></div>
+                    <div style={{flex: 1, textAlign: 'center'}}>
+                        <div style={{fontSize: '0.65em', opacity: 0.6, textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '5px'}}>AVG GAP</div>
+                        <div style={{fontSize: '1.5em', fontWeight: '950', color: '#4ade80'}}>14.2d</div>
+                    </div>
+                </div>
+
+                <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '15px', padding: '0 5px'}}>
+                    <div style={{fontSize: '0.75em', opacity: 0.6, fontStyle: 'italic'}}>*Quantum Intelligence Sync Active</div>
+                    <div style={{display: 'flex', alignItems: 'center', gap: '15px'}}>
+                        {predictions.last_updated && (
+                            <div style={{fontSize: '0.65em', color: '#666', fontWeight: 'bold'}}>
+                                Last Re-Sync: {new Date(predictions.last_updated).toLocaleString()}
+                            </div>
+                        )}
+                        <button className={`btn ${isSyncing ? 'btn-disabled' : 'btn-primary'}`} onClick={triggerSync} disabled={isSyncing} style={{padding: '6px 18px', fontSize: '0.85em', fontWeight: '900'}}>
+                            {isSyncing ? 'Synchronizing...' : '⚡ Re-Sync Neural Hub'}
+                        </button>
                     </div>
                 </div>
             </div>
+        </div>
+
 
             <div className="stats-grid">
                 <div className="frequency-card">
@@ -750,7 +663,6 @@ const App = () => {
                     </div>
             </div>
         </div>
-    </div>
 
     {/* User Master Trick Box - Moved Outside for Full Width */}
         {predictions.elite_cycle && predictions.elite_cycle.length > 0 && (
@@ -765,7 +677,7 @@ const App = () => {
                             <div key={idx} style={{padding: '12px', background: 'rgba(251, 191, 36, 0.1)', borderRadius: '12px', border: '1px dashed rgba(251, 191, 36, 0.4)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between'}}>
                                 <div>
                                     <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: '10px', alignItems: 'center'}}>
-                                        <span style={{fontWeight: 'bold', color: '#fbbf24', fontSize: '0.9em'}}>{op.source_info}</span>
+                                        <span style={{fontWeight: '950', color: '#fbbf24', fontSize: '0.95em', textShadow: '0 2px 4px rgba(0,0,0,0.5)'}}>{op.source_info}</span>
                                         <span style={{opacity: 0.8, fontSize: '0.75em', background: '#fbbf24', color: '#000', padding: '2px 8px', borderRadius: '4px', fontWeight: 'bold'}}>PLAY ALERT</span>
                                     </div>
                                     <div style={{display: 'flex', gap: '6px', flexWrap: 'wrap', marginBottom: '15px'}}>
@@ -803,8 +715,8 @@ const App = () => {
                                     paddingTop: '8px',
                                     borderTop: '1px solid rgba(251, 191, 36, 0.2)'
                                 }}>
-                                    <div style={{fontSize: '0.8em', color: '#fbbf24', fontWeight: 'bold'}}>
-                                        🎯 Target: <span style={{background: '#000', padding: '1px 6px', borderRadius: '4px', marginLeft: '3px'}}>
+                                    <div style={{fontSize: '0.85em', color: '#fff', fontWeight: '950'}}>
+                                        🎯 Target: <span style={{background: '#fff', color: '#000', padding: '2px 8px', borderRadius: '4px', marginLeft: '5px', boxShadow: '0 2px 8px rgba(251, 191, 36, 0.3)'}}>
                                             {op.target_draws.join(', ')}
                                         </span>
                                     </div>
@@ -849,8 +761,8 @@ const App = () => {
                                 display: 'block'
                             }}>
                                 <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: '8px'}}>
-                                    <span style={{fontSize: '0.7em', color: '#94a3b8', fontWeight: 'bold'}}>{sig.center} TRIGGER</span>
-                                    <span style={{fontSize: '0.75em', color: '#4ade80'}}>{sig.accuracy}% Acc.</span>
+                                    <span style={{fontSize: '0.75em', color: '#fff', fontWeight: '950', letterSpacing: '1px'}}>{sig.center} TRIGGER</span>
+                                    <span style={{fontSize: '0.8em', color: '#4ade80', fontWeight: '900'}}>{sig.accuracy}% Acc.</span>
                                 </div>
                                 <div style={{display: 'flex', alignItems: 'center', gap: '10px'}}>
                                     <div style={{fontSize: '1.5em', fontWeight: 'bold', color: '#fff', borderRight: '1px solid #334155', paddingRight: '10px'}}>
@@ -873,7 +785,7 @@ const App = () => {
                                         ))}
                                     </div>
                                 </div>
-                                <div style={{marginTop: '10px', fontSize: '0.65em', color: '#64748b', fontStyle: 'italic'}}>
+                                <div style={{marginTop: '10px', fontSize: '0.75em', color: '#cbd5e1', fontStyle: 'italic', fontWeight: '600'}}>
                                     *Targeting next 1-7 days based on Master Chart.
                                 </div>
                             </div>
@@ -883,180 +795,7 @@ const App = () => {
             </div>
         )}
 
-        {/* Master Haroof Trick - New Section */}
-        {predictions.gm_ls3_trick && (
-            <div style={{padding: '0 20px 20px 20px'}}>
-                <div className="neural-card" style={{
-                    border: '1px solid #4ade80', 
-                    background: 'linear-gradient(135deg, rgba(74, 222, 128, 0.05) 0%, rgba(34, 197, 94, 0.05) 100%)',
-                    boxShadow: '0 8px 32px rgba(74, 222, 128, 0.1)'
-                }}>
-                    <div className="neural-title" style={{color: '#4ade80', display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-                        <span style={{display: 'flex', alignItems: 'center', gap: '8px'}}>
-                            <span style={{fontSize: '1.2em'}}>🎯</span> Master Haroof Trick (GM+LS3)
-                        </span>
-                        <span style={{fontSize: '0.6em', background: '#4ade80', color: '#000', padding: '4px 12px', borderRadius: '20px', fontWeight: '900'}}>87.3% HISTORICAL HIT RATE</span>
-                    </div>
 
-                    <div style={{display: 'flex', gap: '20px', alignItems: 'center', flexWrap: 'wrap'}}>
-                        <div style={{flex: '1', minWidth: '250px'}}>
-                            <div style={{fontSize: '0.9em', color: '#475569', marginBottom: '10px', fontWeight: '500'}}>
-                                Sum calculation for target date {predictions.gm_ls3_trick.target_date}:
-                            </div>
-                            <div style={{display: 'flex', gap: '15px', alignItems: 'center'}}>
-                                <div style={{
-                                    fontSize: '3em', 
-                                    fontWeight: '950', 
-                                    color: '#000', 
-                                    background: 'rgba(255,255,255,0.15)', 
-                                    padding: '5px 20px', 
-                                    borderRadius: '12px',
-                                    border: '2px solid #4ade80'
-                                }}>
-                                    {predictions.gm_ls3_trick.sum}
-                                </div>
-                                <div style={{fontSize: '2em', opacity: 0.5}}>➔</div>
-                                <div style={{display: 'flex', gap: '10px'}}>
-                                    {predictions.gm_ls3_trick.digits.map(d => (
-                                        <div key={d} style={{
-                                            fontSize: '2.5em',
-                                            fontWeight: '900',
-                                            color: '#000',
-                                            background: '#4ade80',
-                                            width: '60px',
-                                            height: '60px',
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                            justifyContent: 'center',
-                                            borderRadius: '50%',
-                                            boxShadow: '0 0 20px rgba(74, 222, 128, 0.4)',
-                                            border: '3px solid #fff'
-                                        }}>
-                                            {d}
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                        </div>
-
-                        <div style={{flex: '1', minWidth: '250px', background: 'rgba(0,0,0,0.2)', padding: '15px', borderRadius: '12px', border: '1px dashed rgba(74, 222, 128, 0.2)'}}>
-                            <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px'}}>
-                                <div>
-                                    <div style={{fontSize: '0.65em', color: '#475569', textTransform: 'uppercase', fontWeight: 'bold'}}>Best Draws</div>
-                                    <div style={{fontSize: '1em', fontWeight: 'bold', color: '#166534'}}>{predictions.gm_ls3_trick.best_draws.join(', ')}</div>
-                                </div>
-                                <div>
-                                    <div style={{fontSize: '0.65em', color: '#475569', textTransform: 'uppercase', fontWeight: 'bold'}}>Best Location</div>
-                                    <div style={{fontSize: '1em', fontWeight: 'bold', color: '#166534'}}>{predictions.gm_ls3_trick.best_location}</div>
-                                </div>
-                                <div style={{gridColumn: 'span 2', marginTop: '10px'}}>
-                                    <div style={{fontSize: '0.65em', color: '#475569', textTransform: 'uppercase', fontWeight: 'bold'}}>Neural Logic</div>
-                                    <div style={{fontSize: '0.85em', color: '#1e293b', fontWeight: '500'}}>{predictions.gm_ls3_trick.reasoning}</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        )}
-
-        {/* Triple-X Quantum Signal - New Section */}
-        {predictions.triple_x_trick && (
-            <div style={{padding: '0 20px 20px 20px'}}>
-                <div className="neural-card" style={{
-                    border: '1px solid #818cf8', 
-                    background: 'linear-gradient(135deg, rgba(129, 140, 248, 0.05) 0%, rgba(79, 70, 229, 0.05) 100%)',
-                    boxShadow: '0 8px 32px rgba(129, 140, 248, 0.1)'
-                }}>
-                    <div className="neural-title" style={{color: '#818cf8', display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-                        <span style={{display: 'flex', alignItems: 'center', gap: '8px'}}>
-                            <span style={{fontSize: '1.2em'}}>⚛️</span> Triple-X Quantum Haroof
-                        </span>
-                        <div style={{display: 'flex', gap: '10px'}}>
-                            <span style={{fontSize: '0.6em', background: '#818cf8', color: '#fff', padding: '4px 12px', borderRadius: '20px', fontWeight: '900'}}>95.2% DIGIT ACCURACY</span>
-                            <span style={{fontSize: '0.6em', background: 'rgba(129, 140, 248, 0.2)', color: '#818cf8', padding: '4px 12px', borderRadius: '20px', fontWeight: '900', border: '1px solid #818cf8'}}>56.3% JODI HITS</span>
-                        </div>
-                    </div>
-
-                    <div style={{display: 'flex', gap: '25px', flexWrap: 'wrap'}}>
-                        <div style={{flex: '1.2', minWidth: '300px'}}>
-                            <div style={{marginBottom: '20px'}}>
-                                <div style={{fontSize: '0.75em', color: '#475569', marginBottom: '8px', textTransform: 'uppercase', fontWeight: 'bold'}}>Quantum Digit Sets (Haroof)</div>
-                                <div style={{display: 'flex', gap: '20px'}}>
-                                    <div>
-                                        <div style={{fontSize: '0.65em', color: '#4338ca', marginBottom: '4px', fontWeight: 'bold'}}>OPEN SET</div>
-                                        <div style={{display: 'flex', gap: '5px'}}>
-                                            {predictions.triple_x_trick.open_set.map(d => (
-                                                <span key={d} style={{background: 'rgba(255, 255, 255, 0.3)', color: '#000', padding: '5px 14px', borderRadius: '6px', border: '2px solid #818cf8', fontWeight: '900', fontSize: '1.2em'}}>{d}</span>
-                                            ))}
-                                        </div>
-                                    </div>
-                                    <div style={{width: '1px', background: 'rgba(255,255,255,0.1)'}}></div>
-                                    <div>
-                                        <div style={{fontSize: '0.65em', color: '#4338ca', marginBottom: '4px', fontWeight: 'bold'}}>CLOSE SET</div>
-                                        <div style={{display: 'flex', gap: '5px'}}>
-                                            {predictions.triple_x_trick.close_set.map(d => (
-                                                <span key={d} style={{background: 'rgba(255, 255, 255, 0.3)', color: '#000', padding: '5px 14px', borderRadius: '6px', border: '2px solid #818cf8', fontWeight: '900', fontSize: '1.2em'}}>{d}</span>
-                                            ))}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div>
-                                <div style={{fontSize: '0.75em', color: '#475569', marginBottom: '8px', textTransform: 'uppercase', fontWeight: 'bold'}}>Top Predicted Jodis (Pairs)</div>
-                                <div style={{display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '10px'}}>
-                                    {predictions.triple_x_trick.top_pairs.map(p => (
-                                        <div key={p} style={{
-                                            background: 'rgba(255,255,255,0.03)',
-                                            border: '1px solid rgba(129, 140, 248, 0.2)',
-                                            borderRadius: '8px',
-                                            padding: '8px',
-                                            textAlign: 'center',
-                                            fontSize: '1.2em',
-                                            fontWeight: '900',
-                                            color: '#818cf8'
-                                        }}>
-                                            {p.toString().padStart(2, '0')}
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                        </div>
-
-                        <div style={{flex: '0.8', minWidth: '250px', display: 'flex', flexDirection: 'column', gap: '15px'}}>
-                            <div style={{background: 'rgba(0,0,0,0.3)', padding: '15px', borderRadius: '12px', border: '1px solid rgba(129, 140, 248, 0.1)'}}>
-                                <div style={{fontSize: '0.7em', color: '#475569', textTransform: 'uppercase', marginBottom: '10px', fontWeight: 'bold'}}>Optimal Target Draws</div>
-                                <div style={{display: 'flex', gap: '10px'}}>
-                                    {predictions.triple_x_trick.target_draws.map(draw => (
-                                        <div key={draw} style={{
-                                            flex: 1,
-                                            background: '#312e81',
-                                            color: '#fff',
-                                            padding: '12px',
-                                            borderRadius: '8px',
-                                            textAlign: 'center',
-                                            border: '2px solid #818cf8',
-                                            fontWeight: '900',
-                                            fontSize: '1.1em',
-                                            textShadow: '0 2px 4px rgba(0,0,0,0.3)'
-                                        }}>{draw}</div>
-                                    ))}
-                                </div>
-                                <div style={{marginTop: '15px', fontSize: '0.8em', color: '#475569', fontStyle: 'italic', lineHeight: '1.4', fontWeight: '500'}}>
-                                    *Analysis confirms {predictions.triple_x_trick.hit_rate_jodi} hit rate specifically for these draws based on current pattern strength.
-                                </div>
-                            </div>
-                            
-                            <div style={{padding: '10px', borderLeft: '3px solid #818cf8', background: 'rgba(129, 140, 248, 0.03)'}}>
-                                <div style={{fontSize: '0.65em', color: '#3730a3', fontWeight: 'bold', textTransform: 'uppercase'}}>Logic Vector</div>
-                                <div style={{fontSize: '0.85em', color: '#1e293b', fontWeight: '500'}}>{predictions.triple_x_trick.reasoning}</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        )}
 
         {isAdmin && (
             <div className="controls">
