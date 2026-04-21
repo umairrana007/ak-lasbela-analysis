@@ -577,26 +577,24 @@ const App = () => {
                             </span>
                             <span style={{fontSize: '0.6em', background: '#fbbf24', color: '#000', padding: '4px 10px', borderRadius: '20px', fontWeight: '900'}}>95.2% ACC.</span>
                         </div>
-
-                        <div style={{display: 'flex', flexDirection: 'column', gap: '15px'}}>
-                            <div style={{display: 'flex', gap: '15px'}}>
-                                <div style={{flex: 1}}>
-                                    <div style={{fontSize: '0.75em', color: '#fff', marginBottom: '8px', fontWeight: '950', textTransform: 'uppercase', letterSpacing: '1.5px', borderLeft: '3px solid #fbbf24', paddingLeft: '8px'}}>OPEN SET</div>
-                                    <div style={{display: 'flex', gap: '6px', flexWrap: 'wrap'}}>
-                                        {predictions.triple_x_trick.open_set.map(d => (
-                                            <span key={d} style={{background: '#fff', color: '#000', padding: '6px 12px', borderRadius: '6px', border: '2px solid #818cf8', fontWeight: '950', fontSize: '1.2em', boxShadow: '0 4px 10px rgba(0,0,0,0.3)'}}>{d}</span>
-                                        ))}
-                                    </div>
-                                </div>
-                                <div style={{flex: 1}}>
-                                    <div style={{fontSize: '0.75em', color: '#fff', marginBottom: '8px', fontWeight: '950', textTransform: 'uppercase', letterSpacing: '1.5px', borderLeft: '3px solid #fbbf24', paddingLeft: '8px'}}>CLOSE SET</div>
-                                    <div style={{display: 'flex', gap: '6px', flexWrap: 'wrap'}}>
-                                        {predictions.triple_x_trick.close_set.map(d => (
-                                            <span key={d} style={{background: '#fff', color: '#000', padding: '6px 12px', borderRadius: '6px', border: '2px solid #818cf8', fontWeight: '950', fontSize: '1.2em', boxShadow: '0 4px 10px rgba(0,0,0,0.3)'}}>{d}</span>
-                                        ))}
-                                    </div>
+                        <div className="sniper-targets-container">
+                            <div className="sniper-column">
+                                <div className="sniper-column-label">OPEN SET</div>
+                                <div className="number-badges">
+                                    {predictions.triple_x_trick.open_set.map(d => (
+                                        <span key={d} className="sniper-badge">{d}</span>
+                                    ))}
                                 </div>
                             </div>
+                            <div className="sniper-column">
+                                <div className="sniper-column-label">CLOSE SET</div>
+                                <div className="number-badges">
+                                    {predictions.triple_x_trick.close_set.map(d => (
+                                        <span key={d} className="sniper-badge">{d}</span>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
                             
                             <div style={{background: 'rgba(0,0,0,0.3)', padding: '12px', borderRadius: '10px', border: '1px solid rgba(129, 140, 248, 0.2)'}}>
                                 <div style={{fontSize: '0.75em', color: '#fff', marginBottom: '10px', fontWeight: '950', textTransform: 'uppercase', letterSpacing: '2px', textAlign: 'center'}}>🎯 Optimal Target Draws</div>
