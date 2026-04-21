@@ -437,7 +437,7 @@ const App = () => {
                     </span>
                 </div>
 
-                <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '20px'}}>
+                <div className="neural-grid-layout">
                     {/* LEFT COLUMN: Top Picks & Reasoning */}
                     <div>
                         {predictions && predictions.sniper_targets && predictions.sniper_targets.length > 0 && (

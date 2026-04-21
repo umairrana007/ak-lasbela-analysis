@@ -275,9 +275,21 @@ tbody tr:hover {
     padding: 20px;
     background: #ffffff;
     display: grid;
-    grid-template-columns: 1fr 2fr;
+    grid-template-columns: 1fr;
     gap: 20px;
     border-bottom: 3px solid #e9ecef;
+}
+
+.neural-grid-layout {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 25px;
+}
+
+@media (max-width: 900px) {
+    .neural-grid-layout {
+        grid-template-columns: 1fr;
+    }
 }
 
 .neural-card {
