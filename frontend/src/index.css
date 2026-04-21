@@ -631,6 +631,23 @@ tbody tr:nth-child(even) .day-column {
         width: 100%;
         justify-content: space-between;
     }
+
+    .resync-container {
+        flex-direction: column !important;
+        gap: 15px !important;
+        align-items: center !important;
+        text-align: center !important;
+        padding: 10px 0 !important;
+    }
+
+    .intelligence-footer {
+        padding: 15px 10px !important;
+        justify-content: center !important;
+    }
+
+    .footer-divider {
+        display: none !important;
+    }
 }
 
 @keyframes pulse {

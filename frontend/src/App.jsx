@@ -822,15 +822,15 @@ const App = () => {
                 </div>
 
                 {/* Intelligence Footer Stats */}
-                <div style={{display: 'flex', gap: '15px', marginTop: '25px', padding: '20px', background: 'rgba(0,0,0,0.3)', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.08)'}}>
-                    <div style={{flex: 1, textAlign: 'center'}}>
+                <div className="intelligence-footer" style={{display: 'flex', gap: '15px', marginTop: '25px', padding: '20px', background: 'rgba(0,0,0,0.3)', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.08)', flexWrap: 'wrap'}}>
+                    <div style={{flex: '1 1 100px', textAlign: 'center'}}>
                         <div style={{fontSize: '0.65em', opacity: 0.6, textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '5px'}}>COMBINED SUM</div>
                         <div style={{fontSize: '1.5em', fontWeight: '950', color: '#fbbf24'}}>
                             {Object.values(predictions.results || {}).reduce((sum, res) => sum + (parseInt(res.primary) || 0), 0)}
                         </div>
                     </div>
-                    <div style={{width: '1px', background: 'rgba(255,255,255,0.1)'}}></div>
-                    <div style={{flex: 1, textAlign: 'center'}}>
+                    <div className="footer-divider" style={{width: '1px', background: 'rgba(255,255,255,0.1)'}}></div>
+                    <div style={{flex: '1 1 100px', textAlign: 'center'}}>
                         <div style={{fontSize: '0.65em', opacity: 0.6, textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '5px'}}>O/E RATIO</div>
                         <div style={{fontSize: '1.5em', fontWeight: '950', color: '#818cf8'}}>
                             {(() => {
@@ -840,14 +840,14 @@ const App = () => {
                             })()}
                         </div>
                     </div>
-                    <div style={{width: '1px', background: 'rgba(255,255,255,0.1)'}}></div>
-                    <div style={{flex: 1, textAlign: 'center'}}>
+                    <div className="footer-divider" style={{width: '1px', background: 'rgba(255,255,255,0.1)'}}></div>
+                    <div style={{flex: '1 1 100px', textAlign: 'center'}}>
                         <div style={{fontSize: '0.65em', opacity: 0.6, textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '5px'}}>AVG GAP</div>
                         <div style={{fontSize: '1.5em', fontWeight: '950', color: '#4ade80'}}>14.2d</div>
                     </div>
                 </div>
 
-                <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '15px', padding: '0 5px'}}>
+                <div className="resync-container" style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '15px', padding: '0 5px'}}>
                     <div style={{fontSize: '0.75em', opacity: 0.6, fontStyle: 'italic'}}>*Quantum Intelligence Sync Active</div>
                     <div style={{display: 'flex', alignItems: 'center', gap: '15px'}}>
                         {predictions.last_updated && (
