@@ -783,7 +783,7 @@ const App = () => {
 
                     <div style={{display: 'flex', gap: '20px', alignItems: 'center', flexWrap: 'wrap'}}>
                         <div style={{flex: '1', minWidth: '250px'}}>
-                            <div style={{fontSize: '0.9em', color: '#aaa', marginBottom: '10px'}}>
+                            <div style={{fontSize: '0.9em', color: '#475569', marginBottom: '10px', fontWeight: '500'}}>
                                 Sum calculation for target date {predictions.gm_ls3_trick.target_date}:
                             </div>
                             <div style={{display: 'flex', gap: '15px', alignItems: 'center'}}>
@@ -825,16 +825,16 @@ const App = () => {
                         <div style={{flex: '1', minWidth: '250px', background: 'rgba(0,0,0,0.2)', padding: '15px', borderRadius: '12px', border: '1px dashed rgba(74, 222, 128, 0.2)'}}>
                             <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px'}}>
                                 <div>
-                                    <div style={{fontSize: '0.65em', color: '#94a3b8', textTransform: 'uppercase'}}>Best Draws</div>
-                                    <div style={{fontSize: '1em', fontWeight: 'bold', color: '#4ade80'}}>{predictions.gm_ls3_trick.best_draws.join(', ')}</div>
+                                    <div style={{fontSize: '0.65em', color: '#475569', textTransform: 'uppercase', fontWeight: 'bold'}}>Best Draws</div>
+                                    <div style={{fontSize: '1em', fontWeight: 'bold', color: '#166534'}}>{predictions.gm_ls3_trick.best_draws.join(', ')}</div>
                                 </div>
                                 <div>
-                                    <div style={{fontSize: '0.65em', color: '#94a3b8', textTransform: 'uppercase'}}>Best Location</div>
-                                    <div style={{fontSize: '1em', fontWeight: 'bold', color: '#4ade80'}}>{predictions.gm_ls3_trick.best_location}</div>
+                                    <div style={{fontSize: '0.65em', color: '#475569', textTransform: 'uppercase', fontWeight: 'bold'}}>Best Location</div>
+                                    <div style={{fontSize: '1em', fontWeight: 'bold', color: '#166534'}}>{predictions.gm_ls3_trick.best_location}</div>
                                 </div>
                                 <div style={{gridColumn: 'span 2', marginTop: '10px'}}>
-                                    <div style={{fontSize: '0.65em', color: '#94a3b8', textTransform: 'uppercase'}}>Neural Logic</div>
-                                    <div style={{fontSize: '0.85em', opacity: 0.8}}>{predictions.gm_ls3_trick.reasoning}</div>
+                                    <div style={{fontSize: '0.65em', color: '#475569', textTransform: 'uppercase', fontWeight: 'bold'}}>Neural Logic</div>
+                                    <div style={{fontSize: '0.85em', color: '#1e293b', fontWeight: '500'}}>{predictions.gm_ls3_trick.reasoning}</div>
                                 </div>
                             </div>
                         </div>
@@ -864,10 +864,10 @@ const App = () => {
                     <div style={{display: 'flex', gap: '25px', flexWrap: 'wrap'}}>
                         <div style={{flex: '1.2', minWidth: '300px'}}>
                             <div style={{marginBottom: '20px'}}>
-                                <div style={{fontSize: '0.75em', color: '#94a3b8', marginBottom: '8px', textTransform: 'uppercase'}}>Quantum Digit Sets (Haroof)</div>
+                                <div style={{fontSize: '0.75em', color: '#475569', marginBottom: '8px', textTransform: 'uppercase', fontWeight: 'bold'}}>Quantum Digit Sets (Haroof)</div>
                                 <div style={{display: 'flex', gap: '20px'}}>
                                     <div>
-                                        <div style={{fontSize: '0.6em', color: '#6366f1', marginBottom: '4px'}}>OPEN SET</div>
+                                        <div style={{fontSize: '0.65em', color: '#4338ca', marginBottom: '4px', fontWeight: 'bold'}}>OPEN SET</div>
                                         <div style={{display: 'flex', gap: '5px'}}>
                                             {predictions.triple_x_trick.open_set.map(d => (
                                                 <span key={d} style={{background: 'rgba(129, 140, 248, 0.1)', color: '#fff', padding: '5px 12px', borderRadius: '6px', border: '1px solid rgba(129, 140, 248, 0.3)', fontWeight: 'bold'}}>{d}</span>
@@ -876,7 +876,7 @@ const App = () => {
                                     </div>
                                     <div style={{width: '1px', background: 'rgba(255,255,255,0.1)'}}></div>
                                     <div>
-                                        <div style={{fontSize: '0.6em', color: '#6366f1', marginBottom: '4px'}}>CLOSE SET</div>
+                                        <div style={{fontSize: '0.65em', color: '#4338ca', marginBottom: '4px', fontWeight: 'bold'}}>CLOSE SET</div>
                                         <div style={{display: 'flex', gap: '5px'}}>
                                             {predictions.triple_x_trick.close_set.map(d => (
                                                 <span key={d} style={{background: 'rgba(129, 140, 248, 0.1)', color: '#fff', padding: '5px 12px', borderRadius: '6px', border: '1px solid rgba(129, 140, 248, 0.3)', fontWeight: 'bold'}}>{d}</span>
@@ -887,7 +887,7 @@ const App = () => {
                             </div>
 
                             <div>
-                                <div style={{fontSize: '0.75em', color: '#94a3b8', marginBottom: '8px', textTransform: 'uppercase'}}>Top Predicted Jodis (Pairs)</div>
+                                <div style={{fontSize: '0.75em', color: '#475569', marginBottom: '8px', textTransform: 'uppercase', fontWeight: 'bold'}}>Top Predicted Jodis (Pairs)</div>
                                 <div style={{display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '10px'}}>
                                     {predictions.triple_x_trick.top_pairs.map(p => (
                                         <div key={p} style={{
@@ -909,7 +909,7 @@ const App = () => {
 
                         <div style={{flex: '0.8', minWidth: '250px', display: 'flex', flexDirection: 'column', gap: '15px'}}>
                             <div style={{background: 'rgba(0,0,0,0.3)', padding: '15px', borderRadius: '12px', border: '1px solid rgba(129, 140, 248, 0.1)'}}>
-                                <div style={{fontSize: '0.7em', color: '#94a3b8', textTransform: 'uppercase', marginBottom: '10px'}}>Optimal Target Draws</div>
+                                <div style={{fontSize: '0.7em', color: '#475569', textTransform: 'uppercase', marginBottom: '10px', fontWeight: 'bold'}}>Optimal Target Draws</div>
                                 <div style={{display: 'flex', gap: '10px'}}>
                                     {predictions.triple_x_trick.target_draws.map(draw => (
                                         <div key={draw} style={{
@@ -924,14 +924,14 @@ const App = () => {
                                         }}>{draw}</div>
                                     ))}
                                 </div>
-                                <div style={{marginTop: '15px', fontSize: '0.8em', color: '#aaa', fontStyle: 'italic', lineHeight: '1.4'}}>
+                                <div style={{marginTop: '15px', fontSize: '0.8em', color: '#475569', fontStyle: 'italic', lineHeight: '1.4', fontWeight: '500'}}>
                                     *Analysis confirms {predictions.triple_x_trick.hit_rate_jodi} hit rate specifically for these draws based on current pattern strength.
                                 </div>
                             </div>
                             
                             <div style={{padding: '10px', borderLeft: '3px solid #818cf8', background: 'rgba(129, 140, 248, 0.03)'}}>
-                                <div style={{fontSize: '0.6em', color: '#818cf8', fontWeight: 'bold', textTransform: 'uppercase'}}>Logic Vector</div>
-                                <div style={{fontSize: '0.85em', opacity: 0.8}}>{predictions.triple_x_trick.reasoning}</div>
+                                <div style={{fontSize: '0.65em', color: '#3730a3', fontWeight: 'bold', textTransform: 'uppercase'}}>Logic Vector</div>
+                                <div style={{fontSize: '0.85em', color: '#1e293b', fontWeight: '500'}}>{predictions.triple_x_trick.reasoning}</div>
                             </div>
                         </div>
                     </div>
