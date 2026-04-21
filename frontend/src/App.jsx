@@ -437,194 +437,132 @@ const App = () => {
                     </span>
                 </div>
 
-                {/* SNIPER TARGETS - NEW HIGH PRIORITY SECTION */}
-                {predictions && predictions.sniper_targets && predictions.sniper_targets.length > 0 && (
-                    <div style={{
-                        marginBottom: '30px',
-                        background: 'rgba(251, 191, 36, 0.05)',
-                        borderRadius: '16px',
-                        padding: '15px',
-                        border: '1px solid rgba(251, 191, 36, 0.2)'
-                    }}>
-                        <div style={{
-                            display: 'flex', 
-                            alignItems: 'center', 
-                            justifyContent: 'space-between',
-                            marginBottom: '15px',
-                            borderBottom: '1px solid rgba(251, 191, 36, 0.1)',
-                            paddingBottom: '10px'
-                        }}>
-                            <div style={{display: 'flex', alignItems: 'center', gap: '10px'}}>
-                                <span style={{fontSize: '1.5em'}}>🎯</span>
-                                <div>
-                                    <div style={{fontSize: '1em', fontWeight: '900', color: '#fbbf24', textTransform: 'uppercase', letterSpacing: '1.5px'}}>
-                                        Elite Sniper Targets (Top Picks)
+                <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '20px'}}>
+                    {/* LEFT COLUMN: Top Picks & Reasoning */}
+                    <div>
+                        {predictions && predictions.sniper_targets && predictions.sniper_targets.length > 0 && (
+                            <div style={{
+                                background: 'rgba(251, 191, 36, 0.05)',
+                                borderRadius: '16px',
+                                padding: '15px',
+                                border: '1px solid rgba(251, 191, 36, 0.2)',
+                                height: '100%'
+                            }}>
+                                <div style={{
+                                    display: 'flex', 
+                                    alignItems: 'center', 
+                                    justifyContent: 'space-between',
+                                    marginBottom: '15px',
+                                    borderBottom: '1px solid rgba(251, 191, 36, 0.1)',
+                                    paddingBottom: '10px'
+                                }}>
+                                    <div style={{display: 'flex', alignItems: 'center', gap: '10px'}}>
+                                        <span style={{fontSize: '1.5em'}}>🎯</span>
+                                        <div>
+                                            <div style={{fontSize: '0.9em', fontWeight: '900', color: '#fbbf24', textTransform: 'uppercase', letterSpacing: '1.5px'}}>
+                                                Elite Sniper Targets (Top Picks)
+                                            </div>
+                                            <div style={{fontSize: '0.65em', color: '#aaa'}}>
+                                                Target: <span style={{color: '#fbbf24'}}>{predictions.target_date ? formatDate(predictions.target_date) : 'Loading...'}</span>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div style={{fontSize: '0.65em', color: '#aaa'}}>
-                                        Predictive Targets for: <span style={{color: '#fbbf24', fontWeight: 'bold'}}>{predictions.target_date ? formatDate(predictions.target_date) : 'Loading...'}</span>
-                                    </div>
+                                    {predictions.master_target && (
+                                        <div style={{
+                                            background: 'linear-gradient(45deg, #fbbf24, #f59e0b)',
+                                            color: '#000',
+                                            padding: '4px 10px',
+                                            borderRadius: '6px',
+                                            fontSize: '0.7em',
+                                            fontWeight: '900',
+                                            animation: 'pulse 1.5s infinite'
+                                        }}>
+                                            🏆 MASTER: {String(predictions.master_target.number).padStart(2, '0')}
+                                        </div>
+                                    )}
+                                </div>
+                                
+                                <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(110px, 1fr))', gap: '10px'}}>
+                                    {predictions.sniper_targets.map((target, idx) => (
+                                        <div key={idx} style={{
+                                            background: 'rgba(255,255,255,0.03)',
+                                            border: '1px solid rgba(251, 191, 36, 0.2)',
+                                            borderRadius: '10px',
+                                            padding: '10px',
+                                            textAlign: 'center'
+                                        }}>
+                                            <div style={{fontSize: '0.55em', color: '#fbbf24', fontWeight: 'bold'}}>{target.draw}</div>
+                                            <div style={{fontSize: '1.8em', fontWeight: '950', color: '#fff'}}>{String(target.number).padStart(2, '0')}</div>
+                                            <div style={{fontSize: '0.55em', color: '#4ade80'}}>{target.confidence}%</div>
+                                        </div>
+                                    ))}
+                                </div>
+
+                                <div style={{
+                                    marginTop: '15px', 
+                                    padding: '10px', 
+                                    background: 'rgba(99, 102, 241, 0.1)', 
+                                    borderRadius: '8px', 
+                                    fontSize: '0.8em'
+                                }}>
+                                    <div style={{fontWeight: 'bold', color: '#818cf8', marginBottom: '4px'}}>🧠 AI Reasoning:</div>
+                                    <div style={{opacity: 0.8, fontSize: '0.9em'}}>{predictions.results?.ak?.reasoning || "Analyzing..."}</div>
                                 </div>
                             </div>
+                        )}
+                    </div>
 
-                            {/* MASTER TARGET HIGHLIGHT */}
-                            {predictions.master_target && (
-                                <div style={{
-                                    background: 'linear-gradient(45deg, #fbbf24, #f59e0b)',
-                                    color: '#000',
-                                    padding: '5px 12px',
-                                    borderRadius: '8px',
-                                    fontSize: '0.75em',
-                                    fontWeight: '900',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    gap: '6px',
-                                    boxShadow: '0 0 15px rgba(251, 191, 36, 0.4)',
-                                    animation: 'pulse 1.5s infinite'
-                                }}>
-                                    <span>🏆 MASTER:</span>
-                                    <span style={{fontSize: '1.3em'}}>{String(predictions.master_target.number).padStart(2, '0')}</span>
-                                </div>
-                            )}
-                        </div>
-                        
-                        <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: '12px'}}>
-                            {predictions.sniper_targets.map((target, idx) => (
-                                <div key={idx} style={{
-                                    background: 'linear-gradient(135deg, rgba(30, 30, 47, 0.8), rgba(45, 45, 68, 0.8))',
-                                    border: '1px solid rgba(251, 191, 36, 0.3)',
-                                    borderRadius: '12px',
-                                    padding: '15px',
-                                    textAlign: 'center',
-                                    position: 'relative',
-                                    boxShadow: '0 4px 15px rgba(0,0,0,0.2)',
-                                    transition: 'all 0.3s ease'
-                                }} className="sniper-item">
-                                    <div style={{
-                                        position: 'absolute',
-                                        top: '-8px',
-                                        right: '10px',
-                                        background: '#fbbf24',
-                                        color: '#000',
-                                        fontSize: '0.6em',
-                                        fontWeight: 'bold',
-                                        padding: '2px 6px',
-                                        borderRadius: '4px',
-                                        boxShadow: '0 2px 5px rgba(251, 191, 36, 0.4)'
-                                    }}>
-                                        {target.draw}
+                    {/* RIGHT COLUMN: Draw Results & Stats */}
+                    <div style={{display: 'flex', flexDirection: 'column', gap: '15px'}}>
+                        <div className="prediction-grid" style={{marginTop: 0}}>
+                            {['gm', 'ls1', 'ak', 'ls2', 'ls3'].map(key => (
+                                <div key={key} className="prediction-item" style={{padding: '10px'}}>
+                                    <div className="prediction-label">{key.toUpperCase()}</div>
+                                    <div className="prediction-value" style={{fontSize: '1.5em'}}>
+                                        {predictions.results?.[key]?.primary !== undefined ? String(predictions.results[key].primary).padStart(2, '0') : '??'}
                                     </div>
-                                    <div style={{fontSize: '2.2em', fontWeight: '950', color: '#fff', margin: '5px 0', textShadow: '0 0 15px rgba(251, 191, 36, 0.3)'}}>
-                                        {String(target.number).padStart(2, '0')}
-                                    </div>
-                                    <div style={{fontSize: '0.6em', color: '#4ade80', fontWeight: 'bold', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '3px'}}>
-                                        <div style={{width: '6px', height: '6px', background: '#4ade80', borderRadius: '50%', animation: 'pulse 1s infinite'}}></div>
-                                        {target.confidence}% ACCURACY
-                                    </div>
-                                    <div style={{fontSize: '0.55em', color: '#94a3b8', marginTop: '6px', fontStyle: 'italic'}}>
-                                        {target.trick}
-                                    </div>
+                                    <div style={{fontSize: '0.6em', color: '#4ade80'}}>{predictions.results?.[key]?.confidence || '0%'}</div>
+                                    <div style={{fontSize: '0.5em', opacity: 0.6}}>Recs: {predictions.results?.[key]?.recommendations?.map(n => String(n).padStart(2, '0')).join(',') || '--'}</div>
                                 </div>
                             ))}
                         </div>
-                    </div>
-                )}
 
-                <div className="prediction-grid">
-                    {['gm', 'ls1', 'ak', 'ls2', 'ls3'].map(key => (
-                        <div key={key} className="prediction-item">
-                            <div className="prediction-label">{key.toUpperCase()}</div>
-                            <div className="prediction-value" style={{color: predictions.results?.[key]?.primary !== undefined ? '#fff' : '#666'}}>
-                                {predictions.results?.[key]?.primary !== undefined ? String(predictions.results[key].primary).padStart(2, '0') : '??'}
+                        <div style={{display: 'flex', gap: '10px'}}>
+                            <div style={{flex: 1, background: 'rgba(255,255,255,0.05)', padding: '10px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.1)', textAlign: 'center'}}>
+                                <div style={{fontSize: '0.6em', opacity: 0.6}}>SUM</div>
+                                <div style={{fontSize: '1em', fontWeight: 'bold', color: '#fbbf24'}}>
+                                    {Object.values(predictions.results || {}).reduce((sum, res) => sum + (parseInt(res.primary) || 0), 0)}
+                                </div>
                             </div>
-                            <div style={{fontSize: '0.65em', color: '#4ade80', fontWeight: 'bold'}}>
-                                {predictions.results?.[key]?.confidence || '0%'}
+                            <div style={{flex: 1, background: 'rgba(255,255,255,0.05)', padding: '10px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.1)', textAlign: 'center'}}>
+                                <div style={{fontSize: '0.6em', opacity: 0.6}}>O/E RATIO</div>
+                                <div style={{fontSize: '1em', fontWeight: 'bold', color: '#818cf8'}}>
+                                    {(() => {
+                                        const vals = Object.values(predictions.results || {}).map(r => parseInt(r.primary)).filter(n => !isNaN(n));
+                                        const odd = vals.filter(n => n % 2 !== 0).length;
+                                        return `${odd}:${vals.length - odd}`;
+                                    })()}
+                                </div>
                             </div>
-                            <div style={{fontSize: '0.55em', opacity: 0.6, color: '#94a3b8', marginTop: '4px'}}>
-                                Recs: {predictions.results?.[key]?.recommendations?.map(n => String(n).padStart(2, '0')).join(', ') || '--'}
+                            <div style={{flex: 1, background: 'rgba(255,255,255,0.05)', padding: '10px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.1)', textAlign: 'center'}}>
+                                <div style={{fontSize: '0.6em', opacity: 0.6}}>AVG GAP</div>
+                                <div style={{fontSize: '1em', fontWeight: 'bold', color: '#4ade80'}}>14.2d</div>
                             </div>
                         </div>
-                    ))}
-                </div>
 
-                {/* New Expert Reasoning Box */}
-                <div style={{
-                    marginTop: '20px', 
-                    padding: '12px', 
-                    background: 'rgba(99, 102, 241, 0.1)', 
-                    borderRadius: '8px', 
-                    border: '1px solid rgba(99, 102, 241, 0.3)',
-                    fontSize: '0.85em'
-                }}>
-                    <div style={{fontWeight: 'bold', color: '#6366f1', marginBottom: '5px', display: 'flex', alignItems: 'center', gap: '5px'}}>
-                        <span>🧠</span> Expert Neural Reasoning:
-                    </div>
-                    <div style={{lineHeight: '1.4', opacity: 0.9}}>
-                        {predictions.results?.ak?.reasoning || "Neural engine is analyzing historical clusters and expert guidebooks..."}
-                    </div>
-                    <div style={{marginTop: '8px', fontSize: '0.8em', color: '#4ade80', fontWeight: 'bold'}}>
-                        Applied Tricks: {predictions.results?.ak?.pattern_found || "Standard AI + Mirror Logic"}
-                    </div>
-                </div>
-
-                {/* Advanced Stats Filter (Lotto Pro Style) */}
-                <div style={{display: 'flex', gap: '10px', marginTop: '15px'}}>
-                    <div style={{flex: 1, background: 'rgba(255,255,255,0.05)', padding: '10px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.1)', textAlign: 'center'}}>
-                        <div style={{fontSize: '0.65em', opacity: 0.6, marginBottom: '5px'}}>COMBINED SUM</div>
-                        <div style={{fontSize: '1.1em', fontWeight: 'bold', color: '#fbbf24'}}>
-                            {Object.values(predictions.results || {}).reduce((sum, res) => sum + (parseInt(res.primary) || 0), 0)}
+                        <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 'auto'}}>
+                            <div style={{fontSize: '0.7em', opacity: 0.6, fontStyle: 'italic'}}>*AI Trend Analysis</div>
+                            <button className={`btn ${isSyncing ? 'btn-disabled' : 'btn-primary'}`} onClick={triggerSync} disabled={isSyncing} style={{padding: '5px 15px', fontSize: '0.8em'}}>
+                                {isSyncing ? 'Syncing...' : '⚡ Re-Sync'}
+                            </button>
                         </div>
-                    </div>
-                    <div style={{flex: 1, background: 'rgba(255,255,255,0.05)', padding: '10px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.1)', textAlign: 'center'}}>
-                        <div style={{fontSize: '0.65em', opacity: 0.6, marginBottom: '5px'}}>ODD/EVEN RATIO</div>
-                        <div style={{fontSize: '1.1em', fontWeight: 'bold', color: '#818cf8'}}>
-                            {(() => {
-                                const vals = Object.values(predictions.results || {}).map(r => parseInt(r.primary)).filter(n => !isNaN(n));
-                                const odd = vals.filter(n => n % 2 !== 0).length;
-                                return `${odd}:${vals.length - odd}`;
-                            })()}
-                        </div>
-                    </div>
-                    <div style={{flex: 1, background: 'rgba(255,255,255,0.05)', padding: '10px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.1)', textAlign: 'center'}}>
-                        <div style={{fontSize: '0.65em', opacity: 0.6, marginBottom: '5px'}}>AVG. GAP</div>
-                        <div style={{fontSize: '1.1em', fontWeight: 'bold', color: '#4ade80'}}>
-                            14.2d
-                        </div>
-                    </div>
-                </div>
-
-                <div style={{marginTop: '15px', display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-                    <div style={{fontSize: '0.85em', opacity: 0.8, fontStyle: 'italic'}}>
-                        *AI Engine Analysis based on latest trends.
-                    </div>
-                    <button 
-                        className={`btn ${isSyncing ? 'btn-disabled' : 'btn-primary'}`} 
-                        onClick={triggerSync}
-                        disabled={isSyncing}
-                        style={{display: 'flex', alignItems: 'center', gap: '8px'}}
-                    >
-                        {isSyncing ? (
-                            <>
-                                <div className="spinner-mini"></div>
-                                Triggering GitHub Actions...
-                            </>
-                        ) : (
-                            <>
-                                <span>⚡</span> Re-Sync AI
-                            </>
+                        {predictions.last_updated && (
+                            <div style={{fontSize: '0.6em', color: '#666', textAlign: 'right'}}>
+                                Last Sync: {new Date(predictions.last_updated).toLocaleString()}
+                            </div>
                         )}
-                    </button>
-                    {predictions.last_updated && (
-                        <div style={{fontSize: '0.65em', color: '#666', marginTop: '10px', textAlign: 'right'}}>
-                            Last Cloud Sync: {new Date(predictions.last_updated).toLocaleString()}
-                        </div>
-                    )}
-                </div>
-
-                {syncStatus && (
-                    <div style={{fontSize: '0.75em', marginTop: '10px', color: syncStatus.includes('Error') ? '#ff4d4d' : '#4ade80', textAlign: 'right'}}>
-                        {syncStatus}
                     </div>
-                )}
+                </div>
             </div>
 
             <div className="stats-grid">
