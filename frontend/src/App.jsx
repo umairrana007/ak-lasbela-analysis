@@ -119,7 +119,12 @@ const App = () => {
     // Live listener for AI Predictions
     const unsubPreds = onSnapshot(doc(db, "metadata", "predictions"), (snapshot) => {
         if (snapshot.exists()) {
-            setPredictions(snapshot.data());
+            const data = snapshot.data();
+            console.log("AI Predictions Updated:", data);
+            setPredictions(prev => ({
+                ...prev,
+                ...data
+            }));
         }
     });
     return () => unsubPreds();
@@ -338,15 +343,54 @@ const App = () => {
       const term = searchTerm.toLowerCase();
       return (record.date && record.date.includes(term)) ||
              (record.day && record.day.toLowerCase().includes(term)) ||
-             record.gm === term ||
-             record.ls1 === term ||
-             record.ak === term ||
-             record.ls2 === term ||
-             record.ls3 === term;
+             String(record.gm) === term ||
+             String(record.ls1) === term ||
+             String(record.ak) === term ||
+             String(record.ls2) === term ||
+             String(record.ls3) === term;
   });
 
   return (
     <div className="container">
+        {/* YESTERDAY MATCH ALERT - ENHANCED VISIBILITY */}
+        {predictions && predictions.yesterday_match && (
+            <div style={{
+                margin: '0 0 20px 0',
+                padding: '12px 20px',
+                background: predictions.yesterday_match.type === 'Direct' 
+                    ? 'linear-gradient(90deg, rgba(34, 197, 94, 0.2), rgba(34, 197, 94, 0.05))' 
+                    : 'linear-gradient(90deg, rgba(148, 163, 184, 0.1), rgba(148, 163, 184, 0.02))',
+                borderBottom: predictions.yesterday_match.type === 'Direct' 
+                    ? '1px solid rgba(34, 197, 94, 0.3)' 
+                    : '1px solid rgba(148, 163, 184, 0.2)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
+            }}>
+                <div style={{display: 'flex', alignItems: 'center', gap: '15px'}}>
+                    <span style={{fontSize: '1.2em'}}>{predictions.yesterday_match.type === 'Direct' ? '🔥' : '📡'}</span>
+                    <div>
+                        <div style={{fontSize: '0.85em', fontWeight: 'bold', color: predictions.yesterday_match.type === 'Direct' ? '#4ade80' : '#cbd5e1'}}>
+                            {predictions.yesterday_match.status}
+                        </div>
+                        <div style={{fontSize: '0.7em', color: '#94a3b8'}}>{predictions.yesterday_match.details}</div>
+                    </div>
+                </div>
+                {predictions.yesterday_match.type === 'Direct' && (
+                    <div style={{
+                        background: '#22c55e',
+                        color: '#fff',
+                        fontSize: '0.6em',
+                        fontWeight: '900',
+                        padding: '3px 8px',
+                        borderRadius: '20px',
+                        textTransform: 'uppercase'
+                    }}> Verified Hit </div>
+                )}
+            </div>
+        )}
+
         <div className="header" style={{position: 'relative'}}>
             🎮 AK Lasbela Records 2025-2026 🎮
             <button 
@@ -392,15 +436,111 @@ const App = () => {
                         Target Date: {predictions.date ? new Date(predictions.date).toLocaleDateString('en-GB') : 'Analyzing...'}
                     </span>
                 </div>
+
+                {/* SNIPER TARGETS - NEW HIGH PRIORITY SECTION */}
+                {predictions && predictions.sniper_targets && predictions.sniper_targets.length > 0 && (
+                    <div style={{
+                        marginBottom: '30px',
+                        background: 'rgba(251, 191, 36, 0.05)',
+                        borderRadius: '16px',
+                        padding: '15px',
+                        border: '1px solid rgba(251, 191, 36, 0.2)'
+                    }}>
+                        <div style={{
+                            display: 'flex', 
+                            alignItems: 'center', 
+                            justifyContent: 'space-between',
+                            marginBottom: '15px',
+                            borderBottom: '1px solid rgba(251, 191, 36, 0.1)',
+                            paddingBottom: '10px'
+                        }}>
+                            <div style={{display: 'flex', alignItems: 'center', gap: '10px'}}>
+                                <span style={{fontSize: '1.5em'}}>🎯</span>
+                                <div>
+                                    <div style={{fontSize: '1em', fontWeight: '900', color: '#fbbf24', textTransform: 'uppercase', letterSpacing: '1.5px'}}>
+                                        Elite Sniper Targets (Top Picks)
+                                    </div>
+                                    <div style={{fontSize: '0.65em', color: '#aaa'}}>
+                                        Predictive Targets for: <span style={{color: '#fbbf24', fontWeight: 'bold'}}>{predictions.target_date ? formatDate(predictions.target_date) : 'Loading...'}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* MASTER TARGET HIGHLIGHT */}
+                            {predictions.master_target && (
+                                <div style={{
+                                    background: 'linear-gradient(45deg, #fbbf24, #f59e0b)',
+                                    color: '#000',
+                                    padding: '5px 12px',
+                                    borderRadius: '8px',
+                                    fontSize: '0.75em',
+                                    fontWeight: '900',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '6px',
+                                    boxShadow: '0 0 15px rgba(251, 191, 36, 0.4)',
+                                    animation: 'pulse 1.5s infinite'
+                                }}>
+                                    <span>🏆 MASTER:</span>
+                                    <span style={{fontSize: '1.3em'}}>{String(predictions.master_target.number).padStart(2, '0')}</span>
+                                </div>
+                            )}
+                        </div>
+                        
+                        <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: '12px'}}>
+                            {predictions.sniper_targets.map((target, idx) => (
+                                <div key={idx} style={{
+                                    background: 'linear-gradient(135deg, rgba(30, 30, 47, 0.8), rgba(45, 45, 68, 0.8))',
+                                    border: '1px solid rgba(251, 191, 36, 0.3)',
+                                    borderRadius: '12px',
+                                    padding: '15px',
+                                    textAlign: 'center',
+                                    position: 'relative',
+                                    boxShadow: '0 4px 15px rgba(0,0,0,0.2)',
+                                    transition: 'all 0.3s ease'
+                                }} className="sniper-item">
+                                    <div style={{
+                                        position: 'absolute',
+                                        top: '-8px',
+                                        right: '10px',
+                                        background: '#fbbf24',
+                                        color: '#000',
+                                        fontSize: '0.6em',
+                                        fontWeight: 'bold',
+                                        padding: '2px 6px',
+                                        borderRadius: '4px',
+                                        boxShadow: '0 2px 5px rgba(251, 191, 36, 0.4)'
+                                    }}>
+                                        {target.draw}
+                                    </div>
+                                    <div style={{fontSize: '2.2em', fontWeight: '950', color: '#fff', margin: '5px 0', textShadow: '0 0 15px rgba(251, 191, 36, 0.3)'}}>
+                                        {String(target.number).padStart(2, '0')}
+                                    </div>
+                                    <div style={{fontSize: '0.6em', color: '#4ade80', fontWeight: 'bold', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '3px'}}>
+                                        <div style={{width: '6px', height: '6px', background: '#4ade80', borderRadius: '50%', animation: 'pulse 1s infinite'}}></div>
+                                        {target.confidence}% ACCURACY
+                                    </div>
+                                    <div style={{fontSize: '0.55em', color: '#94a3b8', marginTop: '6px', fontStyle: 'italic'}}>
+                                        {target.trick}
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                )}
+
                 <div className="prediction-grid">
                     {['gm', 'ls1', 'ak', 'ls2', 'ls3'].map(key => (
                         <div key={key} className="prediction-item">
                             <div className="prediction-label">{key.toUpperCase()}</div>
-                            <div className="prediction-value" style={{color: predictions.results?.[key]?.primary ? '#fff' : '#666'}}>
-                                {predictions.results?.[key]?.primary ?? '??'}
+                            <div className="prediction-value" style={{color: predictions.results?.[key]?.primary !== undefined ? '#fff' : '#666'}}>
+                                {predictions.results?.[key]?.primary !== undefined ? String(predictions.results[key].primary).padStart(2, '0') : '??'}
                             </div>
-                            <div style={{fontSize: '0.6em', opacity: 0.7, color: '#4ade80'}}>
-                                {predictions.results?.[key]?.confidence || '0%'} Conf.
+                            <div style={{fontSize: '0.65em', color: '#4ade80', fontWeight: 'bold'}}>
+                                {predictions.results?.[key]?.confidence || '0%'}
+                            </div>
+                            <div style={{fontSize: '0.55em', opacity: 0.6, color: '#94a3b8', marginTop: '4px'}}>
+                                Recs: {predictions.results?.[key]?.recommendations?.map(n => String(n).padStart(2, '0')).join(', ') || '--'}
                             </div>
                         </div>
                     ))}
@@ -460,10 +600,24 @@ const App = () => {
                         className={`btn ${isSyncing ? 'btn-disabled' : 'btn-primary'}`} 
                         onClick={triggerSync}
                         disabled={isSyncing}
-                        style={{padding: '5px 12px', fontSize: '0.8em', background: isSyncing ? '#444' : '#6366f1'}}
+                        style={{display: 'flex', alignItems: 'center', gap: '8px'}}
                     >
-                        {isSyncing ? 'Syncing...' : '🔄 Re-Sync AI'}
+                        {isSyncing ? (
+                            <>
+                                <div className="spinner-mini"></div>
+                                Triggering GitHub Actions...
+                            </>
+                        ) : (
+                            <>
+                                <span>⚡</span> Re-Sync AI
+                            </>
+                        )}
                     </button>
+                    {predictions.last_updated && (
+                        <div style={{fontSize: '0.65em', color: '#666', marginTop: '10px', textAlign: 'right'}}>
+                            Last Cloud Sync: {new Date(predictions.last_updated).toLocaleString()}
+                        </div>
+                    )}
                 </div>
 
                 {syncStatus && (

@@ -1,0 +1,7 @@
+pandas
+xgboost
+scikit-learn
+joblib
+google-cloud-firestore
+firebase-admin
+numpy

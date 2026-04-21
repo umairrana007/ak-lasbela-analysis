@@ -19,23 +19,27 @@ jobs:
       uses: actions/setup-python@v4
       with:
         python-version: '3.9'
+        cache: 'pip' # caching pip dependencies
 
     - name: Install dependencies
       run: |
-        pip install pandas xgboost scikit-learn joblib google-cloud-firestore firebase-admin numpy
+        pip install -r requirements.txt
 
     - name: Run AI Pipeline
       env:
         GOOGLE_APPLICATION_CREDENTIALS_JSON: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
       run: |
+        echo "Starting Data Loading..."
         python ml/data_loader.py
+        echo "Starting Model Training..."
         python ml/train_model.py
+        echo "Starting Prediction Generation..."
         python ml/predict.py
 
     - name: Commit and Push Changes
       run: |
         git config --global user.name 'GitHub Action'
         git config --global user.email 'action@github.com'
-        git add .
+        git add ml/predictions.json frontend/src/predictions.json
         git commit -m "Auto-update predictions [skip ci]" || echo "No changes to commit"
-        git push
+        git push origin main || echo "Push failed - possibly no changes or branch protection"
