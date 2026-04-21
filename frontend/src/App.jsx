@@ -545,7 +545,7 @@ const App = () => {
         </div>
 
         {/* ELITE DASHBOARD SECTION */}
-        <div style={{padding: '0 20px'}}>
+        <div className="dashboard-container">
             {/* AI Status Banner */}
             <div className="ai-status-banner">
                 <div className="status-primary">
@@ -778,7 +778,7 @@ const App = () => {
                     <span>🔍</span> DETAILED DRAW INTELLIGENCE CENTER
                 </div>
 
-                <div className="analysis-grid" style={{marginTop: 0, border: 'none', background: 'none', boxShadow: 'none'}}>
+                <div className="analysis-grid">
                     {['gm', 'ls1', 'ak', 'ls2', 'ls3'].map(key => (
                         <div key={key} className="prediction-item" style={{background: 'rgba(0,0,0,0.4)', border: '1px solid rgba(255,255,255,0.08)', padding: '15px'}}>
                             <div className="prediction-header">
