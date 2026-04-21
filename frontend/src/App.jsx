@@ -855,13 +855,13 @@ const App = () => {
                 <tbody id="tableBody">
                     {filteredRecords.length > 0 ? filteredRecords.map((record, index) => (
                         <tr key={record.id || index}>
-                            <td>{formatDate(record.date)}</td>
+                            <td className="date-column">{formatDate(record.date)}</td>
                             <td className="gm-column">{record.gm || '-'}</td>
                             <td className="ls1-column">{record.ls1 || '-'}</td>
                             <td className="ak-column">{record.ak || '-'}</td>
                             <td className="ls2-column">{record.ls2 || '-'}</td>
                             <td className="ls3-column">{record.ls3 || '-'}</td>
-                            <td>{record.day}</td>
+                            <td className="day-column">{record.day}</td>
                             {isAdmin && (
                                 <td className="action-buttons">
                                     <button className="btn btn-edit" onClick={() => handleEdit(record)}>✏️</button>

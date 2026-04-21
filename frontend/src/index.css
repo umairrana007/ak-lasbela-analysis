@@ -155,6 +155,12 @@ tbody tr:hover {
 .ak-column { color: #667eea; font-weight: 600; }
 .ls2-column { color: #667eea; font-weight: 600; }
 .ls3-column { color: #667eea; font-weight: 600; }
+.date-column, .day-column { font-weight: 600; }
+
+tbody tr:nth-child(even) .date-column,
+tbody tr:nth-child(even) .day-column {
+    color: #000 !important;
+}
 
 .modal {
     display: none;
