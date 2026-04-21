@@ -608,6 +608,51 @@ const App = () => {
             </div>
         </div>
 
+        {/* GM+LS3 Master Haroof Trick Section - Restored */}
+        {predictions.gm_ls3_trick && (
+            <div style={{padding: '0 20px 20px 20px'}}>
+                <div className="neural-card" style={{
+                    border: '2px solid #22c55e', 
+                    background: 'linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, rgba(21, 128, 61, 0.05) 100%)',
+                    boxShadow: '0 8px 32px rgba(34, 197, 94, 0.15)',
+                    marginBottom: 0
+                }}>
+                    <div className="neural-title" style={{color: '#4ade80', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '15px', borderBottom: '1px solid rgba(74, 222, 128, 0.3)', paddingBottom: '10px'}}>
+                        <span style={{display: 'flex', alignItems: 'center', gap: '8px'}}>
+                            <span style={{fontSize: '1.2em'}}>🚀</span> GM+LS3 Master Haroof Trick
+                        </span>
+                        <span style={{fontSize: '0.6em', background: '#22c55e', color: '#fff', padding: '4px 10px', borderRadius: '20px', fontWeight: '900'}}>{predictions.gm_ls3_trick.hit_rate} HIT RATE</span>
+                    </div>
+
+                    <div style={{display: 'flex', gap: '20px', flexWrap: 'wrap'}}>
+                        <div style={{flex: '1', minWidth: '200px'}}>
+                            <div style={{fontSize: '0.75em', color: '#fff', marginBottom: '10px', fontWeight: '950', textTransform: 'uppercase', letterSpacing: '1px'}}>MASTER DIGITS (HAROOF)</div>
+                            <div style={{display: 'flex', gap: '10px'}}>
+                                {predictions.gm_ls3_trick.digits.map(d => (
+                                    <div key={d} style={{background: '#fff', color: '#000', width: '50px', height: '50px', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '10px', fontSize: '1.8em', fontWeight: '950', border: '3px solid #22c55e', boxShadow: '0 4px 15px rgba(34, 197, 94, 0.4)'}}>{d}</div>
+                                ))}
+                            </div>
+                        </div>
+                        <div style={{flex: '1.5', minWidth: '250px', background: 'rgba(0,0,0,0.3)', padding: '15px', borderRadius: '12px', border: '1px solid rgba(34, 197, 94, 0.2)'}}>
+                            <div style={{display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px'}}>
+                                <div>
+                                    <div style={{fontSize: '0.65em', color: '#4ade80', fontWeight: 'bold'}}>TARGET DRAW</div>
+                                    <div style={{fontSize: '1em', color: '#fff', fontWeight: '950'}}>{predictions.gm_ls3_trick.best_draws.join(', ')}</div>
+                                </div>
+                                <div>
+                                    <div style={{fontSize: '0.65em', color: '#4ade80', fontWeight: 'bold'}}>LOCATION</div>
+                                    <div style={{fontSize: '1em', color: '#fff', fontWeight: '950'}}>{predictions.gm_ls3_trick.best_location}</div>
+                                </div>
+                            </div>
+                            <div style={{marginTop: '10px', fontSize: '0.75em', color: '#cbd5e1', fontStyle: 'italic'}}>
+                                {predictions.gm_ls3_trick.reasoning}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        )}
+
 
             <div className="stats-grid">
                 <div className="frequency-card">
