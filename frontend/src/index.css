@@ -620,22 +620,27 @@ tbody tr:nth-child(even) .day-column {
 
     .status-primary {
         flex-direction: column !important;
-        gap: 10px !important;
+        gap: 8px !important;
         display: flex !important;
         align-items: center !important;
+        width: 100% !important;
     }
 
     .neural-calibration-content {
         display: flex !important;
         flex-direction: column !important;
-        gap: 5px !important;
+        gap: 8px !important;
         align-items: center !important;
+        width: 100% !important;
     }
 
     .neural-engine-label, .cycle-pulse-label {
-        font-size: 0.75em !important;
-        white-space: nowrap !important;
+        font-size: 0.7em !important;
+        white-space: normal !important; /* Allow wrapping if needed */
         color: #94a3b8 !important;
+        text-align: center !important;
+        display: block !important;
+        width: 100% !important;
     }
 
     .status-divider {
@@ -680,13 +685,23 @@ tbody tr:nth-child(even) .day-column {
         display: flex !important;
         overflow-x: auto !important;
         scroll-snap-type: x mandatory !important;
-        gap: 12px !important;
-        padding: 10px 0 30px 0 !important;
+        gap: 15px !important;
+        padding: 10px 5px 30px 5px !important;
+        margin: 0 -5px !important;
         -webkit-overflow-scrolling: touch;
         scrollbar-width: none;
         grid-template-columns: none !important;
-        width: 100% !important;
+        width: calc(100% + 10px) !important;
         box-sizing: border-box !important;
+    }
+
+    .neural-card {
+        padding: 15px !important;
+        overflow: visible !important;
+        width: calc(100vw - 30px) !important; /* Fixed width for swipe */
+        min-width: calc(100vw - 30px) !important;
+        scroll-snap-align: center !important;
+        flex-shrink: 0 !important;
     }
 
     .analysis-grid {
@@ -720,8 +735,11 @@ tbody tr:nth-child(even) .day-column {
     }
 
     .neural-title {
-        font-size: 1em !important;
+        font-size: 0.9em !important;
         padding-bottom: 8px !important;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     /* Table Fix */
@@ -782,15 +800,26 @@ tbody tr:nth-child(even) .day-column {
     }
 
     .neural-title {
-        font-size: 1.1em !important;
+        font-size: 0.95em !important;
         flex-direction: column;
         align-items: flex-start !important;
         gap: 8px !important;
+        white-space: normal !important;
     }
 
     .neural-title > div {
         width: 100%;
+        display: flex;
         justify-content: space-between;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .logic-badge {
+        font-size: 0.6em !important;
+        white-space: normal !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
     }
 
     .resync-container {
@@ -842,7 +871,21 @@ tbody tr:nth-child(even) .day-column {
 
     /* Heatmap Label Fix */
     .neural-card [style*="height: 80px"] + div {
-        font-size: 1.3em !important;
+        font-size: 1.6em !important;
+        font-weight: 950 !important;
+        margin-top: 5px !important;
+    }
+
+    .hit-badge {
+        background: #22c55e !important;
+        color: #fff !important;
+        font-size: 0.65em !important;
+        font-weight: 900 !important;
+        padding: 4px 10px !important;
+        borderRadius: 20px !important;
+        text-transform: uppercase !important;
+        box-shadow: 0 0 10px rgba(34, 197, 94, 0.4) !important;
+        white-space: nowrap !important;
     }
 }
 

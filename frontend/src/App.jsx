@@ -482,39 +482,28 @@ const App = () => {
     <div className="container">
         {/* YESTERDAY MATCH ALERT - ENHANCED VISIBILITY */}
         {predictions && predictions.yesterday_match && (
-            <div style={{
-                margin: '0 0 20px 0',
-                padding: '12px 20px',
+            <div className="ai-status-banner yesterday-match-banner" style={{
                 background: predictions.yesterday_match.type === 'Direct' 
-                    ? 'linear-gradient(90deg, rgba(34, 197, 94, 0.2), rgba(34, 197, 94, 0.05))' 
-                    : 'linear-gradient(90deg, rgba(148, 163, 184, 0.1), rgba(148, 163, 184, 0.02))',
-                borderBottom: predictions.yesterday_match.type === 'Direct' 
-                    ? '1px solid rgba(34, 197, 94, 0.3)' 
-                    : '1px solid rgba(148, 163, 184, 0.2)',
+                    ? 'linear-gradient(90deg, rgba(34, 197, 94, 0.15) 0%, rgba(34, 197, 94, 0.05) 100%)' 
+                    : 'linear-gradient(90deg, rgba(99, 102, 241, 0.1) 0%, rgba(99, 102, 241, 0.02) 100%)',
+                borderColor: predictions.yesterday_match.type === 'Direct' ? '#22c55e' : '#6366f1',
+                borderLeft: '4px solid ' + (predictions.yesterday_match.type === 'Direct' ? '#22c55e' : '#6366f1'),
+                marginBottom: '15px',
                 display: 'flex',
-                alignItems: 'center',
                 justifyContent: 'space-between',
-                boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
+                alignItems: 'center'
             }}>
-                <div style={{display: 'flex', alignItems: 'center', gap: '15px'}}>
-                    <span style={{fontSize: '1.2em'}}>{predictions.yesterday_match.type === 'Direct' ? '🔥' : '📡'}</span>
-                    <div>
-                        <div style={{fontSize: '0.85em', fontWeight: 'bold', color: predictions.yesterday_match.type === 'Direct' ? '#4ade80' : '#cbd5e1'}}>
+                <div className="status-primary">
+                    <span style={{fontSize: '1.5em'}}>{predictions.yesterday_match.type === 'Direct' ? '🔥' : '📡'}</span>
+                    <div className="neural-calibration-content">
+                        <div style={{fontSize: '0.9em', fontWeight: 'bold', color: predictions.yesterday_match.type === 'Direct' ? '#4ade80' : '#cbd5e1'}}>
                             {predictions.yesterday_match.status}
                         </div>
-                        <div style={{fontSize: '0.7em', color: '#94a3b8'}}>{predictions.yesterday_match.details}</div>
+                        <div style={{fontSize: '0.75em', color: '#94a3b8'}}>{predictions.yesterday_match.details}</div>
                     </div>
                 </div>
                 {predictions.yesterday_match.type === 'Direct' && (
-                    <div style={{
-                        background: '#22c55e',
-                        color: '#fff',
-                        fontSize: '0.6em',
-                        fontWeight: '900',
-                        padding: '3px 8px',
-                        borderRadius: '20px',
-                        textTransform: 'uppercase'
-                    }}> Verified Hit </div>
+                    <div className="hit-badge"> Verified Hit </div>
                 )}
             </div>
         )}
@@ -551,18 +540,18 @@ const App = () => {
                 <div className="status-primary">
                     <span className="ai-status-indicator"></span>
                     <div className="neural-calibration-content">
-                        <span className="neural-engine-label">NEURAL ENGINE: <span style={{color: '#fff', marginLeft: '5px'}}>ACTIVE</span></span>
-                        <span className="status-divider">|</span>
-                        <span className="cycle-pulse-label">CYCLE PULSE: <span style={{color: '#4ade80', marginLeft: '5px', animation: 'pulse 2s infinite', fontWeight: 'bold'}}>WINNING MODE</span></span>
+                        <div className="neural-engine-label">NEURAL ENGINE: <span style={{color: '#fff', marginLeft: '5px'}}>ACTIVE</span></div>
+                        <div className="status-divider">|</div>
+                        <div className="cycle-pulse-label">CYCLE PULSE: <span style={{color: '#4ade80', marginLeft: '5px', animation: 'pulse 2s infinite', fontWeight: 'bold'}}>WINNING MODE</span></div>
                     </div>
                 </div>
-                <div className="neural-calibration-text status-secondary" style={{opacity: 0.8, fontSize: '0.75em'}}>
+                <div className="neural-calibration-text status-secondary">
                     LAST CALIBRATION: {calibrationTime}
                 </div>
             </div>
 
             {/* ROW 1: ELITE SNIPER & RECOMMENDATIONS */}
-            <div className="dashboard-grid" style={{marginBottom: '20px'}}>
+            <div className="dashboard-grid">
                 {/* Card 1: Elite Sniper Targets */}
                 {predictions.triple_x_trick && (
                     <div className="neural-card quantum-pulse glow-amber" style={{
@@ -604,7 +593,6 @@ const App = () => {
                                     ))}
                                 </div>
                             </div>
-                        </div>
                         <div className="logic-badge">
                             <i>💡</i> LOGIC: Pattern Convergence & Historical Frequency
                         </div>
@@ -628,7 +616,7 @@ const App = () => {
                             </div>
                         </div>
 
-                        <div className="analysis-grid" style={{gridTemplateColumns: 'repeat(auto-fit, minmax(110px, 1fr))', gap: '10px'}}>
+                        <div className="analysis-grid">
                             {Object.entries(predictions.final_recommendations).map(([draw, jodis]) => (
                                 <div key={draw} style={{
                                     background: 'rgba(0,0,0,0.4)', 
@@ -979,7 +967,7 @@ const App = () => {
                         <span>⭐ User Master Trick (Elite Cycle) - SUPPORT BACKUP</span>
                         <span style={{fontSize: '0.6em', background: '#fbbf24', color: '#000', padding: '4px 12px', borderRadius: '20px', fontWeight: '900'}}>CYCLE ANALYSIS</span>
                     </div>
-                    <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '15px'}}>
+                    <div className="analysis-grid">
                         {predictions.elite_cycle.map((op, idx) => (
                             <div key={idx} style={{padding: '12px', background: 'rgba(251, 191, 36, 0.1)', borderRadius: '12px', border: '1px dashed rgba(251, 191, 36, 0.4)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between'}}>
                                 <div>
@@ -1058,7 +1046,7 @@ const App = () => {
                         <span style={{fontSize: '0.6em', background: '#6366f1', color: '#fff', padding: '4px 12px', borderRadius: '20px', letterSpacing: '1px'}}>ACTIVE TRIGGERS</span>
                     </div>
                     
-                    <div className="analysis-grid" style={{marginTop: '10px'}}>
+                    <div className="analysis-grid">
                         {activeSignals.map((sig, idx) => (
                             <div key={idx} className="stat-card" style={{
                                 background: 'rgba(15, 23, 42, 0.6)', 
