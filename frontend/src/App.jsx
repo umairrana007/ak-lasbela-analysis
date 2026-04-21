@@ -790,11 +790,11 @@ const App = () => {
                                 <div style={{
                                     fontSize: '3em', 
                                     fontWeight: '950', 
-                                    color: '#fff', 
-                                    background: 'rgba(255,255,255,0.05)', 
+                                    color: '#000', 
+                                    background: 'rgba(255,255,255,0.15)', 
                                     padding: '5px 20px', 
                                     borderRadius: '12px',
-                                    border: '1px solid rgba(74, 222, 128, 0.3)'
+                                    border: '2px solid #4ade80'
                                 }}>
                                     {predictions.gm_ls3_trick.sum}
                                 </div>
@@ -870,7 +870,7 @@ const App = () => {
                                         <div style={{fontSize: '0.65em', color: '#4338ca', marginBottom: '4px', fontWeight: 'bold'}}>OPEN SET</div>
                                         <div style={{display: 'flex', gap: '5px'}}>
                                             {predictions.triple_x_trick.open_set.map(d => (
-                                                <span key={d} style={{background: 'rgba(129, 140, 248, 0.1)', color: '#fff', padding: '5px 12px', borderRadius: '6px', border: '1px solid rgba(129, 140, 248, 0.3)', fontWeight: 'bold'}}>{d}</span>
+                                                <span key={d} style={{background: 'rgba(255, 255, 255, 0.3)', color: '#000', padding: '5px 14px', borderRadius: '6px', border: '2px solid #818cf8', fontWeight: '900', fontSize: '1.2em'}}>{d}</span>
                                             ))}
                                         </div>
                                     </div>
@@ -879,7 +879,7 @@ const App = () => {
                                         <div style={{fontSize: '0.65em', color: '#4338ca', marginBottom: '4px', fontWeight: 'bold'}}>CLOSE SET</div>
                                         <div style={{display: 'flex', gap: '5px'}}>
                                             {predictions.triple_x_trick.close_set.map(d => (
-                                                <span key={d} style={{background: 'rgba(129, 140, 248, 0.1)', color: '#fff', padding: '5px 12px', borderRadius: '6px', border: '1px solid rgba(129, 140, 248, 0.3)', fontWeight: 'bold'}}>{d}</span>
+                                                <span key={d} style={{background: 'rgba(255, 255, 255, 0.3)', color: '#000', padding: '5px 14px', borderRadius: '6px', border: '2px solid #818cf8', fontWeight: '900', fontSize: '1.2em'}}>{d}</span>
                                             ))}
                                         </div>
                                     </div>
@@ -914,13 +914,15 @@ const App = () => {
                                     {predictions.triple_x_trick.target_draws.map(draw => (
                                         <div key={draw} style={{
                                             flex: 1,
-                                            background: 'rgba(129, 140, 248, 0.15)',
+                                            background: '#312e81',
                                             color: '#fff',
-                                            padding: '10px',
+                                            padding: '12px',
                                             borderRadius: '8px',
                                             textAlign: 'center',
-                                            border: '1px solid #818cf8',
-                                            fontWeight: 'bold'
+                                            border: '2px solid #818cf8',
+                                            fontWeight: '900',
+                                            fontSize: '1.1em',
+                                            textShadow: '0 2px 4px rgba(0,0,0,0.3)'
                                         }}>{draw}</div>
                                     ))}
                                 </div>
