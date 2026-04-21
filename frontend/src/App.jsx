@@ -430,12 +430,10 @@ const App = () => {
         {/* ELITE DASHBOARD SECTION */}
         <div style={{padding: '0 20px'}}>
             {/* ROW 1: ELITE SNIPER & RECOMMENDATIONS */}
-            <div style={{display: 'flex', gap: '20px', flexWrap: 'wrap', marginBottom: '20px'}}>
+            <div className="dashboard-grid" style={{marginBottom: '20px'}}>
                 {/* Card 1: Elite Sniper Targets */}
                 {predictions.triple_x_trick && (
                     <div className="neural-card" style={{
-                        flex: '1',
-                        minWidth: '350px',
                         border: '2px solid #818cf8', 
                         background: 'linear-gradient(135deg, rgba(129, 140, 248, 0.08) 0%, rgba(79, 70, 229, 0.05) 100%)',
                         boxShadow: '0 8px 32px rgba(129, 140, 248, 0.15)',
@@ -483,8 +481,6 @@ const App = () => {
                 {/* Card 2: Elite Final Recommendations */}
                 {predictions.final_recommendations && (
                     <div className="neural-card" style={{
-                        flex: '1.2',
-                        minWidth: '350px',
                         border: '2px solid #fbbf24', 
                         background: 'linear-gradient(135deg, rgba(251, 191, 36, 0.1) 0%, rgba(217, 119, 6, 0.05) 100%)',
                         boxShadow: '0 8px 40px rgba(251, 191, 36, 0.2)',
@@ -499,7 +495,7 @@ const App = () => {
                             </div>
                         </div>
 
-                        <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(110px, 1fr))', gap: '10px'}}>
+                        <div className="analysis-grid" style={{gridTemplateColumns: 'repeat(auto-fit, minmax(110px, 1fr))', gap: '10px'}}>
                             {Object.entries(predictions.final_recommendations).map(([draw, jodis]) => (
                                 <div key={draw} style={{
                                     background: 'rgba(0,0,0,0.4)', 
@@ -539,7 +535,7 @@ const App = () => {
                     <span>🔍</span> DETAILED DRAW INTELLIGENCE CENTER
                 </div>
 
-                <div className="prediction-grid" style={{marginTop: 0, border: 'none', background: 'none', boxShadow: 'none'}}>
+                <div className="analysis-grid" style={{marginTop: 0, border: 'none', background: 'none', boxShadow: 'none'}}>
                     {['gm', 'ls1', 'ak', 'ls2', 'ls3'].map(key => (
                         <div key={key} className="prediction-item" style={{background: 'rgba(0,0,0,0.4)', border: '1px solid rgba(255,255,255,0.08)', padding: '15px'}}>
                             <div className="prediction-header">
@@ -751,7 +747,7 @@ const App = () => {
                         <span style={{fontSize: '0.6em', background: '#6366f1', color: '#fff', padding: '4px 12px', borderRadius: '20px', letterSpacing: '1px'}}>ACTIVE TRIGGERS</span>
                     </div>
                     
-                    <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '15px', marginTop: '10px'}}>
+                    <div className="analysis-grid" style={{marginTop: '10px'}}>
                         {activeSignals.map((sig, idx) => (
                             <div key={idx} className="stat-card" style={{
                                 background: 'rgba(15, 23, 42, 0.6)', 

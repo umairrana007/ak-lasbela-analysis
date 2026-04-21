@@ -12,6 +12,18 @@ body {
     padding: 20px;
 }
 
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 20px;
+}
+
+.analysis-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+}
+
 .container {
     max-width: 1400px;
     margin: 0 auto;
@@ -540,8 +552,17 @@ tbody tr:nth-child(even) .day-column {
     }
 
     .prediction-grid {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 10px;
+        grid-template-columns: 1fr !important;
+        gap: 15px;
+    }
+
+    .analysis-grid {
+        grid-template-columns: 1fr !important;
+        gap: 15px;
+    }
+
+    .stat-numbers span {
+        font-size: 1.2em !important;
     }
 
     .prediction-value {
@@ -583,6 +604,15 @@ tbody tr:nth-child(even) .day-column {
     /* Sab columns show honge — koi bhi hide nahi hoga */
     .ls2-column, .ls3-column {
         display: table-cell !important;
+    }
+
+    /* Additional Dashboard Grid Fixes */
+    .dashboard-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    .neural-card {
+        min-width: 0 !important; /* Reset min-width for mobile */
     }
 }
 
