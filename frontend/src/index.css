@@ -606,6 +606,18 @@ tbody tr:nth-child(even) .day-column {
         display: table-cell !important;
     }
 
+    .neural-title {
+        font-size: 1.1em !important;
+        flex-direction: column;
+        align-items: flex-start !important;
+        gap: 5px !important;
+    }
+
+    .neural-title > div {
+        width: 100%;
+        justify-content: space-between;
+    }
+
     /* Additional Dashboard Grid Fixes */
     .dashboard-grid {
         grid-template-columns: 1fr !important;

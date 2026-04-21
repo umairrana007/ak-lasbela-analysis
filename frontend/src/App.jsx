@@ -487,7 +487,7 @@ const App = () => {
                         marginBottom: 0
                     }}>
                         <div className="neural-title" style={{color: '#fbbf24', borderBottom: '1px solid rgba(251, 191, 36, 0.3)', paddingBottom: '10px', marginBottom: '15px'}}>
-                            <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+                            <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '10px'}}>
                                 <span style={{display: 'flex', alignItems: 'center', gap: '10px'}}>
                                     <span style={{fontSize: '1.2em'}}>🏆</span> ELITE FINAL RECOMMENDATIONS
                                 </span>
