@@ -520,40 +520,54 @@ tbody tr:nth-child(even) .day-column {
 /* Mobile Responsive Enhancements */
 @media (max-width: 768px) {
     body {
-        padding: 5px;
+        padding: 8px !important;
+    }
+
+    .container {
+        border-radius: 0 !important;
+        margin: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
     }
 
     /* Header Mobile Fix */
     .header-responsive {
+        display: flex !important;
         flex-direction: column !important;
-        gap: 12px !important;
-        padding: 20px 10px !important;
+        gap: 15px !important;
+        padding: 30px 15px !important;
         height: auto !important;
+        min-height: 120px !important;
         align-items: center !important;
         text-align: center !important;
-        background: rgba(15, 23, 42, 0.95) !important;
-        border-bottom: 1px solid rgba(255,255,255,0.1) !important;
+        background: linear-gradient(180deg, rgba(30, 41, 59, 1) 0%, rgba(15, 23, 42, 1) 100%) !important;
+        border-bottom: 2px solid rgba(255,255,255,0.1) !important;
+        position: relative !important;
     }
 
     .header-title {
-        font-size: 1.1em !important;
+        font-size: 1.3em !important;
         width: 100% !important;
         margin: 0 !important;
         line-height: 1.4 !important;
+        color: #fff !important;
+        text-shadow: 0 0 10px rgba(240, 147, 251, 0.5) !important;
     }
 
     .admin-toggle-btn {
-        position: static !important;
+        position: relative !important;
+        top: auto !important;
+        right: auto !important;
         transform: none !important;
         background: rgba(255,255,255,0.1) !important;
         border: 1px solid rgba(255,255,255,0.3) !important;
         color: #fff !important;
-        padding: 6px 16px !important;
-        border-radius: 20px !important;
-        cursor: pointer !important;
-        font-size: 0.7em !important;
+        padding: 10px 25px !important;
+        border-radius: 25px !important;
+        font-size: 0.85em !important;
         width: auto !important;
-        font-weight: bold !important;
+        margin-top: 5px !important;
+        display: inline-block !important;
     }
 
     /* AI Status Banner Mobile Fix */
@@ -562,8 +576,11 @@ tbody tr:nth-child(even) .day-column {
         gap: 12px !important;
         align-items: center !important;
         text-align: center !important;
-        padding: 15px !important;
-        margin-bottom: 20px !important;
+        padding: 18px !important;
+        margin-bottom: 25px !important;
+        border-radius: 12px !important;
+        margin-left: 10px !important;
+        margin-right: 10px !important;
     }
 
     .status-primary {
@@ -578,47 +595,41 @@ tbody tr:nth-child(even) .day-column {
     }
 
     .neural-calibration-text {
-        font-size: 0.75em !important;
+        font-size: 0.8em !important;
         line-height: 1.6 !important;
         text-align: center !important;
     }
 
     .status-secondary {
-        margin-top: 5px !important;
+        margin-top: 8px !important;
         border-top: 1px solid rgba(255,255,255,0.1) !important;
         padding-top: 10px !important;
         width: 100% !important;
         opacity: 0.7 !important;
     }
 
-    .container {
-        border-radius: 10px;
-    }
-
     .stats {
-        grid-template-columns: 1fr;
-        padding: 10px;
-        gap: 10px;
+        grid-template-columns: 1fr !important;
+        padding: 15px !important;
+        gap: 12px !important;
     }
 
     .stat-card {
-        padding: 15px;
+        padding: 20px !important;
     }
 
-    .neural-card {
-        padding: 15px;
-    }
-
-    /* Swipe Containers Fix */
+    /* Swipe Containers Fix - Preventing Clipping */
     .prediction-grid, .dashboard-grid, .analysis-grid {
         display: flex !important;
         overflow-x: auto !important;
         scroll-snap-type: x mandatory !important;
-        gap: 0 !important;
-        padding: 10px 0 40px 0 !important;
+        gap: 15px !important; /* Added gap back but careful with card width */
+        padding: 10px 20px 40px 20px !important;
         -webkit-overflow-scrolling: touch;
         scrollbar-width: none;
         grid-template-columns: none !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
     }
 
     .prediction-grid::-webkit-scrollbar, .dashboard-grid::-webkit-scrollbar, .analysis-grid::-webkit-scrollbar {
@@ -626,11 +637,11 @@ tbody tr:nth-child(even) .day-column {
     }
 
     .neural-card, .prediction-item {
-        width: calc(100vw - 40px) !important;
-        min-width: calc(100vw - 40px) !important;
+        width: calc(100vw - 60px) !important; /* Adjusted for better fit */
+        min-width: calc(100vw - 60px) !important;
         scroll-snap-align: center !important;
         flex-shrink: 0 !important;
-        margin: 0 20px !important;
+        margin: 0 !important;
         box-sizing: border-box !important;
     }
 
@@ -641,7 +652,8 @@ tbody tr:nth-child(even) .day-column {
         -webkit-overflow-scrolling: touch !important;
         background: rgba(0,0,0,0.3) !important;
         border-radius: 12px !important;
-        margin: 15px 0 !important;
+        margin: 15px 10px !important;
+        width: calc(100% - 20px) !important;
     }
 
     table {
@@ -649,8 +661,15 @@ tbody tr:nth-child(even) .day-column {
     }
 
     th, td {
-        padding: 10px 8px !important;
-        font-size: 0.8em !important;
+        padding: 12px 10px !important;
+        font-size: 0.85em !important;
+    }
+
+    /* Heatmap Digits Fix */
+    .neural-card [style*="height: 80px"] + div {
+        font-size: 1.8em !important; /* Make digits even larger */
+        font-weight: 900 !important;
+        margin-top: 5px !important;
     }
 
     /* Controls & Buttons */
