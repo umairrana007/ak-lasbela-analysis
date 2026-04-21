@@ -1,11 +1,11 @@
 {
-  "last_updated": "2026-04-21T09:28:19.519256",
+  "last_updated": "2026-04-21T10:52:55.793018",
   "target_date": "2026-04-21",
   "results": {
     "gm": {
       "primary": 49,
-      "confidence": "66%",
-      "confidence_val": 66,
+      "confidence": "73%",
+      "confidence_val": 73,
       "pattern_found": "Neural Sequence",
       "recommendations": [
         6,
@@ -16,8 +16,8 @@
     },
     "ls1": {
       "primary": 39,
-      "confidence": "67%",
-      "confidence_val": 67,
+      "confidence": "71%",
+      "confidence_val": 71,
       "pattern_found": "Neural Sequence",
       "recommendations": [
         6,
@@ -28,8 +28,8 @@
     },
     "ak": {
       "primary": 50,
-      "confidence": "78%",
-      "confidence_val": 78,
+      "confidence": "77%",
+      "confidence_val": 77,
       "pattern_found": "Neural Sequence",
       "recommendations": [
         6,
@@ -40,8 +40,8 @@
     },
     "ls2": {
       "primary": 45,
-      "confidence": "68%",
-      "confidence_val": 68,
+      "confidence": "75%",
+      "confidence_val": 75,
       "pattern_found": "Neural Sequence",
       "recommendations": [
         6,
@@ -52,8 +52,8 @@
     },
     "ls3": {
       "primary": 35,
-      "confidence": "71%",
-      "confidence_val": 71,
+      "confidence": "78%",
+      "confidence_val": 78,
       "pattern_found": "Neural Sequence",
       "recommendations": [
         6,
@@ -65,35 +65,79 @@
   },
   "sniper_targets": [
     {
-      "number": 50,
-      "draw": "AK",
+      "number": 35,
+      "draw": "LS3",
       "confidence": 78,
       "trick": "Neural Sequence"
     },
     {
-      "number": 35,
-      "draw": "LS3",
-      "confidence": 71,
+      "number": 50,
+      "draw": "AK",
+      "confidence": 77,
       "trick": "Neural Sequence"
     },
     {
       "number": 45,
       "draw": "LS2",
-      "confidence": 68,
+      "confidence": 75,
       "trick": "Neural Sequence"
     },
     {
-      "number": 39,
-      "draw": "LS1",
-      "confidence": 67,
+      "number": 49,
+      "draw": "GM",
+      "confidence": 73,
       "trick": "Neural Sequence"
     }
   ],
   "master_target": {
-    "number": 50,
-    "draw": "AK",
+    "number": 35,
+    "draw": "LS3",
     "confidence": 78,
     "trick": "Neural Sequence"
+  },
+  "gm_ls3_trick": {
+    "sum": 18,
+    "digits": [
+      1,
+      8
+    ],
+    "hit_rate": "87.3%",
+    "target_date": "2026-04-21",
+    "best_draws": [
+      "LS1",
+      "LS2",
+      "LS3"
+    ],
+    "best_location": "Close Side",
+    "reasoning": "Based on GM (98) and LS3 (90) Open digits sum."
+  },
+  "triple_x_trick": {
+    "open_set": [
+      5,
+      8,
+      9
+    ],
+    "close_set": [
+      0,
+      8
+    ],
+    "top_pairs": [
+      5,
+      8,
+      9,
+      50,
+      58,
+      80,
+      85,
+      88
+    ],
+    "hit_rate_digits": "95.2%",
+    "hit_rate_jodi": "56.3%",
+    "target_draws": [
+      "LS2",
+      "LS3"
+    ],
+    "reasoning": "Derived from GM(98), LS1(50), AK(88) Haroofs."
   },
   "yesterday_match": {
     "status": "Hit Confirmed",

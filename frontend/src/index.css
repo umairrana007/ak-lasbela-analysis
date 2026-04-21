@@ -325,30 +325,93 @@ tbody tr:hover {
 
 .prediction-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
     gap: 15px;
 }
 
 .prediction-item {
-    text-align: center;
-    background: rgba(255, 255, 255, 0.05);
-    padding: 15px 10px;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 15px;
     border-radius: 12px;
     border: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: transform 0.3s ease;
 }
 
-.prediction-label {
-    font-size: 0.8em;
-    color: #aaa;
+.prediction-item:hover {
+    transform: translateY(-5px);
+    border-color: rgba(99, 102, 241, 0.5);
+}
+
+.prediction-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding-bottom: 8px;
+}
+
+.draw-name {
+    font-weight: 900;
+    font-size: 0.9em;
+    color: #818cf8;
+    letter-spacing: 1px;
+}
+
+.main-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(251, 191, 36, 0.1);
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.main-label {
+    font-size: 0.6em;
+    font-weight: 900;
+    color: #fbbf24;
+    background: rgba(251, 191, 36, 0.2);
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+.main-value {
+    font-size: 2em;
+    font-weight: 950;
+    color: #fff;
+    text-shadow: 0 0 15px rgba(251, 191, 36, 0.4);
+}
+
+.support-section {
+    background: rgba(255,255,255,0.02);
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.support-header {
+    font-size: 0.55em;
+    color: #94a3b8;
+    font-weight: bold;
     margin-bottom: 5px;
     text-transform: uppercase;
 }
 
-.prediction-value {
-    font-size: 1.8em;
-    font-weight: 800;
-    color: #fff;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+.support-numbers {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+.support-number {
+    font-size: 0.8em;
+    font-weight: bold;
+    color: #cbd5e1;
+    background: rgba(255,255,255,0.05);
+    padding: 2px 5px;
+    border-radius: 4px;
 }
 
 .stats-grid {
