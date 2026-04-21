@@ -469,7 +469,7 @@ const App = () => {
                             </div>
                             
                             <div style={{background: 'rgba(0,0,0,0.3)', padding: '12px', borderRadius: '10px', border: '1px solid rgba(129, 140, 248, 0.2)'}}>
-                                <div style={{fontSize: '0.75em', color: '#a5b4fc', marginBottom: '10px', fontWeight: '950', textTransform: 'uppercase', letterSpacing: '2px', textAlign: 'center'}}>🎯 Optimal Target Draws</div>
+                                <div style={{fontSize: '0.75em', color: '#fff', marginBottom: '10px', fontWeight: '950', textTransform: 'uppercase', letterSpacing: '2px', textAlign: 'center'}}>🎯 Optimal Target Draws</div>
                                 <div style={{display: 'flex', gap: '10px'}}>
                                     {predictions.triple_x_trick.target_draws.map(draw => (
                                         <span key={draw} style={{flex: 1, background: '#4338ca', color: '#fff', padding: '10px 5px', borderRadius: '8px', textAlign: 'center', fontSize: '1.1em', fontWeight: '950', border: '1px solid #818cf8', boxShadow: '0 4px 15px rgba(0,0,0,0.4)'}}>{draw}</span>
