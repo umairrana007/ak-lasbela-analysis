@@ -523,9 +523,72 @@ tbody tr:nth-child(even) .day-column {
         padding: 5px;
     }
 
-    .header {
-        font-size: 1.5em;
-        padding: 20px 10px;
+    /* Header Mobile Fix */
+    .header-responsive {
+        flex-direction: column !important;
+        gap: 12px !important;
+        padding: 20px 10px !important;
+        height: auto !important;
+        align-items: center !important;
+        text-align: center !important;
+        background: rgba(15, 23, 42, 0.95) !important;
+        border-bottom: 1px solid rgba(255,255,255,0.1) !important;
+    }
+
+    .header-title {
+        font-size: 1.1em !important;
+        width: 100% !important;
+        margin: 0 !important;
+        line-height: 1.4 !important;
+    }
+
+    .admin-toggle-btn {
+        position: static !important;
+        transform: none !important;
+        background: rgba(255,255,255,0.1) !important;
+        border: 1px solid rgba(255,255,255,0.3) !important;
+        color: #fff !important;
+        padding: 6px 16px !important;
+        border-radius: 20px !important;
+        cursor: pointer !important;
+        font-size: 0.7em !important;
+        width: auto !important;
+        font-weight: bold !important;
+    }
+
+    /* AI Status Banner Mobile Fix */
+    .ai-status-banner {
+        flex-direction: column !important;
+        gap: 12px !important;
+        align-items: center !important;
+        text-align: center !important;
+        padding: 15px !important;
+        margin-bottom: 20px !important;
+    }
+
+    .status-primary {
+        flex-direction: column !important;
+        gap: 8px !important;
+        display: flex !important;
+        align-items: center !important;
+    }
+
+    .status-divider {
+        display: none !important;
+    }
+
+    .neural-calibration-text {
+        font-size: 0.75em !important;
+        line-height: 1.6 !important;
+        text-align: center !important;
+    }
+
+    .status-secondary {
+        margin-top: 5px !important;
+        border-top: 1px solid rgba(255,255,255,0.1) !important;
+        padding-top: 10px !important;
+        width: 100% !important;
+        opacity: 0.7 !important;
     }
 
     .container {
@@ -542,20 +605,16 @@ tbody tr:nth-child(even) .day-column {
         padding: 15px;
     }
 
-    .neural-center {
-        padding: 10px;
-        gap: 10px;
-    }
-
     .neural-card {
         padding: 15px;
     }
 
+    /* Swipe Containers Fix */
     .prediction-grid, .dashboard-grid, .analysis-grid {
         display: flex !important;
         overflow-x: auto !important;
         scroll-snap-type: x mandatory !important;
-        gap: 0 !important; /* Use margins for better snap control */
+        gap: 0 !important;
         padding: 10px 0 40px 0 !important;
         -webkit-overflow-scrolling: touch;
         scrollbar-width: none;
@@ -575,56 +634,50 @@ tbody tr:nth-child(even) .day-column {
         box-sizing: border-box !important;
     }
 
-    .stat-numbers span {
-        font-size: 1.2em !important;
+    /* Table Fix */
+    .table-container {
+        padding: 5px !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        background: rgba(0,0,0,0.3) !important;
+        border-radius: 12px !important;
+        margin: 15px 0 !important;
     }
 
-    .prediction-value {
-        font-size: 1.4em;
+    table {
+        min-width: 650px !important; /* Force scroll for readability */
     }
 
+    th, td {
+        padding: 10px 8px !important;
+        font-size: 0.8em !important;
+    }
+
+    /* Controls & Buttons */
     .controls {
         flex-direction: column;
         align-items: stretch;
         padding: 15px;
+        gap: 15px !important;
     }
 
     .import-export {
         flex-direction: column;
         width: 100%;
+        gap: 8px !important;
     }
 
     .btn {
-        width: 100%;
-        margin-bottom: 5px;
-    }
-
-    .table-container {
-        padding: 0;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-    }
-
-    table {
-        min-width: 480px; /* Table ko scroll karwao, columns hide mat karo */
-    }
-
-    th, td {
-        padding: 7px 5px;
-        font-size: 0.78em;
-        white-space: nowrap;
-    }
-
-    /* Sab columns show honge — koi bhi hide nahi hoga */
-    .ls2-column, .ls3-column {
-        display: table-cell !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 12px !important;
     }
 
     .neural-title {
         font-size: 1.1em !important;
         flex-direction: column;
         align-items: flex-start !important;
-        gap: 5px !important;
+        gap: 8px !important;
     }
 
     .neural-title > div {
@@ -634,19 +687,35 @@ tbody tr:nth-child(even) .day-column {
 
     .resync-container {
         flex-direction: column !important;
-        gap: 15px !important;
+        gap: 20px !important;
         align-items: center !important;
         text-align: center !important;
-        padding: 10px 0 !important;
+        padding: 15px 0 !important;
+    }
+
+    .resync-container button {
+        width: 100% !important;
+        padding: 14px !important;
+        font-size: 0.9em !important;
     }
 
     .intelligence-footer {
-        padding: 15px 10px !important;
+        padding: 20px 10px !important;
         justify-content: center !important;
+        gap: 15px !important;
     }
 
     .footer-divider {
         display: none !important;
+    }
+
+    .intelligence-footer > div {
+        flex: 1 1 40% !important;
+    }
+
+    /* Heatmap Label Fix */
+    .neural-card [style*="height: 80px"] + div {
+        font-size: 1.3em !important;
     }
 }
 

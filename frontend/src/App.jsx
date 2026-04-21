@@ -519,23 +519,11 @@ const App = () => {
             </div>
         )}
 
-        <div className="header" style={{position: 'relative'}}>
-            🎮 AK Lasbela Records 2025-2026 🎮
+        <div className="header header-responsive">
+            <div className="header-title">🎮 AK Lasbela Records 2025-2026 🎮</div>
             <button 
+                className="admin-toggle-btn"
                 onClick={isAdmin ? () => setIsAdmin(false) : handleAdminLogin}
-                style={{
-                    position: 'absolute', 
-                    right: '20px', 
-                    top: '50%', 
-                    transform: 'translateY(-50%)',
-                    background: 'rgba(255,255,255,0.1)',
-                    border: '1px solid rgba(255,255,255,0.3)',
-                    color: '#fff',
-                    padding: '5px 15px',
-                    borderRadius: '20px',
-                    cursor: 'pointer',
-                    fontSize: '0.4em'
-                }}
             >
                 {isAdmin ? '🔓 ADMIN MODE' : '🔒 PUBLIC VIEW'}
             </button>
@@ -560,15 +548,15 @@ const App = () => {
         <div style={{padding: '0 20px'}}>
             {/* AI Status Banner */}
             <div className="ai-status-banner">
-                <div style={{display: 'flex', alignItems: 'center'}}>
+                <div className="status-primary">
                     <span className="ai-status-indicator"></span>
                     <span className="neural-calibration-text">
                         NEURAL ENGINE: <span style={{color: '#fff', marginLeft: '5px'}}>ACTIVE</span> 
-                        <span style={{margin: '0 15px', opacity: 0.3}}>|</span>
+                        <span className="status-divider">|</span>
                         CYCLE PULSE: <span style={{color: '#4ade80', marginLeft: '5px', animation: 'pulse 2s infinite', fontWeight: 'bold'}}>WINNING MODE</span>
                     </span>
                 </div>
-                <div className="neural-calibration-text" style={{opacity: 0.8, fontSize: '0.75em'}}>
+                <div className="neural-calibration-text status-secondary" style={{opacity: 0.8, fontSize: '0.75em'}}>
                     LAST CALIBRATION: {calibrationTime}
                 </div>
             </div>
