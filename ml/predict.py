@@ -167,10 +167,50 @@ def generate_predictions():
     except:
         triple_x_trick = None
 
+    # Elite Final Synthesis (Combining all tricks)
+    final_recommendations = {}
+    all_draw_keys = ['gm', 'ls1', 'ak', 'ls2', 'ls3']
+    
+    for d_key in all_draw_keys:
+        d_upper = d_key.upper()
+        # Start with base ML predictions
+        base_num = results_output[d_key]["primary"]
+        support_nums = results_output[d_key]["recommendations"]
+        
+        # Combine with Elite Cycle numbers for today
+        cycle_nums = []
+        for cycle in elite_cycle:
+            if cycle["target_date"] == target_date_str and d_upper in cycle["target_draws"]:
+                cycle_nums.extend(cycle["family"])
+        
+        # Combine with Triple-X for LS2/LS3
+        tx_nums = []
+        if triple_x_trick and d_upper in triple_x_trick["target_draws"]:
+            tx_nums = triple_x_trick["top_pairs"]
+            
+        # Deduplicate and prioritize
+        # Logic: Base Num is always #1. Support are backups. Cycle/TX hits are "High Priority".
+        combined = []
+        combined.append({"val": base_num, "type": "MAIN", "confidence": results_output[d_key]["confidence_val"]})
+        
+        # High Priority backups (intersection of tricks)
+        high_prio = list(set(support_nums) & set(cycle_nums + tx_nums))
+        for n in high_prio:
+            if n != base_num:
+                combined.append({"val": n, "type": "ELITE", "confidence": 85})
+        
+        # Standard backups
+        for n in support_nums:
+            if n not in [c["val"] for c in combined]:
+                combined.append({"val": n, "type": "SUPPORT", "confidence": 70})
+                
+        final_recommendations[d_key] = combined[:6] # Top 6 per draw
+
     # Final Payload
     final_output = {
         "last_updated": datetime.now().isoformat(),
         "target_date": target_date_str,
+        "final_recommendations": final_recommendations,
         "results": results_output,
         "sniper_targets": sniper_targets,
         "master_target": sniper_targets[0] if sniper_targets else None,

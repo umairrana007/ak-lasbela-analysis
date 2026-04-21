@@ -514,6 +514,73 @@ const App = () => {
 
                     {/* RIGHT COLUMN: Draw Results & Stats */}
                     <div style={{display: 'flex', flexDirection: 'column', gap: '15px'}}>
+                        {/* Elite Final Recommendations - NEW TOP SECTION */}
+                        {predictions.final_recommendations && (
+                            <div style={{padding: '20px 20px 0 20px'}}>
+                                <div className="neural-card" style={{
+                                    border: '2px solid #fbbf24', 
+                                    background: 'linear-gradient(135deg, rgba(251, 191, 36, 0.1) 0%, rgba(217, 119, 6, 0.05) 100%)',
+                                    boxShadow: '0 8px 40px rgba(251, 191, 36, 0.15)',
+                                    marginBottom: '10px'
+                                }}>
+                                    <div className="neural-title" style={{color: '#fbbf24', borderBottom: '1px solid rgba(251, 191, 36, 0.2)', paddingBottom: '15px'}}>
+                                        <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+                                            <span style={{display: 'flex', alignItems: 'center', gap: '10px'}}>
+                                                <span style={{fontSize: '1.4em'}}>🏆</span> ELITE FINAL RECOMMENDATIONS
+                                            </span>
+                                            <span style={{fontSize: '0.7em', color: '#fbbf24', opacity: 0.8}}>{predictions.target_date} | ALL TRICKS COMBINED</span>
+                                        </div>
+                                    </div>
+
+                                    <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '15px', marginTop: '15px'}}>
+                                        {Object.entries(predictions.final_recommendations).map(([draw, jodis]) => (
+                                            <div key={draw} style={{
+                                                background: 'rgba(0,0,0,0.4)', 
+                                                borderRadius: '12px', 
+                                                padding: '15px', 
+                                                border: '1px solid rgba(251, 191, 36, 0.15)',
+                                                position: 'relative',
+                                                overflow: 'hidden'
+                                            }}>
+                                                <div style={{
+                                                    position: 'absolute', 
+                                                    top: 0, 
+                                                    right: 0, 
+                                                    background: '#fbbf24', 
+                                                    color: '#000', 
+                                                    fontSize: '0.6em', 
+                                                    padding: '2px 8px', 
+                                                    fontWeight: '900',
+                                                    borderBottomLeftRadius: '8px',
+                                                    textTransform: 'uppercase'
+                                                }}>{draw}</div>
+                                                
+                                                <div style={{display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '10px'}}>
+                                                    {jodis.map((j, idx) => (
+                                                        <div key={idx} style={{
+                                                            flex: j.type === 'MAIN' ? '1 0 100%' : '1 0 30%',
+                                                            background: j.type === 'MAIN' ? '#fbbf24' : j.type === 'ELITE' ? 'rgba(251, 191, 36, 0.2)' : 'rgba(255,255,255,0.03)',
+                                                            color: j.type === 'MAIN' ? '#000' : '#fff',
+                                                            padding: j.type === 'MAIN' ? '8px' : '5px',
+                                                            borderRadius: '6px',
+                                                            textAlign: 'center',
+                                                            fontSize: j.type === 'MAIN' ? '1.4em' : '1em',
+                                                            fontWeight: '900',
+                                                            border: j.type === 'ELITE' ? '1px solid #fbbf24' : '1px solid rgba(255,255,255,0.1)',
+                                                            boxShadow: j.type === 'MAIN' ? '0 0 15px rgba(251, 191, 36, 0.4)' : 'none'
+                                                        }}>
+                                                            {j.val.toString().padStart(2, '0')}
+                                                            {j.type === 'MAIN' && <span style={{fontSize: '0.4em', display: 'block', marginTop: '-4px'}}>MAIN JODI</span>}
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
                         <div className="prediction-grid" style={{marginTop: 0}}>
                             {['gm', 'ls1', 'ak', 'ls2', 'ls3'].map(key => (
                                 <div key={key} className="prediction-item">

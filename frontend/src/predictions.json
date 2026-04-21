@@ -1,11 +1,98 @@
 {
-  "last_updated": "2026-04-21T10:52:55.793018",
+  "last_updated": "2026-04-21T11:33:23.673560",
   "target_date": "2026-04-21",
+  "final_recommendations": {
+    "gm": [
+      {
+        "val": 49,
+        "type": "MAIN",
+        "confidence": 68
+      },
+      {
+        "val": 6,
+        "type": "SUPPORT",
+        "confidence": 70
+      },
+      {
+        "val": 7,
+        "type": "SUPPORT",
+        "confidence": 70
+      }
+    ],
+    "ls1": [
+      {
+        "val": 39,
+        "type": "MAIN",
+        "confidence": 62
+      },
+      {
+        "val": 6,
+        "type": "ELITE",
+        "confidence": 85
+      },
+      {
+        "val": 7,
+        "type": "SUPPORT",
+        "confidence": 70
+      }
+    ],
+    "ak": [
+      {
+        "val": 50,
+        "type": "MAIN",
+        "confidence": 71
+      },
+      {
+        "val": 6,
+        "type": "ELITE",
+        "confidence": 85
+      },
+      {
+        "val": 7,
+        "type": "SUPPORT",
+        "confidence": 70
+      }
+    ],
+    "ls2": [
+      {
+        "val": 45,
+        "type": "MAIN",
+        "confidence": 68
+      },
+      {
+        "val": 6,
+        "type": "SUPPORT",
+        "confidence": 70
+      },
+      {
+        "val": 7,
+        "type": "SUPPORT",
+        "confidence": 70
+      }
+    ],
+    "ls3": [
+      {
+        "val": 35,
+        "type": "MAIN",
+        "confidence": 79
+      },
+      {
+        "val": 6,
+        "type": "SUPPORT",
+        "confidence": 70
+      },
+      {
+        "val": 7,
+        "type": "SUPPORT",
+        "confidence": 70
+      }
+    ]
+  },
   "results": {
     "gm": {
       "primary": 49,
-      "confidence": "73%",
-      "confidence_val": 73,
+      "confidence": "68%",
+      "confidence_val": 68,
       "pattern_found": "Neural Sequence",
       "recommendations": [
         6,
@@ -16,8 +103,8 @@
     },
     "ls1": {
       "primary": 39,
-      "confidence": "71%",
-      "confidence_val": 71,
+      "confidence": "62%",
+      "confidence_val": 62,
       "pattern_found": "Neural Sequence",
       "recommendations": [
         6,
@@ -28,8 +115,8 @@
     },
     "ak": {
       "primary": 50,
-      "confidence": "77%",
-      "confidence_val": 77,
+      "confidence": "71%",
+      "confidence_val": 71,
       "pattern_found": "Neural Sequence",
       "recommendations": [
         6,
@@ -40,8 +127,8 @@
     },
     "ls2": {
       "primary": 45,
-      "confidence": "75%",
-      "confidence_val": 75,
+      "confidence": "68%",
+      "confidence_val": 68,
       "pattern_found": "Neural Sequence",
       "recommendations": [
         6,
@@ -52,8 +139,8 @@
     },
     "ls3": {
       "primary": 35,
-      "confidence": "78%",
-      "confidence_val": 78,
+      "confidence": "79%",
+      "confidence_val": 79,
       "pattern_found": "Neural Sequence",
       "recommendations": [
         6,
@@ -67,32 +154,32 @@
     {
       "number": 35,
       "draw": "LS3",
-      "confidence": 78,
+      "confidence": 79,
       "trick": "Neural Sequence"
     },
     {
       "number": 50,
       "draw": "AK",
-      "confidence": 77,
-      "trick": "Neural Sequence"
-    },
-    {
-      "number": 45,
-      "draw": "LS2",
-      "confidence": 75,
+      "confidence": 71,
       "trick": "Neural Sequence"
     },
     {
       "number": 49,
       "draw": "GM",
-      "confidence": 73,
+      "confidence": 68,
+      "trick": "Neural Sequence"
+    },
+    {
+      "number": 45,
+      "draw": "LS2",
+      "confidence": 68,
       "trick": "Neural Sequence"
     }
   ],
   "master_target": {
     "number": 35,
     "draw": "LS3",
-    "confidence": 78,
+    "confidence": 79,
     "trick": "Neural Sequence"
   },
   "gm_ls3_trick": {
