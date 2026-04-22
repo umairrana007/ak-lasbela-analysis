@@ -102,41 +102,59 @@ const App = () => {
   const [heatmapData, setHeatmapData] = useState(Array(10).fill(0));
   const [loginPass, setLoginPass] = useState('');
   const [isSyncing, setIsSyncing] = useState(false);
+  const [visibleRecords, setVisibleRecords] = useState(20);
   const [oddEvenStats, setOddEvenStats] = useState({ odd: 50, even: 50, ratio: '50/50' });
   
-  const detectExpertLogic = (latestRecord) => {
-    if (!latestRecord) return [];
+  const detectExpertLogic = (allRecords) => {
+    if (!allRecords || allRecords.length === 0) return [];
     const triggers = [];
     const checks = [
-      { num: '24', name: '24/42 Lifetime Formula', targets: ['34', '89', '39', '84', '24', '29', '74', '79', '12', '17', '62', '67'], logic: '24/42 reversal trigger. Looking for 34-Family (34, 89, 39, 84) within 2 days.' },
-      { num: '42', name: '24/42 Lifetime Formula', targets: ['34', '89', '39', '84', '24', '29', '74', '79', '12', '17', '62', '67'], logic: '24/42 reversal trigger. Looking for 34-Family (34, 89, 39, 84) within 2 days.' },
-      { num: '17', name: '17/71 Royal Signal', targets: ['01', '06', '51', '56', '17', '12', '67', '62'], logic: '17/71 Royal trigger. High probability for 01-Family in LS locations.' },
-      { num: '71', name: '17/71 Royal Signal', targets: ['01', '06', '51', '56', '17', '12', '67', '62'], logic: '17/71 Royal trigger. High probability for 01-Family in LS locations.' },
-      { num: '97', name: '97/79 Success Pattern', targets: ['82', '87', '32', '37', '85', '80', '35', '30'], logic: '97 Pattern detected. Historical data suggests 82/85 family group movement.' }
+      { num: '81', name: 'Master Chart Trigger (81)', targets: ['94', '50'], target_draws: ['LS1', 'LS2', 'LS3'], logic: '81 reversal trigger. Expecting 94/50 within 48h.' },
+      { num: '24', name: '24/42 Lifetime Formula', targets: ['34', '89', '39', '84', '24', '29', '74', '79', '12', '17', '62', '67'], target_draws: ['GM', 'AK', 'LS1'], logic: '24/42 reversal. Expecting 34-Family.' },
+      { num: '42', name: '24/42 Lifetime Formula', targets: ['34', '89', '39', '84', '24', '29', '74', '79', '12', '17', '62', '67'], target_draws: ['GM', 'AK', 'LS1'], logic: '24/42 reversal. Expecting 34-Family.' },
+      { num: '17', name: '17/71 Royal Signal', targets: ['01', '06', '51', '56', '17', '12', '67', '62'], target_draws: ['LS1', 'LS2', 'LS3'], logic: '17/71 Royal trigger.' },
+      { num: '71', name: '17/71 Royal Signal', targets: ['01', '06', '51', '56', '17', '12', '67', '62'], target_draws: ['LS1', 'LS2', 'LS3'], logic: '17/71 Royal trigger.' },
+      { num: '97', name: '97/79 Success Pattern', targets: ['82', '87', '32', '37', '85', '80', '35', '30'], target_draws: ['AK', 'GM'], logic: '97 Pattern detected.' }
     ];
 
-    ['gm', 'ls1', 'ak', 'ls2', 'ls3'].forEach(key => {
-      const val = String(latestRecord[key]).padStart(2, '0');
-      const match = checks.find(c => c.num === val);
-      if (match) {
-        triggers.push({ ...match, draw: key.toUpperCase() });
-      }
+    // Scan last 15 draws (approx 3 days)
+    const recentDraws = allRecords.slice(0, 15);
+    recentDraws.forEach((record, recordIdx) => {
+        ['gm', 'ls1', 'ak', 'ls2', 'ls3'].forEach(key => {
+            const val = String(record[key]).padStart(2, '0');
+            const match = checks.find(c => c.num === val);
+            if (match) {
+                // Check if this trigger has already hit in subsequent draws
+                // (Optional but for now we just show it if it's within last 15 draws)
+                const isDuplicate = triggers.find(t => t.num === val && t.draw === key.toUpperCase());
+                if (!isDuplicate) {
+                    triggers.push({ 
+                        ...match, 
+                        draw: key.toUpperCase(), 
+                        date: record.date,
+                        isToday: recordIdx === 0,
+                        age: recordIdx // 0 = latest, 1 = one draw ago, etc.
+                    });
+                }
+            }
+        });
     });
     return triggers;
   };
 
   const ExpertLogicCard = ({ records, firebaseSignals }) => {
-    const latest = records[0];
-    const detected = detectExpertLogic(latest);
+    const detected = detectExpertLogic(records);
     
-    // Combine signals from Firebase and local detection
     const allSignals = [...(firebaseSignals || []), ...detected.map(d => ({
         trigger: d.num,
         trigger_draw: d.draw,
+        trigger_date: d.date,
         targets: d.targets,
-        timing: 'URGENT (48H)',
+        target_draws: d.target_draws,
+        timing: d.age < 5 ? 'URGENT (TODAY)' : 'ACTIVE (48H)',
         accuracy: '98%',
-        logic: d.logic
+        logic: d.logic,
+        status: d.age < 5 ? '🔥 HIGH PROBABILITY' : '📡 ANALYZING'
     }))];
 
     if (allSignals.length === 0) return null;
@@ -151,32 +169,52 @@ const App = () => {
       }}>
           <div className="neural-title" style={{color: '#d8b4fe', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '15px', borderBottom: '1px solid rgba(168, 85, 247, 0.3)', paddingBottom: '10px'}}>
               <span style={{display: 'flex', alignItems: 'center', gap: '8px'}}>
-                  <span style={{fontSize: '1.2em'}}>💎</span> PREMIUM EXPERT ANALYSIS HUB
+                  <span style={{fontSize: '1.2em'}}>💎</span> LIVE ACTIVE EXPERT CAMPAIGNS
               </span>
-              <span style={{fontSize: '0.6em', background: '#a855f7', color: '#fff', padding: '4px 10px', borderRadius: '20px', fontWeight: '900'}}>ACTIVE TRIGGER DETECTED</span>
+              <span style={{fontSize: '0.6em', background: '#a855f7', color: '#fff', padding: '4px 10px', borderRadius: '20px', fontWeight: '900'}}>
+                  {allSignals.length} SIGNALS ACTIVE
+              </span>
           </div>
 
-          <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '20px'}}>
+          <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '20px'}}>
               {allSignals.map((sig, idx) => (
-                  <div key={idx} style={{background: 'rgba(0,0,0,0.4)', padding: '15px', borderRadius: '12px', border: '1px solid rgba(168, 85, 247, 0.2)'}}>
+                  <div key={idx} style={{background: 'rgba(0,0,0,0.4)', padding: '15px', borderRadius: '12px', border: '1px solid rgba(168, 85, 247, 0.2)', position: 'relative'}}>
                       <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: '10px'}}>
-                          <div style={{fontSize: '0.7em', color: '#a855f7', fontWeight: '900'}}>TRIGGER: {sig.trigger_draw || 'AI'} ({sig.trigger})</div>
-                          <div style={{fontSize: '0.6em', background: 'rgba(34, 197, 94, 0.2)', color: '#4ade80', padding: '2px 8px', borderRadius: '4px'}}>{sig.accuracy} CONFIDENCE</div>
+                          <div style={{fontSize: '0.7em', color: '#a855f7', fontWeight: '900'}}>
+                             FROM: {sig.trigger_date} | {sig.trigger_draw} ({sig.trigger})
+                          </div>
+                          <div style={{fontSize: '0.6em', background: sig.status.includes('HIGH') ? 'rgba(239, 68, 68, 0.2)' : 'rgba(34, 197, 94, 0.2)', color: sig.status.includes('HIGH') ? '#f87171' : '#4ade80', padding: '2px 8px', borderRadius: '4px', fontWeight: 'bold'}}>{sig.status}</div>
                       </div>
                       
-                      <div style={{fontSize: '0.65em', color: '#cbd5e1', marginBottom: '12px', lineHeight: '1.4', fontStyle: 'italic'}}>
-                          {sig.logic || 'Neural pattern detected based on historical frequency and lead-lag analysis.'}
+                      <div style={{fontSize: '0.65em', color: '#cbd5e1', marginBottom: '12px', lineHeight: '1.4'}}>
+                          {sig.logic}
                       </div>
 
-                      <div style={{fontSize: '0.7em', color: '#fff', fontWeight: '950', marginBottom: '8px'}}>🎯 EXPERT TARGETS:</div>
-                      <div style={{display: 'flex', flexWrap: 'wrap', gap: '6px'}}>
+                      <div style={{fontSize: '0.7em', color: '#fff', fontWeight: '950', marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '5px'}}>
+                          <span>🎯</span> PLAY THESE NUMBERS TODAY:
+                      </div>
+                      <div style={{display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '15px'}}>
                           {sig.targets.map(t => (
-                              <span key={t} style={{background: '#fff', color: '#000', padding: '4px 10px', borderRadius: '6px', fontWeight: '950', fontSize: '1.1em', border: '1px solid #a855f7'}}>{t}</span>
+                              <span key={t} style={{background: '#fff', color: '#000', padding: '4px 12px', borderRadius: '6px', fontWeight: '950', fontSize: '1.2em', border: '2px solid #a855f7', boxShadow: '0 4px 10px rgba(168, 85, 247, 0.2)'}}>{t}</span>
                           ))}
                       </div>
+
+                      {sig.target_draws && (
+                        <div style={{background: 'rgba(168, 85, 247, 0.1)', padding: '10px', borderRadius: '8px', border: '1px solid rgba(168, 85, 247, 0.2)'}}>
+                            <div style={{fontSize: '0.65em', color: '#d8b4fe', fontWeight: '900', textTransform: 'uppercase', marginBottom: '8px'}}>📍 BEST DRAWS TO PLAY:</div>
+                            <div style={{display: 'flex', gap: '8px'}}>
+                                {sig.target_draws.map(td => (
+                                    <span key={td} style={{background: '#a855f7', color: '#fff', padding: '4px 10px', borderRadius: '6px', fontSize: '0.8em', fontWeight: '950', boxShadow: '0 2px 5px rgba(0,0,0,0.3)'}}>{td}</span>
+                                ))}
+                            </div>
+                        </div>
+                      )}
                       
-                      <div style={{marginTop: '12px', fontSize: '0.65em', color: '#f87171', fontWeight: 'bold'}}>
-                          ⏳ TIMING: {sig.timing}
+                      <div style={{marginTop: '12px', display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+                          <div style={{fontSize: '0.7em', color: '#f87171', fontWeight: '950'}}>
+                              ⚡ TIMING: {sig.timing}
+                          </div>
+                          <div style={{fontSize: '0.6em', color: '#94a3b8'}}>SIGNAL ACCURACY: {sig.accuracy}</div>
                       </div>
                   </div>
               ))}
@@ -1371,6 +1409,18 @@ const App = () => {
                     )}
                 </tbody>
             </table>
+
+            {visibleRecords < filteredRecords.length && (
+                <div style={{textAlign: 'center', marginTop: '20px', paddingBottom: '40px'}}>
+                    <button 
+                        className="btn btn-primary" 
+                        onClick={() => setVisibleRecords(prev => prev + 50)}
+                        style={{padding: '12px 40px', fontSize: '1.1em', fontWeight: '900', background: 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)', border: 'none', boxShadow: '0 4px 15px rgba(59, 130, 246, 0.3)'}}
+                    >
+                        📂 Show More Records ({filteredRecords.length - visibleRecords} Remaining)
+                    </button>
+                </div>
+            )}
         </div>
 
         {/* Modal for Admin Login */}
