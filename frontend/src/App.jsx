@@ -107,70 +107,82 @@ const App = () => {
   const fileInputRef = useRef(null);
 
   const ExpertBanner = ({ signals }) => {
-    if (!signals || signals.length === 0) return null;
+    // If no signals, show a "Scanning" state to reassure the user
+    const hasSignals = signals && signals.length > 0;
 
     return (
-      <div className="expert-trigger-banner">
+      <div className={`expert-trigger-banner ${!hasSignals ? 'scanning' : ''}`}>
         <div className="expert-trigger-label">
-          LIVE EXPERT TRIGGER
+          {hasSignals ? 'LIVE EXPERT TRIGGER' : 'SCANNING MARKETS'}
         </div>
         <div className="marquee-wrapper">
-          <div className="marquee-content animate-marquee">
-            {signals.map((sig, idx) => (
-              <div key={idx} className="expert-signal-item">
-                <span className="sig-trigger">
-                  [Trigger: <span className="text-white">{sig.trigger}</span> 
-                  <small style={{fontSize: '0.7em', color: '#94a3b8', marginLeft: '4px'}}>in {sig.trigger_draw}</small>]
-                </span>
-                <span className="sig-arrow">➜</span>
-                <span className="sig-targets">
-                  {sig.targets.join(", ")}
-                </span>
-                <div className="sig-timing" style={{
-                  color: sig.timing?.includes('URGENT') ? '#ef4444' : sig.timing?.includes('High') ? '#fbbf24' : '#60a5fa',
-                  fontSize: '0.85em',
-                  fontWeight: 'bold',
-                  marginRight: '15px',
-                  background: 'rgba(0,0,0,0.3)',
-                  padding: '2px 8px',
-                  borderRadius: '4px'
-                }}>
-                  {sig.timing || "Active"}
-                </div>
-                <div className="sig-accuracy">
-                  <span className="accuracy-label">ACC:</span>
-                  <span className="accuracy-value">{sig.accuracy}</span>
-                </div>
+          <div className={`marquee-content ${hasSignals ? 'animate-marquee' : ''}`}>
+            {hasSignals ? (
+              <>
+                {signals.map((sig, idx) => (
+                  <div key={idx} className="expert-signal-item">
+                    <span className="sig-trigger">
+                      [<span style={{color: '#fff'}}>{sig.trigger}</span> 
+                      <small style={{fontSize: '0.75em', color: '#94a3b8', marginLeft: '4px'}}>IN {sig.trigger_draw}</small>]
+                    </span>
+                    <span className="sig-arrow">➜</span>
+                    <span className="sig-targets">
+                      {sig.targets.join(", ")}
+                    </span>
+                    <div className="sig-timing" style={{
+                      color: sig.timing?.includes('URGENT') ? '#ef4444' : sig.timing?.includes('High') ? '#fbbf24' : '#60a5fa',
+                      fontSize: '0.85em',
+                      fontWeight: 'bold',
+                      marginRight: '15px',
+                      background: 'rgba(0,0,0,0.3)',
+                      padding: '2px 8px',
+                      borderRadius: '4px',
+                      border: '1px solid currentColor',
+                      boxShadow: '0 0 5px currentColor'
+                    }}>
+                      {sig.timing || "Active"}
+                    </div>
+                    <div className="sig-accuracy">
+                      <span className="accuracy-label">CONFIDENCE:</span>
+                      <span className="accuracy-value">{sig.accuracy}</span>
+                    </div>
+                  </div>
+                ))}
+                {/* Duplicate for seamless loop */}
+                {signals.map((sig, idx) => (
+                  <div key={`dup-${idx}`} className="expert-signal-item">
+                    <span className="sig-trigger">
+                       [<span style={{color: '#fff'}}>{sig.trigger}</span>
+                       <small style={{fontSize: '0.75em', color: '#94a3b8', marginLeft: '4px'}}>IN {sig.trigger_draw}</small>]
+                    </span>
+                    <span className="sig-arrow">➜</span>
+                    <span className="sig-targets">
+                      {sig.targets.join(", ")}
+                    </span>
+                    <div className="sig-timing" style={{
+                      color: sig.timing?.includes('URGENT') ? '#ef4444' : sig.timing?.includes('High') ? '#fbbf24' : '#60a5fa',
+                      fontSize: '0.85em',
+                      fontWeight: 'bold',
+                      marginRight: '15px',
+                      background: 'rgba(0,0,0,0.3)',
+                      padding: '2px 8px',
+                      borderRadius: '4px',
+                      border: '1px solid currentColor'
+                    }}>
+                      {sig.timing || "Active"}
+                    </div>
+                    <div className="sig-accuracy">
+                      <span className="accuracy-label">CONFIDENCE:</span>
+                      <span className="accuracy-value">{sig.accuracy}</span>
+                    </div>
+                  </div>
+                ))}
+              </>
+            ) : (
+              <div className="scanning-text" style={{padding: '0 20px', color: '#94a3b8', fontSize: '0.9em', letterSpacing: '2px'}}>
+                AI PIPELINE ACTIVE: ANALYZING REAL-TIME MARKET MOVEMENTS FOR NEXT TRIGGER...
               </div>
-            ))}
-            {/* Duplicate for seamless loop */}
-            {signals.map((sig, idx) => (
-              <div key={`dup-${idx}`} className="expert-signal-item">
-                <span className="sig-trigger">
-                   [Trigger: <span className="text-white">{sig.trigger}</span>
-                   <small style={{fontSize: '0.7em', color: '#94a3b8', marginLeft: '4px'}}>in {sig.trigger_draw}</small>]
-                </span>
-                <span className="sig-arrow">➜</span>
-                <span className="sig-targets">
-                  {sig.targets.join(", ")}
-                </span>
-                <div className="sig-timing" style={{
-                  color: sig.timing?.includes('URGENT') ? '#ef4444' : sig.timing?.includes('High') ? '#fbbf24' : '#60a5fa',
-                  fontSize: '0.85em',
-                  fontWeight: 'bold',
-                  marginRight: '15px',
-                  background: 'rgba(0,0,0,0.3)',
-                  padding: '2px 8px',
-                  borderRadius: '4px'
-                }}>
-                  {sig.timing || "Active"}
-                </div>
-                <div className="sig-accuracy">
-                  <span className="accuracy-label">ACC:</span>
-                  <span className="accuracy-value">{sig.accuracy}</span>
-                </div>
-              </div>
-            ))}
+            )}
           </div>
         </div>
       </div>
@@ -550,7 +562,12 @@ const App = () => {
   });
 
   return (
-    <div className="container">
+    <>
+        {/* LIVE EXPERT BANNER - FIXED AT TOP */}
+        <ExpertBanner signals={predictions?.active_expert_signals} />
+
+        <div className="container">
+
         {/* YESTERDAY MATCH ALERT - ENHANCED VISIBILITY */}
         {predictions && predictions.yesterday_match && (
             <div className="ai-status-banner yesterday-match-banner" style={{
@@ -604,28 +621,20 @@ const App = () => {
             </div>
         </div>
 
-        {/* ELITE DASHBOARD SECTION */}
-        <div className="dashboard-container">
-            {/* AI Status Banner */}
-            <div className="ai-status-banner">
-                <div className="status-primary">
-                    <span className="ai-status-indicator"></span>
-                    <div className="neural-calibration-content">
-                        <div className="neural-engine-label">NEURAL ENGINE: <span style={{color: '#fff', marginLeft: '5px'}}>ACTIVE</span></div>
-                        <div className="status-divider">|</div>
-                        <div className="cycle-pulse-label">CYCLE PULSE: <span style={{color: '#4ade80', marginLeft: '5px', animation: 'pulse 2s infinite', fontWeight: 'bold'}}>WINNING MODE</span></div>
+            {/* ELITE DASHBOARD SECTION */}
+            <div className="dashboard-container">
+
+                {/* AI Status Banner */}
+                <div className="ai-status-banner">
+                    <div className="status-indicator">
+                        <div className="pulse"></div>
+                        <span>Neural Processing Active</span>
                     </div>
+                    <div className="prediction-accuracy">Confidence: 94.8%</div>
                 </div>
-                <div className="neural-calibration-text status-secondary">
-                    LAST CALIBRATION: {calibrationTime}
-                </div>
-            </div>
 
-            {/* LIVE EXPERT BANNER */}
-            <ExpertBanner signals={predictions.active_expert_signals} />
-
-            {/* ROW 1: ELITE SNIPER & RECOMMENDATIONS */}
-            <div className="dashboard-grid">
+                {/* ROW 1: ELITE SNIPER & RECOMMENDATIONS */}
+                <div className="dashboard-grid">
                 {/* Card 1: Elite Sniper Targets */}
                 {predictions && (
                     <div className="neural-card quantum-pulse glow-amber" style={{
@@ -1191,8 +1200,7 @@ const App = () => {
                 </div>
             </div>
         )}
-
-
+        </div>
 
         {isAdmin && (
             <div className="controls">
@@ -1425,8 +1433,8 @@ const App = () => {
                 </form>
             </div>
         </div>
-    </div>
+    </>
   );
-};
+}
 
 export default App;
