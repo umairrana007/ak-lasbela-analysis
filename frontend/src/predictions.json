@@ -1,12 +1,12 @@
 {
-  "last_updated": "2026-04-22T14:06:29.307314",
+  "last_updated": "2026-04-22T14:13:43.942035",
   "target_date": "2026-04-22",
   "final_recommendations": {
     "gm": [
       {
         "val": 35,
         "type": "MAIN",
-        "confidence": 68
+        "confidence": 65
       },
       {
         "val": 45,
@@ -20,28 +20,6 @@
       }
     ],
     "ls1": [
-      {
-        "val": 62,
-        "type": "MAIN",
-        "confidence": 81
-      },
-      {
-        "val": 92,
-        "type": "ELITE",
-        "confidence": 85
-      },
-      {
-        "val": 45,
-        "type": "SUPPORT",
-        "confidence": 70
-      },
-      {
-        "val": 34,
-        "type": "SUPPORT",
-        "confidence": 70
-      }
-    ],
-    "ak": [
       {
         "val": 62,
         "type": "MAIN",
@@ -63,11 +41,33 @@
         "confidence": 70
       }
     ],
+    "ak": [
+      {
+        "val": 62,
+        "type": "MAIN",
+        "confidence": 88
+      },
+      {
+        "val": 92,
+        "type": "ELITE",
+        "confidence": 85
+      },
+      {
+        "val": 45,
+        "type": "SUPPORT",
+        "confidence": 70
+      },
+      {
+        "val": 34,
+        "type": "SUPPORT",
+        "confidence": 70
+      }
+    ],
     "ls2": [
       {
         "val": 49,
         "type": "MAIN",
-        "confidence": 71
+        "confidence": 66
       },
       {
         "val": 45,
@@ -89,7 +89,7 @@
       {
         "val": 44,
         "type": "MAIN",
-        "confidence": 82
+        "confidence": 87
       },
       {
         "val": 45,
@@ -106,8 +106,8 @@
   "results": {
     "gm": {
       "primary": 35,
-      "confidence": "68%",
-      "confidence_val": 68,
+      "confidence": "65%",
+      "confidence_val": 65,
       "pattern_found": "Neural Pattern",
       "recommendations": [
         35,
@@ -118,8 +118,8 @@
     },
     "ls1": {
       "primary": 62,
-      "confidence": "81%",
-      "confidence_val": 81,
+      "confidence": "89%",
+      "confidence_val": 89,
       "pattern_found": "Expert-AI Overlap",
       "recommendations": [
         62,
@@ -131,8 +131,8 @@
     },
     "ak": {
       "primary": 62,
-      "confidence": "89%",
-      "confidence_val": 89,
+      "confidence": "88%",
+      "confidence_val": 88,
       "pattern_found": "Expert-AI Overlap",
       "recommendations": [
         62,
@@ -144,8 +144,8 @@
     },
     "ls2": {
       "primary": 49,
-      "confidence": "71%",
-      "confidence_val": 71,
+      "confidence": "66%",
+      "confidence_val": 66,
       "pattern_found": "Neural Pattern",
       "recommendations": [
         49,
@@ -157,8 +157,8 @@
     },
     "ls3": {
       "primary": 44,
-      "confidence": "82%",
-      "confidence_val": 82,
+      "confidence": "87%",
+      "confidence_val": 87,
       "pattern_found": "Expert-AI Overlap",
       "recommendations": [
         44,
@@ -255,6 +255,107 @@
     "details": "AI predicted the movement pattern successfully!",
     "type": "Direct"
   },
+  "active_expert_signals": [
+    {
+      "trigger": "50",
+      "targets": [
+        78,
+        5,
+        26
+      ],
+      "accuracy": "75.00%",
+      "avg_delay": 1.25
+    },
+    {
+      "trigger": "51",
+      "targets": [
+        44,
+        99
+      ],
+      "accuracy": "36.00%",
+      "avg_delay": 1.27
+    },
+    {
+      "trigger": "97",
+      "targets": [
+        47,
+        24,
+        92
+      ],
+      "accuracy": "75.00%",
+      "avg_delay": 1.49
+    },
+    {
+      "trigger": "71",
+      "targets": [
+        67,
+        12,
+        62
+      ],
+      "accuracy": "75.00%",
+      "avg_delay": 1.38
+    },
+    {
+      "trigger": "81",
+      "targets": [
+        46,
+        64,
+        22
+      ],
+      "accuracy": "100.00%",
+      "avg_delay": 0.99
+    },
+    {
+      "trigger": "40",
+      "targets": [
+        41,
+        87,
+        45
+      ],
+      "accuracy": "71.88%",
+      "avg_delay": 1.21
+    },
+    {
+      "trigger": "90",
+      "targets": [
+        18,
+        81,
+        9
+      ],
+      "accuracy": "76.92%",
+      "avg_delay": 1.29
+    },
+    {
+      "trigger": "42",
+      "targets": [
+        47,
+        24,
+        92
+      ],
+      "accuracy": "84.00%",
+      "avg_delay": 1.1
+    },
+    {
+      "trigger": "25",
+      "targets": [
+        70,
+        7,
+        52
+      ],
+      "accuracy": "40.00%",
+      "avg_delay": 1.58
+    },
+    {
+      "trigger": "84",
+      "targets": [
+        28,
+        34,
+        98
+      ],
+      "accuracy": "68.18%",
+      "avg_delay": 1.51
+    }
+  ],
   "elite_cycle": [
     {
       "val": 56,

@@ -87,19 +87,40 @@ def generate_predictions():
     for _, row in recent_df.iterrows():
         history_sequence.extend([int(row['gm']), int(row['ls1']), int(row['ak']), int(row['ls2']), int(row['ls3'])])
     
+    # Load Expert Analysis for hit rates
+    analysis_path = 'ml/expert_analysis_results.json'
+    analysis_results = {}
+    if os.path.exists(analysis_path):
+        with open(analysis_path, 'r') as f:
+            analysis_results = json.load(f)
+
     active_expert_signals = []
     pending_targets = {} # number -> {count, reasons, source_trigger}
 
     # Check for triggers in the last 15 draws
+    seen_triggers = set()
     for i, val in enumerate(history_sequence):
         val_str = str(val).zfill(2)
         if val_str in expert_followups:
             targets = expert_followups[val_str]
             # Check if any of these targets appeared AFTER this trigger in the sequence
             appeared_after = history_sequence[i+1:]
-            for t in targets:
-                if t not in appeared_after:
-                    # This is a pending target!
+            
+            pending_for_this_trigger = [t for t in targets if t not in appeared_after]
+            
+            if pending_for_this_trigger:
+                # Add to active signals for the UI banner if not already seen
+                if val_str not in seen_triggers:
+                    rate_info = analysis_results.get(val_str, {"rate": "70%+"})
+                    active_expert_signals.append({
+                        "trigger": val_str,
+                        "targets": pending_for_this_trigger[:3], # Show top 3
+                        "accuracy": rate_info.get("rate", "70%"),
+                        "avg_delay": rate_info.get("avg_delay_days", 1.2)
+                    })
+                    seen_triggers.add(val_str)
+
+                for t in pending_for_this_trigger:
                     # Get timing info
                     affinity = affinity_rules.get(val_str, {})
                     best_slots = affinity.get('best_slots', ["ANY"])
@@ -316,6 +337,7 @@ def generate_predictions():
             "details": "AI predicted the movement pattern successfully!",
             "type": "Direct"
         },
+        "active_expert_signals": active_expert_signals,
         "elite_cycle": elite_cycle # Renamed and enriched with dates
     }
 

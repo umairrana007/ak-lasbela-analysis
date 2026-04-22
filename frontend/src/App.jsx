@@ -106,6 +106,49 @@ const App = () => {
   
   const fileInputRef = useRef(null);
 
+  const ExpertBanner = ({ signals }) => {
+    if (!signals || signals.length === 0) return null;
+
+    return (
+      <div className="expert-trigger-banner">
+        <div className="expert-trigger-label">
+          LIVE EXPERT TRIGGER
+        </div>
+        <div className="marquee-wrapper">
+          <div className="marquee-content animate-marquee">
+            {signals.map((sig, idx) => (
+              <div key={idx} className="expert-signal-item">
+                <span className="sig-trigger">[Trigger: <span className="text-white">{sig.trigger}</span>]</span>
+                <span className="sig-arrow">➜</span>
+                <span className="sig-targets">
+                  {sig.targets.join(", ")}
+                </span>
+                <div className="sig-accuracy">
+                  <span className="accuracy-label">Accuracy:</span>
+                  <span className="accuracy-value">{sig.accuracy}</span>
+                </div>
+              </div>
+            ))}
+            {/* Duplicate for seamless loop */}
+            {signals.map((sig, idx) => (
+              <div key={`dup-${idx}`} className="expert-signal-item">
+                <span className="sig-trigger">[Trigger: <span className="text-white">{sig.trigger}</span>]</span>
+                <span className="sig-arrow">➜</span>
+                <span className="sig-targets">
+                  {sig.targets.join(", ")}
+                </span>
+                <div className="sig-accuracy">
+                  <span className="accuracy-label">Accuracy:</span>
+                  <span className="accuracy-value">{sig.accuracy}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   const calculateNeuralStats = (allRecords) => {
     const counts = {};
     const lastSeenDate = {}; // actual date store karega
@@ -549,6 +592,9 @@ const App = () => {
                     LAST CALIBRATION: {calibrationTime}
                 </div>
             </div>
+
+            {/* LIVE EXPERT BANNER */}
+            <ExpertBanner signals={predictions.active_expert_signals} />
 
             {/* ROW 1: ELITE SNIPER & RECOMMENDATIONS */}
             <div className="dashboard-grid">
