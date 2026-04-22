@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-04-22T14:34:23.653350",
+  "last_updated": "2026-04-22T17:11:35.145085",
   "target_date": "2026-04-22",
   "final_recommendations": {
     "gm": [
@@ -23,7 +23,7 @@
       {
         "val": 62,
         "type": "MAIN",
-        "confidence": 87
+        "confidence": 88
       },
       {
         "val": 92,
@@ -45,7 +45,7 @@
       {
         "val": 62,
         "type": "MAIN",
-        "confidence": 81
+        "confidence": 85
       },
       {
         "val": 92,
@@ -67,7 +67,7 @@
       {
         "val": 49,
         "type": "MAIN",
-        "confidence": 72
+        "confidence": 74
       },
       {
         "val": 45,
@@ -89,7 +89,7 @@
       {
         "val": 44,
         "type": "MAIN",
-        "confidence": 83
+        "confidence": 84
       },
       {
         "val": 45,
@@ -118,8 +118,8 @@
     },
     "ls1": {
       "primary": 62,
-      "confidence": "87%",
-      "confidence_val": 87,
+      "confidence": "88%",
+      "confidence_val": 88,
       "pattern_found": "Expert-AI Overlap",
       "recommendations": [
         62,
@@ -131,8 +131,8 @@
     },
     "ak": {
       "primary": 62,
-      "confidence": "81%",
-      "confidence_val": 81,
+      "confidence": "85%",
+      "confidence_val": 85,
       "pattern_found": "Expert-AI Overlap",
       "recommendations": [
         62,
@@ -144,8 +144,8 @@
     },
     "ls2": {
       "primary": 49,
-      "confidence": "72%",
-      "confidence_val": 72,
+      "confidence": "74%",
+      "confidence_val": 74,
       "pattern_found": "Neural Pattern",
       "recommendations": [
         49,
@@ -157,8 +157,8 @@
     },
     "ls3": {
       "primary": 44,
-      "confidence": "83%",
-      "confidence_val": 83,
+      "confidence": "84%",
+      "confidence_val": 84,
       "pattern_found": "Expert-AI Overlap",
       "recommendations": [
         44,
@@ -271,7 +271,15 @@
       ],
       "accuracy": "75.00%",
       "avg_delay": 1.25,
-      "timing": "URGENT: Next Draw"
+      "timing": "URGENT: Next Draw",
+      "target_draws": [
+        "AK",
+        "GM",
+        "LS2",
+        "LS1",
+        "LS3"
+      ],
+      "target_date": "2026-04-21"
     },
     {
       "trigger": "51",
@@ -282,7 +290,15 @@
       ],
       "accuracy": "36.00%",
       "avg_delay": 1.27,
-      "timing": "URGENT: Next Draw"
+      "timing": "URGENT: Next Draw",
+      "target_draws": [
+        "LS1",
+        "AK",
+        "LS3",
+        "GM",
+        "LS2"
+      ],
+      "target_date": "2026-04-21"
     },
     {
       "trigger": "97",
@@ -294,7 +310,14 @@
       ],
       "accuracy": "75.00%",
       "avg_delay": 1.49,
-      "timing": "URGENT: Next Draw"
+      "timing": "URGENT: Next Draw",
+      "target_draws": [
+        "AK",
+        "GM",
+        "LS1",
+        "LS2"
+      ],
+      "target_date": "2026-04-21"
     },
     {
       "trigger": "71",
@@ -306,7 +329,13 @@
       ],
       "accuracy": "75.00%",
       "avg_delay": 1.38,
-      "timing": "URGENT: Next Draw"
+      "timing": "URGENT: Next Draw",
+      "target_draws": [
+        "GM",
+        "AK",
+        "LS1"
+      ],
+      "target_date": "2026-04-21"
     },
     {
       "trigger": "81",
@@ -318,7 +347,15 @@
       ],
       "accuracy": "100.00%",
       "avg_delay": 0.99,
-      "timing": "URGENT: Next Draw"
+      "timing": "URGENT: Next Draw",
+      "target_draws": [
+        "AK",
+        "GM",
+        "LS2",
+        "LS1",
+        "LS3"
+      ],
+      "target_date": "2026-04-21"
     },
     {
       "trigger": "40",
@@ -330,7 +367,15 @@
       ],
       "accuracy": "71.88%",
       "avg_delay": 1.21,
-      "timing": "URGENT: Next Draw"
+      "timing": "URGENT: Next Draw",
+      "target_draws": [
+        "LS3",
+        "LS1",
+        "AK",
+        "LS2",
+        "GM"
+      ],
+      "target_date": "2026-04-21"
     },
     {
       "trigger": "90",
@@ -342,7 +387,13 @@
       ],
       "accuracy": "76.92%",
       "avg_delay": 1.29,
-      "timing": "High Priority: Today"
+      "timing": "High Priority: Today",
+      "target_draws": [
+        "GM",
+        "AK",
+        "LS1"
+      ],
+      "target_date": "2026-04-21"
     },
     {
       "trigger": "42",
@@ -354,7 +405,15 @@
       ],
       "accuracy": "84.00%",
       "avg_delay": 1.1,
-      "timing": "High Priority: Today"
+      "timing": "High Priority: Today",
+      "target_draws": [
+        "LS3",
+        "LS1",
+        "GM",
+        "LS2",
+        "AK"
+      ],
+      "target_date": "2026-04-21"
     },
     {
       "trigger": "25",
@@ -366,7 +425,13 @@
       ],
       "accuracy": "40.00%",
       "avg_delay": 1.58,
-      "timing": "Coming Soon: 1-2 Days"
+      "timing": "Coming Soon: 1-2 Days",
+      "target_draws": [
+        "LS3",
+        "GM",
+        "LS2"
+      ],
+      "target_date": "2026-04-22"
     },
     {
       "trigger": "84",
@@ -378,7 +443,14 @@
       ],
       "accuracy": "68.18%",
       "avg_delay": 1.51,
-      "timing": "Coming Soon: 1-2 Days"
+      "timing": "Coming Soon: 1-2 Days",
+      "target_draws": [
+        "AK",
+        "LS2",
+        "GM",
+        "LS1"
+      ],
+      "target_date": "2026-04-22"
     }
   ],
   "elite_cycle": [

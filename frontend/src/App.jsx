@@ -256,6 +256,7 @@ const App = () => {
       trigger_date: sig.trigger_date || 'AI Analysis',
       targets: sig.targets || [],
       target_draws: sig.target_draws || ['AK', 'GM', 'LS1'],
+      target_date: sig.target_date || 'Today',
       timing: sig.timing || 'ACTIVE',
       accuracy: sig.accuracy || '92%',
       logic: sig.logic || `Triggered by ${sig.trigger} in ${sig.trigger_draw}. High probability movement.`,
@@ -328,7 +329,7 @@ const App = () => {
                       </div>
 
                       <div style={{fontSize: '0.7em', color: '#fff', fontWeight: '950', marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '5px'}}>
-                          <span>🎯</span> PLAY THESE NUMBERS TODAY:
+                          <span>🎯</span> PLAY THESE NUMBERS ({sig.target_date || 'ASAP'}):
                       </div>
                       <div style={{display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '15px'}}>
                           {(sig.targets || []).map(t => (
@@ -347,9 +348,14 @@ const App = () => {
                         </div>
                       )}
                       
-                      <div style={{marginTop: '12px', display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-                          <div style={{fontSize: '0.7em', color: '#f87171', fontWeight: '950'}}>
-                              ⚡ TIMING: {sig.timing || 'Active'}
+                      <div style={{marginTop: '12px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end'}}>
+                          <div>
+                              <div style={{fontSize: '0.65em', color: '#fcd34d', fontWeight: '950', marginBottom: '2px'}}>
+                                  📅 PLAY DATE: {sig.target_date || 'ASAP'}
+                              </div>
+                              <div style={{fontSize: '0.7em', color: '#f87171', fontWeight: '950'}}>
+                                  ⚡ TIMING: {sig.timing || 'Active'}
+                              </div>
                           </div>
                           <div style={{fontSize: '0.6em', color: '#94a3b8'}}>SIGNAL ACCURACY: {sig.accuracy || '92%'}</div>
                       </div>
@@ -394,7 +400,7 @@ const App = () => {
           {todaySignals.map((sig, i) => (
             <div key={i} style={{background: 'rgba(0,0,0,0.5)', padding: '15px', borderRadius: '12px', border: '1px solid rgba(16, 185, 129, 0.2)', position: 'relative', overflow: 'hidden'}}>
               <div style={{position: 'absolute', top: 0, right: 0, padding: '4px 10px', background: 'rgba(16, 185, 129, 0.1)', fontSize: '0.6em', color: '#10b981', fontWeight: 'bold', borderBottomLeftRadius: '8px'}}>CONFIRMED TRG</div>
-              <div style={{fontSize: '0.7em', color: '#94a3b8', fontWeight: 'bold', marginBottom: '10px'}}>🎯 TARGET DRAWS: <span style={{color: '#fff'}}>{(sig.target_draws || []).join(', ')}</span></div>
+              <div style={{fontSize: '0.7em', color: '#94a3b8', fontWeight: 'bold', marginBottom: '10px'}}>🎯 TARGET DRAWS: <span style={{color: '#fff'}}>{(sig.target_draws && sig.target_draws.length > 0 ? sig.target_draws : ['AK', 'GM', 'LS1']).join(', ')}</span></div>
               
               <div style={{display: 'flex', gap: '10px', flexWrap: 'wrap', marginBottom: '15px'}}>
                 {(sig.targets || []).map(t => (
@@ -418,9 +424,12 @@ const App = () => {
               <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: '10px'}}>
                 <div>
                   <div style={{fontSize: '0.6em', color: '#10b981', fontWeight: '900'}}>TRIGGER: {sig.trigger}</div>
-                  <div style={{fontSize: '0.55em', color: '#64748b'}}>Found in {sig.trigger_draw} ({sig.trigger_date})</div>
+                  <div style={{fontSize: '0.55em', color: '#64748b'}}>Found in {sig.trigger_draw} {sig.trigger_date ? `(${sig.trigger_date})` : ''}</div>
                 </div>
-                <div style={{fontSize: '0.75em', color: '#f87171', fontWeight: '950'}}>⏱️ {sig.timing}</div>
+                <div style={{textAlign: 'right'}}>
+                  <div style={{fontSize: '0.65em', color: '#fcd34d', fontWeight: '950', marginBottom: '3px'}}>📅 PLAY DATE: {sig.target_date || 'Today'}</div>
+                  <div style={{fontSize: '0.75em', color: '#f87171', fontWeight: '950'}}>⏱️ {sig.timing}</div>
+                </div>
               </div>
             </div>
           ))}

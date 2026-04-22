@@ -129,10 +129,21 @@ def generate_predictions():
                 
                 if draws_remaining <= 0:
                     timing_desc = "URGENT: Next Draw"
+                    days_remaining = 0
                 elif draws_remaining <= 2:
                     timing_desc = "High Priority: Today"
+                    days_remaining = 0
                 else:
                     timing_desc = "Coming Soon: 1-2 Days"
+                    days_remaining = max(1, draws_remaining // 5)
+                
+                signal_target_date = (latest_row['date'] + timedelta(days=days_remaining)).strftime('%Y-%m-%d')
+                
+                # Get best slots for target draws
+                affinity = affinity_rules.get(val_str, {})
+                best_slots = affinity.get('best_slots', ["GM", "AK", "LS1"])
+                if best_slots == ["ANY"]:
+                    best_slots = ["GM", "LS1", "AK", "LS2", "LS3"]
 
                 # Add to active signals for the UI banner if not already seen
                 if val_str not in seen_triggers:
@@ -142,7 +153,9 @@ def generate_predictions():
                         "targets": pending_for_this_trigger[:3], # Show top 3
                         "accuracy": rate_info.get("rate", "70%"),
                         "avg_delay": avg_delay,
-                        "timing": timing_desc
+                        "timing": timing_desc,
+                        "target_draws": best_slots,
+                        "target_date": signal_target_date
                     })
                     seen_triggers.add(val_str)
 
