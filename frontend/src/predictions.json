@@ -1,12 +1,12 @@
 {
-  "last_updated": "2026-04-22T17:11:35.145085",
+  "last_updated": "2026-04-22T17:24:15.359511",
   "target_date": "2026-04-22",
   "final_recommendations": {
     "gm": [
       {
         "val": 35,
         "type": "MAIN",
-        "confidence": 72
+        "confidence": 65
       },
       {
         "val": 45,
@@ -23,7 +23,7 @@
       {
         "val": 62,
         "type": "MAIN",
-        "confidence": 88
+        "confidence": 85
       },
       {
         "val": 92,
@@ -45,7 +45,7 @@
       {
         "val": 62,
         "type": "MAIN",
-        "confidence": 85
+        "confidence": 87
       },
       {
         "val": 92,
@@ -67,7 +67,7 @@
       {
         "val": 49,
         "type": "MAIN",
-        "confidence": 74
+        "confidence": 70
       },
       {
         "val": 45,
@@ -89,7 +89,7 @@
       {
         "val": 44,
         "type": "MAIN",
-        "confidence": 84
+        "confidence": 85
       },
       {
         "val": 45,
@@ -106,8 +106,8 @@
   "results": {
     "gm": {
       "primary": 35,
-      "confidence": "72%",
-      "confidence_val": 72,
+      "confidence": "65%",
+      "confidence_val": 65,
       "pattern_found": "Neural Pattern",
       "recommendations": [
         35,
@@ -118,8 +118,8 @@
     },
     "ls1": {
       "primary": 62,
-      "confidence": "88%",
-      "confidence_val": 88,
+      "confidence": "85%",
+      "confidence_val": 85,
       "pattern_found": "Expert-AI Overlap",
       "recommendations": [
         62,
@@ -131,8 +131,8 @@
     },
     "ak": {
       "primary": 62,
-      "confidence": "85%",
-      "confidence_val": 85,
+      "confidence": "87%",
+      "confidence_val": 87,
       "pattern_found": "Expert-AI Overlap",
       "recommendations": [
         62,
@@ -144,8 +144,8 @@
     },
     "ls2": {
       "primary": 49,
-      "confidence": "74%",
-      "confidence_val": 74,
+      "confidence": "70%",
+      "confidence_val": 70,
       "pattern_found": "Neural Pattern",
       "recommendations": [
         49,
@@ -157,8 +157,8 @@
     },
     "ls3": {
       "primary": 44,
-      "confidence": "84%",
-      "confidence_val": 84,
+      "confidence": "85%",
+      "confidence_val": 85,
       "pattern_found": "Expert-AI Overlap",
       "recommendations": [
         44,
@@ -279,7 +279,7 @@
         "LS1",
         "LS3"
       ],
-      "target_date": "2026-04-21"
+      "target_date": "2026-04-22"
     },
     {
       "trigger": "51",
@@ -298,7 +298,7 @@
         "GM",
         "LS2"
       ],
-      "target_date": "2026-04-21"
+      "target_date": "2026-04-22"
     },
     {
       "trigger": "97",
@@ -317,7 +317,7 @@
         "LS1",
         "LS2"
       ],
-      "target_date": "2026-04-21"
+      "target_date": "2026-04-22"
     },
     {
       "trigger": "71",
@@ -335,7 +335,7 @@
         "AK",
         "LS1"
       ],
-      "target_date": "2026-04-21"
+      "target_date": "2026-04-22"
     },
     {
       "trigger": "81",
@@ -355,7 +355,7 @@
         "LS1",
         "LS3"
       ],
-      "target_date": "2026-04-21"
+      "target_date": "2026-04-22"
     },
     {
       "trigger": "40",
@@ -375,7 +375,7 @@
         "LS2",
         "GM"
       ],
-      "target_date": "2026-04-21"
+      "target_date": "2026-04-22"
     },
     {
       "trigger": "90",
@@ -393,7 +393,7 @@
         "AK",
         "LS1"
       ],
-      "target_date": "2026-04-21"
+      "target_date": "2026-04-22"
     },
     {
       "trigger": "42",
@@ -413,7 +413,7 @@
         "LS2",
         "AK"
       ],
-      "target_date": "2026-04-21"
+      "target_date": "2026-04-22"
     },
     {
       "trigger": "25",
@@ -431,7 +431,7 @@
         "GM",
         "LS2"
       ],
-      "target_date": "2026-04-22"
+      "target_date": "2026-04-23"
     },
     {
       "trigger": "84",
@@ -450,7 +450,7 @@
         "GM",
         "LS1"
       ],
-      "target_date": "2026-04-22"
+      "target_date": "2026-04-23"
     }
   ],
   "elite_cycle": [

@@ -137,7 +137,8 @@ def generate_predictions():
                     timing_desc = "Coming Soon: 1-2 Days"
                     days_remaining = max(1, draws_remaining // 5)
                 
-                signal_target_date = (latest_row['date'] + timedelta(days=days_remaining)).strftime('%Y-%m-%d')
+                # URGENT and High Priority mean play them TODAY (target_date_obj)
+                signal_target_date = (target_date_obj + timedelta(days=days_remaining)).strftime('%Y-%m-%d')
                 
                 # Get best slots for target draws
                 affinity = affinity_rules.get(val_str, {})
