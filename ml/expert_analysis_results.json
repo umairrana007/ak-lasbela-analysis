@@ -150,10 +150,16 @@
     "avg_delay_days": 1.37
   },
   "17": {
-    "hits": 14,
+    "hits": 15,
     "total": 22,
-    "rate": "63.64%",
-    "avg_delay_days": 1.8
+    "rate": "68.18%",
+    "avg_delay_days": 1.76
+  },
+  "71": {
+    "hits": 18,
+    "total": 24,
+    "rate": "75.00%",
+    "avg_delay_days": 1.38
   },
   "16": {
     "hits": 12,

@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-04-22T14:01:16.513127",
+  "last_updated": "2026-04-22T14:06:29.307314",
   "target_date": "2026-04-22",
   "final_recommendations": {
     "gm": [
@@ -23,7 +23,7 @@
       {
         "val": 62,
         "type": "MAIN",
-        "confidence": 70
+        "confidence": 81
       },
       {
         "val": 92,
@@ -45,7 +45,7 @@
       {
         "val": 62,
         "type": "MAIN",
-        "confidence": 65
+        "confidence": 89
       },
       {
         "val": 92,
@@ -67,7 +67,7 @@
       {
         "val": 49,
         "type": "MAIN",
-        "confidence": 74
+        "confidence": 71
       },
       {
         "val": 45,
@@ -89,7 +89,7 @@
       {
         "val": 44,
         "type": "MAIN",
-        "confidence": 86
+        "confidence": 82
       },
       {
         "val": 45,
@@ -118,34 +118,34 @@
     },
     "ls1": {
       "primary": 62,
-      "confidence": "70%",
-      "confidence_val": 70,
-      "pattern_found": "Neural Pattern",
+      "confidence": "81%",
+      "confidence_val": 81,
+      "pattern_found": "Expert-AI Overlap",
       "recommendations": [
         62,
         45,
         34,
         92
       ],
-      "reasoning": "Statistical trend for LS1"
+      "reasoning": "Statistical trend for LS1 | Triggered by 71"
     },
     "ak": {
       "primary": 62,
-      "confidence": "65%",
-      "confidence_val": 65,
-      "pattern_found": "Neural Pattern",
+      "confidence": "89%",
+      "confidence_val": 89,
+      "pattern_found": "Expert-AI Overlap",
       "recommendations": [
         62,
         45,
         34,
         92
       ],
-      "reasoning": "Statistical trend for AK"
+      "reasoning": "Statistical trend for AK | Triggered by 71"
     },
     "ls2": {
       "primary": 49,
-      "confidence": "74%",
-      "confidence_val": 74,
+      "confidence": "71%",
+      "confidence_val": 71,
       "pattern_found": "Neural Pattern",
       "recommendations": [
         49,
@@ -157,8 +157,8 @@
     },
     "ls3": {
       "primary": 44,
-      "confidence": "86%",
-      "confidence_val": 86,
+      "confidence": "82%",
+      "confidence_val": 82,
       "pattern_found": "Expert-AI Overlap",
       "recommendations": [
         44,
@@ -191,10 +191,10 @@
       "best_timing": "AK, GM"
     },
     {
-      "number": 41,
+      "number": 64,
       "confidence": 100,
       "trick": "Elite Expert Signal",
-      "reason": "Triggered by 81",
+      "reason": "Triggered by 71",
       "best_timing": "AK, GM"
     }
   ],
