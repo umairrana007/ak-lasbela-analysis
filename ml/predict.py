@@ -59,18 +59,95 @@ def generate_predictions():
     all_targets = ['gm', 'ls1', 'ak', 'ls2', 'ls3']
     results_output = {}
     
-    # Expert Rules
-    day_fix_numbers = {
-        0: [89, 84, 82, 87, 34, 35], 1: [6, 7, 8, 9, 10], 2: [60, 61, 65, 66, 69],
-        3: [71, 73, 77, 79, 74], 4: [21, 25, 24, 28, 27], 5: [94, 95, 98, 97],
-        6: [51, 50, 54, 58, 57, 55]
-    }
-    expert_followups = {
-        '85': [53, 24, 85, 35, 3], '53': [24, 85, 98, 35, 3], '24': [28, 34, 98, 84, 89, 37],
-        '92': [47, 97, 24, 92, 42], '42': [47, 97, 24, 92, 37, 84], '28': [24, 28, 82, 89],
-        '89': [8, 80, 89, 84, 34], '47': [97, 24, 92, 42], '97': [47, 24, 92, 42, 67]
-    }
+    # Load Expert Rules from JSON
+    expert_rules_path = 'ml/expert_rules.json'
+    if os.path.exists(expert_rules_path):
+        with open(expert_rules_path, 'r') as f:
+            rules = json.load(f)
+    else:
+        rules = {"expert_followups": {}, "jod_groups": {}, "logic_groups": [], "date_specific": {}}
 
+    expert_followups = rules.get('expert_followups', {})
+    logic_groups = rules.get('logic_groups', [])
+    date_rules = rules.get('date_specific', {})
+    jod_groups = rules.get('jod_groups', {})
+
+    # Load Slot Affinity Rules (Timing)
+    affinity_path = 'ml/slot_affinity_rules.json'
+    affinity_rules = {}
+    if os.path.exists(affinity_path):
+        with open(affinity_path, 'r') as f:
+            affinity_rules = json.load(f)
+
+    # 1. Identify Active and Pending Expert Signals
+    # We look at the last 15 draws (approx 3 days) to see what's active
+    history_sequence = []
+    # Flatten the last 4 days for context
+    recent_df = df.tail(4)
+    for _, row in recent_df.iterrows():
+        history_sequence.extend([int(row['gm']), int(row['ls1']), int(row['ak']), int(row['ls2']), int(row['ls3'])])
+    
+    active_expert_signals = []
+    pending_targets = {} # number -> {count, reasons, source_trigger}
+
+    # Check for triggers in the last 15 draws
+    for i, val in enumerate(history_sequence):
+        val_str = str(val).zfill(2)
+        if val_str in expert_followups:
+            targets = expert_followups[val_str]
+            # Check if any of these targets appeared AFTER this trigger in the sequence
+            appeared_after = history_sequence[i+1:]
+            for t in targets:
+                if t not in appeared_after:
+                    # This is a pending target!
+                    # Get timing info
+                    affinity = affinity_rules.get(val_str, {})
+                    best_slots = affinity.get('best_slots', ["ANY"])
+                    
+                    if t not in pending_targets:
+                        pending_targets[t] = {
+                            "count": 1, 
+                            "reasons": [f"Triggered by {val_str}"], 
+                            "triggers": [val_str],
+                            "best_slots": best_slots
+                        }
+                    else:
+                        if val_str not in pending_targets[t]["triggers"]:
+                            pending_targets[t]["count"] += 1
+                            pending_targets[t]["reasons"].append(f"Double Trigger: {val_str}")
+                            pending_targets[t]["triggers"].append(val_str)
+                            # Update best slots if more specific info found
+                            if "ANY" in pending_targets[t]["best_slots"]:
+                                pending_targets[t]["best_slots"] = best_slots
+
+    # 2. Logic Groups (Repeat Mode)
+    for group in logic_groups:
+        present_in_history = [x for x in group if x in history_sequence[-10:]]
+        if present_in_history:
+            # If one is present, the others are pending
+            others = [x for x in group if x not in history_sequence[-5:]]
+            for o in others:
+                if o not in pending_targets:
+                    pending_targets[o] = {"count": 1.5, "reasons": [f"Logic Group Repeat: {present_in_history[0]}"], "triggers": ["group"]}
+                else:
+                    pending_targets[o]["count"] += 1
+                    pending_targets[o]["reasons"].append(f"Group Confirmation")
+
+    # 3. Date Specific Rules
+    today_day = str(target_date_obj.day)
+    if today_day in date_rules:
+        d_targets = date_rules[today_day]
+        for dt in d_targets:
+            if dt not in pending_targets:
+                pending_targets[dt] = {"count": 1, "reasons": [f"Date {today_day} Special"], "triggers": ["date"]}
+            else:
+                pending_targets[dt]["count"] += 1
+                pending_targets[dt]["reasons"].append(f"Date Match")
+
+    # Final Pending List Sorted by 'Confidence' (count)
+    sorted_pending = sorted(pending_targets.items(), key=lambda x: x[1]['count'], reverse=True)
+
+    # ML Predictions + Expert Synthesis
     for target in all_targets:
         model_path = f'ml/model_{target}.pkl'
         if os.path.exists(model_path):
@@ -79,35 +156,45 @@ def generate_predictions():
         else:
             pred_val = int(df[target].mean())
         
-        last_val = str(int(latest_row[target]))
-        patterns = expert_followups.get(last_val, [])
-        day_nums = day_fix_numbers.get(target_date_obj.dayofweek, [])
+        # Check if ML prediction matches a pending expert target
+        confidence = np.random.randint(65, 75)
+        trick = "Neural Pattern"
+        reasons = [f"Statistical trend for {target.upper()}"]
         
-        confidence = np.random.randint(60, 80)
-        trick = "Neural Sequence"
-        if pred_val in patterns: trick = "Expert Follow-up"; confidence += 10
-        elif pred_val in day_nums: trick = "Lifetime Strategy"; confidence += 5
+        if pred_val in pending_targets:
+            confidence += 15
+            trick = "Expert-AI Overlap"
+            reasons.extend(pending_targets[pred_val]["reasons"])
+        
+        # Recommendations: Top pending + ML + mirrors
+        recs = [pred_val]
+        # Add top 2 pending targets
+        for p_val, p_data in sorted_pending[:2]:
+            if p_val not in recs: recs.append(p_val)
+        
+        # "6 to 9" Mirror Rule
+        for r in list(recs):
+            s_r = str(r).zfill(2)
+            if '6' in s_r or '9' in s_r:
+                mirror = int(s_r.replace('6', 'X').replace('9', '6').replace('X', '9'))
+                if mirror not in recs: recs.append(mirror)
 
         results_output[target] = {
             "primary": pred_val,
             "confidence": f"{min(98, confidence)}%",
             "confidence_val": min(98, confidence),
             "pattern_found": trick,
-            "recommendations": sorted(list(set([pred_val] + patterns[:2] + day_nums[:2])))[:3],
-            "reasoning": f"Predicting {pred_val} for {target.upper()} based on {trick} logic."
+            "recommendations": recs[:5],
+            "reasoning": " | ".join(reasons[:2])
         }
 
     # Elite Cycle (User Master Trick)
-    # We scan multiple days to find opportunities
     elite_cycle = []
-    # Check back 2 to 5 days ago to find cycles that should land today
     for gap in [2, 3, 4, 5]:
         past_date = latest_row['date'] - timedelta(days=gap)
-        target_day = past_date + timedelta(days=gap + 1) # Expected landing day
-        
+        target_day = past_date + timedelta(days=gap + 1)
         app_row = df[df['date'] == past_date]
         if not app_row.empty:
-            # Calculation based on User's 3-4 day cycle rule
             val = int(app_row.iloc[0]['ls1'])
             elite_cycle.append({
                 "val": val,
@@ -117,13 +204,21 @@ def generate_predictions():
                 "family": get_full_family(val)
             })
 
-    # Sniper Targets
-    sniper_targets = sorted([
-        {"number": v["primary"], "draw": k.upper(), "confidence": v["confidence_val"], "trick": v["pattern_found"]}
-        for k, v in results_output.items()
-    ], key=lambda x: x["confidence"], reverse=True)[:4]
+    # Sniper Targets (Now prioritizing Overlaps)
+    sniper_targets = []
+    for p_val, p_data in sorted_pending[:5]:
+        sniper_targets.append({
+            "number": p_val,
+            "confidence": int(70 + (p_data['count'] * 10)),
+            "trick": "Elite Expert Signal",
+            "reason": p_data['reasons'][0],
+            "best_timing": ", ".join(p_data.get('best_slots', [])[:2])
+        })
+    
+    # Sort and take top 4
+    sniper_targets = sorted(sniper_targets, key=lambda x: x['confidence'], reverse=True)[:4]
 
-    # New Trick: GM Open + LS3 Open (User Request)
+    # New Trick: GM Open + LS3 Open
     try:
         gm_o = int(latest_row['gm']) // 10
         ls3_o = int(latest_row['ls3']) // 10
@@ -138,7 +233,7 @@ def generate_predictions():
             "target_date": target_date_str,
             "best_draws": ["LS1", "LS2", "LS3"],
             "best_location": "Close Side",
-            "reasoning": f"Based on GM ({latest_row['gm']}) and LS3 ({latest_row['ls3']}) Open digits sum."
+            "reasoning": f"Derived from GM ({latest_row['gm']}) and LS3 ({latest_row['ls3']}) Open digits."
         }
     except:
         gm_ls3_trick = None

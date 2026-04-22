@@ -1,0 +1,652 @@
+{
+  "99": {
+    "best_slots": [
+      "LS2",
+      "LS1",
+      "LS3",
+      "AK"
+    ],
+    "probabilities": {
+      "LS2": 36.36,
+      "LS1": 36.36,
+      "LS3": 18.18,
+      "AK": 9.09
+    }
+  },
+  "03": {
+    "best_slots": [
+      "GM",
+      "LS3",
+      "LS2",
+      "LS1",
+      "AK"
+    ],
+    "probabilities": {
+      "GM": 26.09,
+      "LS3": 21.74,
+      "LS2": 21.74,
+      "LS1": 21.74,
+      "AK": 8.7
+    }
+  },
+  "30": {
+    "best_slots": [
+      "LS3",
+      "AK",
+      "LS1",
+      "GM",
+      "LS2"
+    ],
+    "probabilities": {
+      "LS3": 28.57,
+      "AK": 21.43,
+      "LS1": 21.43,
+      "GM": 14.29,
+      "LS2": 14.29
+    }
+  },
+  "85": {
+    "best_slots": [
+      "GM",
+      "AK",
+      "LS1",
+      "LS2"
+    ],
+    "probabilities": {
+      "GM": 37.5,
+      "AK": 25.0,
+      "LS1": 25.0,
+      "LS2": 12.5
+    }
+  },
+  "58": {
+    "best_slots": [
+      "GM",
+      "AK",
+      "LS1"
+    ],
+    "probabilities": {
+      "GM": 40.0,
+      "AK": 40.0,
+      "LS1": 20.0
+    }
+  },
+  "53": {
+    "best_slots": [
+      "LS2",
+      "AK",
+      "LS3"
+    ],
+    "probabilities": {
+      "LS2": 40.0,
+      "AK": 40.0,
+      "LS3": 20.0
+    }
+  },
+  "92": {
+    "best_slots": [
+      "LS2",
+      "LS1",
+      "GM",
+      "LS3"
+    ],
+    "probabilities": {
+      "LS2": 43.75,
+      "LS1": 25.0,
+      "GM": 18.75,
+      "LS3": 12.5
+    }
+  },
+  "24": {
+    "best_slots": [
+      "AK",
+      "GM",
+      "LS1"
+    ],
+    "probabilities": {
+      "AK": 50.0,
+      "GM": 25.0,
+      "LS1": 25.0
+    }
+  },
+  "42": {
+    "best_slots": [
+      "LS3",
+      "LS1",
+      "GM",
+      "LS2",
+      "AK"
+    ],
+    "probabilities": {
+      "LS3": 33.33,
+      "LS1": 27.78,
+      "GM": 16.67,
+      "LS2": 11.11,
+      "AK": 11.11
+    }
+  },
+  "28": {
+    "best_slots": [
+      "LS1",
+      "AK",
+      "GM",
+      "LS3"
+    ],
+    "probabilities": {
+      "LS1": 33.33,
+      "AK": 33.33,
+      "GM": 16.67,
+      "LS3": 16.67
+    }
+  },
+  "89": {
+    "best_slots": [
+      "LS1",
+      "LS2",
+      "GM"
+    ],
+    "probabilities": {
+      "LS1": 50.0,
+      "LS2": 37.5,
+      "GM": 12.5
+    }
+  },
+  "47": {
+    "best_slots": [
+      "AK",
+      "LS3",
+      "GM",
+      "LS1",
+      "LS2"
+    ],
+    "probabilities": {
+      "AK": 28.57,
+      "LS3": 28.57,
+      "GM": 14.29,
+      "LS1": 14.29,
+      "LS2": 14.29
+    }
+  },
+  "97": {
+    "best_slots": [
+      "AK",
+      "GM",
+      "LS1",
+      "LS2"
+    ],
+    "probabilities": {
+      "AK": 33.33,
+      "GM": 33.33,
+      "LS1": 16.67,
+      "LS2": 16.67
+    }
+  },
+  "81": {
+    "best_slots": [
+      "AK",
+      "GM",
+      "LS2",
+      "LS1",
+      "LS3"
+    ],
+    "probabilities": {
+      "AK": 31.58,
+      "GM": 26.32,
+      "LS2": 21.05,
+      "LS1": 10.53,
+      "LS3": 10.53
+    }
+  },
+  "40": {
+    "best_slots": [
+      "LS3",
+      "LS1",
+      "AK",
+      "LS2",
+      "GM"
+    ],
+    "probabilities": {
+      "LS3": 36.36,
+      "LS1": 22.73,
+      "AK": 18.18,
+      "LS2": 13.64,
+      "GM": 9.09
+    }
+  },
+  "04": {
+    "best_slots": [
+      "LS2",
+      "LS1",
+      "AK",
+      "LS3",
+      "GM"
+    ],
+    "probabilities": {
+      "LS2": 46.15,
+      "LS1": 15.38,
+      "AK": 15.38,
+      "LS3": 15.38,
+      "GM": 7.69
+    }
+  },
+  "13": {
+    "best_slots": [
+      "LS1",
+      "LS3",
+      "AK",
+      "GM",
+      "LS2"
+    ],
+    "probabilities": {
+      "LS1": 33.33,
+      "LS3": 26.67,
+      "AK": 20.0,
+      "GM": 13.33,
+      "LS2": 6.67
+    }
+  },
+  "31": {
+    "best_slots": [
+      "AK",
+      "LS3",
+      "LS2",
+      "LS1"
+    ],
+    "probabilities": {
+      "AK": 46.15,
+      "LS3": 30.77,
+      "LS2": 15.38,
+      "LS1": 7.69
+    }
+  },
+  "70": {
+    "best_slots": [
+      "LS1",
+      "LS2",
+      "LS3",
+      "GM",
+      "AK"
+    ],
+    "probabilities": {
+      "LS1": 37.5,
+      "LS2": 25.0,
+      "LS3": 12.5,
+      "GM": 12.5,
+      "AK": 12.5
+    }
+  },
+  "07": {
+    "best_slots": [
+      "LS2",
+      "LS3",
+      "LS1",
+      "GM",
+      "AK"
+    ],
+    "probabilities": {
+      "LS2": 31.25,
+      "LS3": 25.0,
+      "LS1": 25.0,
+      "GM": 12.5,
+      "AK": 6.25
+    }
+  },
+  "25": {
+    "best_slots": [
+      "LS3",
+      "GM",
+      "LS2"
+    ],
+    "probabilities": {
+      "LS3": 40.0,
+      "GM": 40.0,
+      "LS2": 20.0
+    }
+  },
+  "84": {
+    "best_slots": [
+      "AK",
+      "LS2",
+      "GM",
+      "LS1"
+    ],
+    "probabilities": {
+      "AK": 45.45,
+      "LS2": 27.27,
+      "GM": 18.18,
+      "LS1": 9.09
+    }
+  },
+  "50": {
+    "best_slots": [
+      "AK",
+      "GM",
+      "LS2",
+      "LS1",
+      "LS3"
+    ],
+    "probabilities": {
+      "AK": 27.27,
+      "GM": 27.27,
+      "LS2": 18.18,
+      "LS1": 18.18,
+      "LS3": 9.09
+    }
+  },
+  "05": {
+    "best_slots": [
+      "LS2",
+      "GM",
+      "AK",
+      "LS1",
+      "LS3"
+    ],
+    "probabilities": {
+      "LS2": 25.0,
+      "GM": 25.0,
+      "AK": 25.0,
+      "LS1": 16.67,
+      "LS3": 8.33
+    }
+  },
+  "67": {
+    "best_slots": [
+      "LS1",
+      "GM",
+      "LS3"
+    ],
+    "probabilities": {
+      "LS1": 60.0,
+      "GM": 20.0,
+      "LS3": 20.0
+    }
+  },
+  "76": {
+    "best_slots": [
+      "AK",
+      "GM",
+      "LS2"
+    ],
+    "probabilities": {
+      "AK": 50.0,
+      "GM": 25.0,
+      "LS2": 25.0
+    }
+  },
+  "16": {
+    "best_slots": [
+      "GM",
+      "LS3",
+      "LS2",
+      "LS1"
+    ],
+    "probabilities": {
+      "GM": 54.55,
+      "LS3": 27.27,
+      "LS2": 9.09,
+      "LS1": 9.09
+    }
+  },
+  "61": {
+    "best_slots": [
+      "GM",
+      "LS2",
+      "LS3",
+      "LS1"
+    ],
+    "probabilities": {
+      "GM": 50.0,
+      "LS2": 25.0,
+      "LS3": 12.5,
+      "LS1": 12.5
+    }
+  },
+  "39": {
+    "best_slots": [
+      "AK",
+      "LS3",
+      "GM",
+      "LS1",
+      "LS2"
+    ],
+    "probabilities": {
+      "AK": 40.0,
+      "LS3": 30.0,
+      "GM": 10.0,
+      "LS1": 10.0,
+      "LS2": 10.0
+    }
+  },
+  "93": {
+    "best_slots": [
+      "LS1",
+      "AK",
+      "LS3",
+      "LS2",
+      "GM"
+    ],
+    "probabilities": {
+      "LS1": 46.67,
+      "AK": 20.0,
+      "LS3": 13.33,
+      "LS2": 13.33,
+      "GM": 6.67
+    }
+  },
+  "65": {
+    "best_slots": [
+      "LS2",
+      "GM",
+      "LS1",
+      "AK",
+      "LS3"
+    ],
+    "probabilities": {
+      "LS2": 42.11,
+      "GM": 21.05,
+      "LS1": 15.79,
+      "AK": 10.53,
+      "LS3": 10.53
+    }
+  },
+  "78": {
+    "best_slots": [
+      "GM",
+      "LS2",
+      "LS3"
+    ],
+    "probabilities": {
+      "GM": 50.0,
+      "LS2": 25.0,
+      "LS3": 25.0
+    }
+  },
+  "29": {
+    "best_slots": [
+      "LS2",
+      "GM",
+      "LS3"
+    ],
+    "probabilities": {
+      "LS2": 40.0,
+      "GM": 40.0,
+      "LS3": 20.0
+    }
+  },
+  "51": {
+    "best_slots": [
+      "LS1",
+      "AK",
+      "LS3",
+      "GM",
+      "LS2"
+    ],
+    "probabilities": {
+      "LS1": 50.0,
+      "AK": 12.5,
+      "LS3": 12.5,
+      "GM": 12.5,
+      "LS2": 12.5
+    }
+  },
+  "38": {
+    "best_slots": [
+      "LS1",
+      "GM",
+      "LS3",
+      "AK",
+      "LS2"
+    ],
+    "probabilities": {
+      "LS1": 33.33,
+      "GM": 25.0,
+      "LS3": 25.0,
+      "AK": 8.33,
+      "LS2": 8.33
+    }
+  },
+  "83": {
+    "best_slots": [
+      "LS3",
+      "GM",
+      "AK",
+      "LS1"
+    ],
+    "probabilities": {
+      "LS3": 37.5,
+      "GM": 25.0,
+      "AK": 25.0,
+      "LS1": 12.5
+    }
+  },
+  "36": {
+    "best_slots": [
+      "LS1",
+      "LS2",
+      "LS3",
+      "AK"
+    ],
+    "probabilities": {
+      "LS1": 28.57,
+      "LS2": 28.57,
+      "LS3": 28.57,
+      "AK": 14.29
+    }
+  },
+  "63": {
+    "best_slots": [
+      "LS2",
+      "LS1",
+      "GM"
+    ],
+    "probabilities": {
+      "LS2": 38.46,
+      "LS1": 38.46,
+      "GM": 23.08
+    }
+  },
+  "74": {
+    "best_slots": [
+      "GM",
+      "LS3",
+      "LS1",
+      "LS2"
+    ],
+    "probabilities": {
+      "GM": 35.71,
+      "LS3": 21.43,
+      "LS1": 21.43,
+      "LS2": 21.43
+    }
+  },
+  "95": {
+    "best_slots": [
+      "GM",
+      "LS3",
+      "LS1",
+      "AK",
+      "LS2"
+    ],
+    "probabilities": {
+      "GM": 32.0,
+      "LS3": 20.0,
+      "LS1": 20.0,
+      "AK": 16.0,
+      "LS2": 12.0
+    }
+  },
+  "59": {
+    "best_slots": [
+      "LS1",
+      "LS2",
+      "LS3",
+      "AK",
+      "GM"
+    ],
+    "probabilities": {
+      "LS1": 28.0,
+      "LS2": 28.0,
+      "LS3": 20.0,
+      "AK": 16.0,
+      "GM": 8.0
+    }
+  },
+  "01": {
+    "best_slots": [
+      "LS1",
+      "GM",
+      "LS2",
+      "LS3",
+      "AK"
+    ],
+    "probabilities": {
+      "LS1": 31.25,
+      "GM": 25.0,
+      "LS2": 18.75,
+      "LS3": 12.5,
+      "AK": 12.5
+    }
+  },
+  "10": {
+    "best_slots": [
+      "LS2",
+      "AK",
+      "LS3",
+      "GM"
+    ],
+    "probabilities": {
+      "LS2": 37.5,
+      "AK": 25.0,
+      "LS3": 25.0,
+      "GM": 12.5
+    }
+  },
+  "45": {
+    "best_slots": [
+      "GM",
+      "LS2",
+      "LS3"
+    ],
+    "probabilities": {
+      "GM": 33.33,
+      "LS2": 33.33,
+      "LS3": 33.33
+    }
+  },
+  "18": {
+    "best_slots": [
+      "LS2",
+      "LS3",
+      "AK",
+      "GM",
+      "LS1"
+    ],
+    "probabilities": {
+      "LS2": 31.25,
+      "LS3": 25.0,
+      "AK": 18.75,
+      "GM": 12.5,
+      "LS1": 12.5
+    }
+  }
+}
