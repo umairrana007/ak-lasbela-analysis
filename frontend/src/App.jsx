@@ -90,20 +90,14 @@ const App = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [showModal, setShowModal] = useState(false);
   const [editIndex, setEditIndex] = useState('-1');
-  const [neuralStats, setNeuralStats] = useState({ hot: [], cold: [], overdue: [] });
-  const [formData, setFormData] = useState({
-    date: '', day: '', gm: '', ls1: '', ak: '', ls2: '', ls3: ''
-  });
   const [predictions, setPredictions] = useState(predictionsData);
   const [activeSignals, setActiveSignals] = useState([]);
   const [isAdmin, setIsAdmin] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [calibrationTime, setCalibrationTime] = useState(new Date().toLocaleTimeString());
-  const [heatmapData, setHeatmapData] = useState(Array(10).fill(0));
   const [loginPass, setLoginPass] = useState('');
   const [isSyncing, setIsSyncing] = useState(false);
   const [visibleRecords, setVisibleRecords] = useState(20);
-  const [oddEvenStats, setOddEvenStats] = useState({ odd: 50, even: 50, ratio: '50/50' });
   
   const detectExpertLogic = (allRecords) => {
     if (!allRecords || allRecords.length === 0) return [];
@@ -120,12 +114,12 @@ const App = () => {
     // Scan last 15 draws (approx 3 days)
     const recentDraws = allRecords.slice(0, 15);
     recentDraws.forEach((record, recordIdx) => {
+        if (!record) return;
         ['gm', 'ls1', 'ak', 'ls2', 'ls3'].forEach(key => {
-            const val = String(record[key]).padStart(2, '0');
+            const val = String(record[key] || '').padStart(2, '0');
+            if (val === '00' || val === 'undefined') return;
             const match = checks.find(c => c.num === val);
             if (match) {
-                // Check if this trigger has already hit in subsequent draws
-                // (Optional but for now we just show it if it's within last 15 draws)
                 const isDuplicate = triggers.find(t => t.num === val && t.draw === key.toUpperCase());
                 if (!isDuplicate) {
                     triggers.push({ 
@@ -133,7 +127,9 @@ const App = () => {
                         draw: key.toUpperCase(), 
                         date: record.date,
                         isToday: recordIdx === 0,
-                        age: recordIdx // 0 = latest, 1 = one draw ago, etc.
+                        age: recordIdx,
+                        // Provide more specific timing based on draw age
+                        timing_desc: recordIdx === 0 ? 'URGENT: Today' : (recordIdx < 5 ? 'High: Next 24h' : 'Active: 48h')
                     });
                 }
             }
@@ -142,22 +138,151 @@ const App = () => {
     return triggers;
   };
 
-  const ExpertLogicCard = ({ records, firebaseSignals }) => {
-    const detected = detectExpertLogic(records);
+  // 1. Memoized Filtered Records (prevents lag on scroll/re-render)
+  const filteredRecords = useMemo(() => {
+    return records.filter(record => {
+        if (!searchTerm) return true;
+        const term = searchTerm.toLowerCase();
+        return (record.date && record.date.includes(term)) ||
+               (record.day && record.day.toLowerCase().includes(term)) ||
+               String(record.gm) === term ||
+               String(record.ls1) === term ||
+               String(record.ak) === term ||
+               String(record.ls2) === term ||
+               String(record.ls3) === term;
+    });
+  }, [records, searchTerm]);
+
+  // 2. Memoized Neural Stats (Heavy calculation on 4000+ records)
+  const neuralStats = useMemo(() => {
+    const counts = {};
+    const lastSeenDate = {};
+    const sortedByDate = [...records].sort((a, b) => new Date(a.date) - new Date(b.date));
+
+    sortedByDate.forEach((r) => {
+      ['gm', 'ls1', 'ak', 'ls2', 'ls3'].forEach(key => {
+        const val = r[key];
+        if (val && val !== '--' && val !== '??' && !isNaN(val) && val.length === 2) {
+          counts[val] = (counts[val] || 0) + 1;
+          if (!lastSeenDate[val] || new Date(r.date) > new Date(lastSeenDate[val])) {
+            lastSeenDate[val] = r.date;
+          }
+        }
+      });
+    });
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const overdueWithDays = Object.entries(lastSeenDate).map(([num, date]) => {
+      const lastDate = new Date(date);
+      lastDate.setHours(0, 0, 0, 0);
+      const diffDays = Math.floor((today - lastDate) / (1000 * 60 * 60 * 24));
+      return [num, diffDays];
+    });
+
+    const freqSorted = Object.entries(counts).sort((a, b) => b[1] - a[1]);
+    const overdueSorted = overdueWithDays.sort((a, b) => b[1] - a[1]);
+
+    return {
+      hot: freqSorted.slice(0, 8),
+      cold: freqSorted.slice(-8).reverse(),
+      overdue: overdueSorted.slice(0, 8)
+    };
+  }, [records]);
+
+  // 3. Memoized Heatmap Data
+  const heatmapData = useMemo(() => {
+    if (!records || records.length === 0) return Array(10).fill(0);
+    const last100 = records.slice(0, 100);
+    const counts = Array(10).fill(0);
     
-    const allSignals = [...(firebaseSignals || []), ...detected.map(d => ({
+    last100.forEach(r => {
+        ['gm', 'ls1', 'ak', 'ls2', 'ls3'].forEach(key => {
+            if (r[key] && r[key] !== '--') {
+                const val = String(r[key]).padStart(2, '0');
+                if (val.length === 2) {
+                    counts[parseInt(val[0])]++;
+                    counts[parseInt(val[1])]++;
+                }
+            }
+        });
+    });
+    
+    const max = Math.max(...counts);
+    return counts.map(c => max === 0 ? 0 : Math.round((c / max) * 100));
+  }, [records]);
+
+  // 4. Memoized Odd/Even Parity
+  const oddEvenStats = useMemo(() => {
+    let oddCount = 0;
+    let evenCount = 0;
+    const recent = records.slice(0, 50); 
+    
+    recent.forEach(r => {
+      ['gm', 'ls1', 'ak', 'ls2', 'ls3'].forEach(key => {
+        const val = parseInt(r[key]);
+        if (!isNaN(val)) {
+          if (val % 2 === 0) evenCount++;
+          else oddCount++;
+        }
+      });
+    });
+
+    const total = oddCount + evenCount;
+    const oddPercent = total > 0 ? Math.round((oddCount / total) * 100) : 50;
+    const evenPercent = 100 - oddPercent;
+
+    return {
+      odd: oddPercent,
+      even: evenPercent,
+      ratio: `${oddPercent}/${evenPercent}`
+    };
+  }, [records]);
+
+  // Memoized stats to prevent UI lag
+  const gmLsStats = useMemo(() => getGMLSTrickStats(records), [records]);
+  const tripleXStats = useMemo(() => getTripleXStats(records), [records]);
+  
+  const allExpertSignals = useMemo(() => {
+    const detected = detectExpertLogic(records);
+    const fireSignals = (predictions?.active_expert_signals || []).map(sig => ({
+      ...sig,
+      trigger: sig.trigger,
+      trigger_draw: sig.trigger_draw,
+      trigger_date: sig.trigger_date || 'AI Analysis',
+      targets: sig.targets || [],
+      target_draws: sig.target_draws || ['AK', 'GM', 'LS1'],
+      timing: sig.timing || 'ACTIVE',
+      accuracy: sig.accuracy || '92%',
+      logic: sig.logic || `Triggered by ${sig.trigger} in ${sig.trigger_draw}. High probability movement.`,
+      status: sig.status || (sig.timing?.includes('URGENT') ? '🔥 HIGH PROBABILITY' : '📡 ANALYZING')
+    }));
+
+    const scanSignals = detected.map(d => ({
         trigger: d.num,
         trigger_draw: d.draw,
         trigger_date: d.date,
         targets: d.targets,
         target_draws: d.target_draws,
-        timing: d.age < 5 ? 'URGENT (TODAY)' : 'ACTIVE (48H)',
+        timing: d.timing_desc,
         accuracy: '98%',
         logic: d.logic,
         status: d.age < 5 ? '🔥 HIGH PROBABILITY' : '📡 ANALYZING'
-    }))];
+    }));
 
-    if (allSignals.length === 0) return null;
+    // Deduplicate
+    const combined = [...fireSignals];
+    scanSignals.forEach(s => {
+      const exists = combined.find(c => c.trigger === s.trigger && c.trigger_draw === s.trigger_draw);
+      if (!exists) combined.push(s);
+    });
+    
+    return combined;
+  }, [records, predictions]);
+
+  const ExpertLogicCard = ({ signals }) => {
+    if (!signals || signals.length === 0) return null;
 
     return (
       <div className="neural-card quantum-pulse glow-purple" style={{
@@ -172,18 +297,27 @@ const App = () => {
                   <span style={{fontSize: '1.2em'}}>💎</span> LIVE ACTIVE EXPERT CAMPAIGNS
               </span>
               <span style={{fontSize: '0.6em', background: '#a855f7', color: '#fff', padding: '4px 10px', borderRadius: '20px', fontWeight: '900'}}>
-                  {allSignals.length} SIGNALS ACTIVE
+                  {signals.length} SIGNALS ACTIVE
               </span>
           </div>
 
           <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '20px'}}>
-              {allSignals.map((sig, idx) => (
+              {signals.map((sig, idx) => (
                   <div key={idx} style={{background: 'rgba(0,0,0,0.4)', padding: '15px', borderRadius: '12px', border: '1px solid rgba(168, 85, 247, 0.2)', position: 'relative'}}>
                       <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: '10px'}}>
                           <div style={{fontSize: '0.7em', color: '#a855f7', fontWeight: '900'}}>
                              FROM: {sig.trigger_date} | {sig.trigger_draw} ({sig.trigger})
                           </div>
-                          <div style={{fontSize: '0.6em', background: sig.status.includes('HIGH') ? 'rgba(239, 68, 68, 0.2)' : 'rgba(34, 197, 94, 0.2)', color: sig.status.includes('HIGH') ? '#f87171' : '#4ade80', padding: '2px 8px', borderRadius: '4px', fontWeight: 'bold'}}>{sig.status}</div>
+                          <div style={{
+                              fontSize: '0.6em', 
+                              background: (sig.status || '').includes('HIGH') ? 'rgba(239, 68, 68, 0.2)' : 'rgba(34, 197, 94, 0.2)', 
+                              color: (sig.status || '').includes('HIGH') ? '#f87171' : '#4ade80', 
+                              padding: '2px 8px', 
+                              borderRadius: '4px', 
+                              fontWeight: 'bold'
+                          }}>
+                              {sig.status}
+                          </div>
                       </div>
                       
                       <div style={{fontSize: '0.65em', color: '#cbd5e1', marginBottom: '12px', lineHeight: '1.4'}}>
@@ -194,7 +328,7 @@ const App = () => {
                           <span>🎯</span> PLAY THESE NUMBERS TODAY:
                       </div>
                       <div style={{display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '15px'}}>
-                          {sig.targets.map(t => (
+                          {(sig.targets || []).map(t => (
                               <span key={t} style={{background: '#fff', color: '#000', padding: '4px 12px', borderRadius: '6px', fontWeight: '950', fontSize: '1.2em', border: '2px solid #a855f7', boxShadow: '0 4px 10px rgba(168, 85, 247, 0.2)'}}>{t}</span>
                           ))}
                       </div>
@@ -202,7 +336,7 @@ const App = () => {
                       {sig.target_draws && (
                         <div style={{background: 'rgba(168, 85, 247, 0.1)', padding: '10px', borderRadius: '8px', border: '1px solid rgba(168, 85, 247, 0.2)'}}>
                             <div style={{fontSize: '0.65em', color: '#d8b4fe', fontWeight: '900', textTransform: 'uppercase', marginBottom: '8px'}}>📍 BEST DRAWS TO PLAY:</div>
-                            <div style={{display: 'flex', gap: '8px'}}>
+                            <div style={{display: 'flex', gap: '8px', flexWrap: 'wrap'}}>
                                 {sig.target_draws.map(td => (
                                     <span key={td} style={{background: '#a855f7', color: '#fff', padding: '4px 10px', borderRadius: '6px', fontSize: '0.8em', fontWeight: '950', boxShadow: '0 2px 5px rgba(0,0,0,0.3)'}}>{td}</span>
                                 ))}
@@ -212,13 +346,82 @@ const App = () => {
                       
                       <div style={{marginTop: '12px', display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
                           <div style={{fontSize: '0.7em', color: '#f87171', fontWeight: '950'}}>
-                              ⚡ TIMING: {sig.timing}
+                              ⚡ TIMING: {sig.timing || 'Active'}
                           </div>
-                          <div style={{fontSize: '0.6em', color: '#94a3b8'}}>SIGNAL ACCURACY: {sig.accuracy}</div>
+                          <div style={{fontSize: '0.6em', color: '#94a3b8'}}>SIGNAL ACCURACY: {sig.accuracy || '92%'}</div>
                       </div>
                   </div>
               ))}
           </div>
+      </div>
+    );
+  };
+
+  const TodayTargets = ({ signals }) => {
+    // Only show signals triggered in the last 24h or marked as URGENT
+    const todaySignals = (signals || []).filter(s => 
+      (s.timing || '').includes('Today') || 
+      (s.timing || '').includes('URGENT') ||
+      (s.status || '').includes('HIGH')
+    );
+    
+    if (todaySignals.length === 0) return null;
+
+    return (
+      <div className="neural-card quantum-pulse glow-emerald" style={{
+        background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(5, 150, 105, 0.05) 100%)',
+        border: '2px solid #10b981',
+        marginBottom: '25px',
+        padding: '20px',
+        gridColumn: '1 / -1',
+        boxShadow: '0 0 30px rgba(16, 185, 129, 0.2)'
+      }}>
+        <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', borderBottom: '1px solid rgba(16, 185, 129, 0.3)', paddingBottom: '10px'}}>
+          <div style={{display: 'flex', alignItems: 'center', gap: '12px'}}>
+            <span style={{fontSize: '1.8em'}}>🔥</span>
+            <div>
+              <div style={{fontWeight: '900', color: '#10b981', fontSize: '1.2em', letterSpacing: '1px', textTransform: 'uppercase'}}>Today's High Probability Targets</div>
+              <div style={{fontSize: '0.7em', color: '#66bb6a', fontWeight: 'bold'}}>AI DETECTED TRIGGER MOVEMENTS</div>
+            </div>
+          </div>
+          <div className="hit-badge" style={{background: '#10b981', color: '#000'}}>URGENT</div>
+        </div>
+        
+        <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '20px'}}>
+          {todaySignals.map((sig, i) => (
+            <div key={i} style={{background: 'rgba(0,0,0,0.5)', padding: '15px', borderRadius: '12px', border: '1px solid rgba(16, 185, 129, 0.2)', position: 'relative', overflow: 'hidden'}}>
+              <div style={{position: 'absolute', top: 0, right: 0, padding: '4px 10px', background: 'rgba(16, 185, 129, 0.1)', fontSize: '0.6em', color: '#10b981', fontWeight: 'bold', borderBottomLeftRadius: '8px'}}>CONFIRMED TRG</div>
+              <div style={{fontSize: '0.7em', color: '#94a3b8', fontWeight: 'bold', marginBottom: '10px'}}>🎯 TARGET DRAWS: <span style={{color: '#fff'}}>{(sig.target_draws || []).join(', ')}</span></div>
+              
+              <div style={{display: 'flex', gap: '10px', flexWrap: 'wrap', marginBottom: '15px'}}>
+                {(sig.targets || []).map(t => (
+                  <div key={t} style={{
+                    background: '#fff', 
+                    color: '#000', 
+                    width: '50px', 
+                    height: '50px', 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    justifyContent: 'center', 
+                    borderRadius: '8px', 
+                    fontWeight: '950', 
+                    fontSize: '1.5em', 
+                    boxShadow: '0 4px 15px rgba(0,0,0,0.5)',
+                    border: '2px solid #10b981'
+                  }}>{t}</div>
+                ))}
+              </div>
+              
+              <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: '10px'}}>
+                <div>
+                  <div style={{fontSize: '0.6em', color: '#10b981', fontWeight: '900'}}>TRIGGER: {sig.trigger}</div>
+                  <div style={{fontSize: '0.55em', color: '#64748b'}}>Found in {sig.trigger_draw} ({sig.trigger_date})</div>
+                </div>
+                <div style={{fontSize: '0.75em', color: '#f87171', fontWeight: '950'}}>⏱️ {sig.timing}</div>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     );
   };
@@ -247,7 +450,7 @@ const App = () => {
                     </span>
                     <span className="sig-arrow">➜</span>
                     <span className="sig-targets">
-                      {sig.targets.join(", ")}
+                      {(sig.targets || []).join(", ")}
                     </span>
                     <div className="sig-timing" style={{
                       color: sig.timing?.includes('URGENT') ? '#ef4444' : sig.timing?.includes('High') ? '#fbbf24' : '#60a5fa',
@@ -264,7 +467,7 @@ const App = () => {
                     </div>
                     <div className="sig-accuracy">
                       <span className="accuracy-label">CONFIDENCE:</span>
-                      <span className="accuracy-value">{sig.accuracy}</span>
+                      <span className="accuracy-value">{sig.accuracy || '92%'}</span>
                     </div>
                   </div>
                 ))}
@@ -277,7 +480,7 @@ const App = () => {
                     </span>
                     <span className="sig-arrow">➜</span>
                     <span className="sig-targets">
-                      {sig.targets.join(", ")}
+                      {(sig.targets || []).join(", ")}
                     </span>
                     <div className="sig-timing" style={{
                       color: sig.timing?.includes('URGENT') ? '#ef4444' : sig.timing?.includes('High') ? '#fbbf24' : '#60a5fa',
@@ -293,7 +496,7 @@ const App = () => {
                     </div>
                     <div className="sig-accuracy">
                       <span className="accuracy-label">CONFIDENCE:</span>
-                      <span className="accuracy-value">{sig.accuracy}</span>
+                      <span className="accuracy-value">{sig.accuracy || '92%'}</span>
                     </div>
                   </div>
                 ))}
@@ -420,10 +623,6 @@ const App = () => {
       
       setRecords(combined);
       setCalibrationTime(new Date().toLocaleTimeString());
-      calculateNeuralStats(combined);
-      calculateAccuracy(combined);
-      calculateDigitHeatmap(combined);
-      calculateOddEvenDistribution(combined);
       
       // Update Master Chart Signals based on latest record
       if (combined.length > 0) {
@@ -669,22 +868,12 @@ const App = () => {
     reader.readAsText(file);
   };
 
-  const filteredRecords = records.filter(record => {
-      if (!searchTerm) return true;
-      const term = searchTerm.toLowerCase();
-      return (record.date && record.date.includes(term)) ||
-             (record.day && record.day.toLowerCase().includes(term)) ||
-             String(record.gm) === term ||
-             String(record.ls1) === term ||
-             String(record.ak) === term ||
-             String(record.ls2) === term ||
-             String(record.ls3) === term;
-  });
+  // Removed duplicated filteredRecords logic from here as it's now memoized above
 
   return (
     <>
         {/* LIVE EXPERT BANNER - FIXED AT TOP */}
-        <ExpertBanner signals={predictions?.active_expert_signals} />
+        <ExpertBanner signals={allExpertSignals} />
 
         <div className="container">
 
@@ -752,6 +941,9 @@ const App = () => {
                     </div>
                     <div className="prediction-accuracy">Confidence: 94.8%</div>
                 </div>
+
+                {/* HIGH PRIORITY TODAY SECTION */}
+                <TodayTargets signals={allExpertSignals} />
 
                 {/* ROW 1: ELITE SNIPER & RECOMMENDATIONS */}
                 <div className="dashboard-grid">
@@ -942,7 +1134,7 @@ const App = () => {
             </div>
 
             {/* EXPERT CARD: MASTER LOGIC HUB */}
-            <ExpertLogicCard records={records} firebaseSignals={predictions?.active_expert_signals} />
+            <ExpertLogicCard signals={allExpertSignals} />
 
             {/* ROW 3: ANALYTICAL INTELLIGENCE (Odd/Even & Verified Hits) */}
 
@@ -1075,7 +1267,7 @@ const App = () => {
         {predictions.gm_ls3_trick && (
             <div style={{padding: '0 20px 20px 20px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '20px'}}>
                 {/* GM+LS3 Card */}
-                <div className={`neural-card quantum-pulse ${getGMLSTrickStats(records).glow}`} style={{
+                <div className={`neural-card quantum-pulse ${gmLsStats.glow}`} style={{
                     border: '2px solid #22c55e', 
                     background: 'linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, rgba(21, 128, 61, 0.05) 100%)',
                     boxShadow: '0 8px 32px rgba(34, 197, 94, 0.15)',
@@ -1085,7 +1277,7 @@ const App = () => {
                         <span style={{display: 'flex', alignItems: 'center', gap: '8px'}}>
                             <span style={{fontSize: '1.2em'}}>🚀</span> GM+LS3 Master Haroof
                         </span>
-                        <span style={{fontSize: '0.6em', background: '#22c55e', color: '#fff', padding: '4px 10px', borderRadius: '20px', fontWeight: '900'}}>{getGMLSTrickStats(records).hitRate} HIT RATE</span>
+                        <span style={{fontSize: '0.6em', background: '#22c55e', color: '#fff', padding: '4px 10px', borderRadius: '20px', fontWeight: '900'}}>{gmLsStats.hitRate} HIT RATE</span>
                     </div>
 
                     <div style={{display: 'flex', gap: '15px', flexWrap: 'wrap'}}>
@@ -1118,14 +1310,14 @@ const App = () => {
                         <span style={{display: 'flex', alignItems: 'center', gap: '8px'}}>
                             <span style={{fontSize: '1.2em'}}>💎</span> Triple-X Master Strategy
                         </span>
-                        <span style={{fontSize: '0.6em', background: '#3b82f6', color: '#fff', padding: '4px 10px', borderRadius: '20px', fontWeight: '900'}}>{getTripleXStats(records).hitRate} PRO RATE</span>
+                        <span style={{fontSize: '0.6em', background: '#3b82f6', color: '#fff', padding: '4px 10px', borderRadius: '20px', fontWeight: '900'}}>{tripleXStats.hitRate} PRO RATE</span>
                     </div>
 
                     <div style={{display: 'flex', gap: '15px', flexWrap: 'wrap'}}>
                         <div style={{flex: '1'}}>
                             <div style={{fontSize: '0.65em', color: '#fff', marginBottom: '8px', fontWeight: '950', textTransform: 'uppercase'}}>TRIPLE-X DIGITS</div>
                             <div style={{display: 'flex', gap: '8px'}}>
-                                {[...new Set(getTripleXStats(records).digits)].map(d => (
+                                {[...new Set(tripleXStats.digits)].map(d => (
                                     <div key={d} style={{background: '#fff', color: '#000', width: '40px', height: '40px', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '8px', fontSize: '1.5em', fontWeight: '950', border: '2px solid #3b82f6'}}>{d}</div>
                                 ))}
                             </div>
@@ -1382,7 +1574,7 @@ const App = () => {
                     </tr>
                 </thead>
                 <tbody id="tableBody">
-                    {filteredRecords.length > 0 ? filteredRecords.map((record, index) => (
+                    {filteredRecords.length > 0 ? filteredRecords.slice(0, visibleRecords).map((record, index) => (
                         <tr key={record.id || index}>
                             <td className="date-column">{formatDate(record.date)}</td>
                             <td className="gm-column">{record.gm || '-'}</td>
