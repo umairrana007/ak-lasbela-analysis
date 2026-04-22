@@ -98,6 +98,9 @@ const App = () => {
   const [loginPass, setLoginPass] = useState('');
   const [isSyncing, setIsSyncing] = useState(false);
   const [visibleRecords, setVisibleRecords] = useState(20);
+  const [syncStatus, setSyncStatus] = useState('');
+  const [formData, setFormData] = useState({ date: '', day: '', gm: '', ls1: '', ak: '', ls2: '', ls3: '' });
+
   
   const detectExpertLogic = (allRecords) => {
     if (!allRecords || allRecords.length === 0) return [];
