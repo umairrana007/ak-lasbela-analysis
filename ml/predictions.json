@@ -1,12 +1,12 @@
 {
-  "last_updated": "2026-04-22T14:13:43.942035",
+  "last_updated": "2026-04-22T14:34:23.653350",
   "target_date": "2026-04-22",
   "final_recommendations": {
     "gm": [
       {
         "val": 35,
         "type": "MAIN",
-        "confidence": 65
+        "confidence": 72
       },
       {
         "val": 45,
@@ -23,7 +23,7 @@
       {
         "val": 62,
         "type": "MAIN",
-        "confidence": 89
+        "confidence": 87
       },
       {
         "val": 92,
@@ -45,7 +45,7 @@
       {
         "val": 62,
         "type": "MAIN",
-        "confidence": 88
+        "confidence": 81
       },
       {
         "val": 92,
@@ -67,7 +67,7 @@
       {
         "val": 49,
         "type": "MAIN",
-        "confidence": 66
+        "confidence": 72
       },
       {
         "val": 45,
@@ -89,7 +89,7 @@
       {
         "val": 44,
         "type": "MAIN",
-        "confidence": 87
+        "confidence": 83
       },
       {
         "val": 45,
@@ -106,8 +106,8 @@
   "results": {
     "gm": {
       "primary": 35,
-      "confidence": "65%",
-      "confidence_val": 65,
+      "confidence": "72%",
+      "confidence_val": 72,
       "pattern_found": "Neural Pattern",
       "recommendations": [
         35,
@@ -118,8 +118,8 @@
     },
     "ls1": {
       "primary": 62,
-      "confidence": "89%",
-      "confidence_val": 89,
+      "confidence": "87%",
+      "confidence_val": 87,
       "pattern_found": "Expert-AI Overlap",
       "recommendations": [
         62,
@@ -131,8 +131,8 @@
     },
     "ak": {
       "primary": 62,
-      "confidence": "88%",
-      "confidence_val": 88,
+      "confidence": "81%",
+      "confidence_val": 81,
       "pattern_found": "Expert-AI Overlap",
       "recommendations": [
         62,
@@ -144,8 +144,8 @@
     },
     "ls2": {
       "primary": 49,
-      "confidence": "66%",
-      "confidence_val": 66,
+      "confidence": "72%",
+      "confidence_val": 72,
       "pattern_found": "Neural Pattern",
       "recommendations": [
         49,
@@ -157,8 +157,8 @@
     },
     "ls3": {
       "primary": 44,
-      "confidence": "87%",
-      "confidence_val": 87,
+      "confidence": "83%",
+      "confidence_val": 83,
       "pattern_found": "Expert-AI Overlap",
       "recommendations": [
         44,
@@ -174,28 +174,32 @@
       "confidence": 120,
       "trick": "Elite Expert Signal",
       "reason": "Triggered by 81",
-      "best_timing": "AK, GM"
+      "best_timing": "AK, GM",
+      "timing_desc": "URGENT: Next Draw"
     },
     {
       "number": 34,
-      "confidence": 110,
+      "confidence": 120,
       "trick": "Elite Expert Signal",
-      "reason": "Triggered by 84",
-      "best_timing": "AK, LS2"
+      "reason": "Triggered by 42",
+      "best_timing": "LS3, LS1",
+      "timing_desc": "High Priority: Today"
     },
     {
       "number": 27,
       "confidence": 100,
       "trick": "Elite Expert Signal",
       "reason": "Triggered by 50",
-      "best_timing": "AK, GM"
+      "best_timing": "AK, GM",
+      "timing_desc": "URGENT: Next Draw"
     },
     {
       "number": 64,
       "confidence": 100,
       "trick": "Elite Expert Signal",
       "reason": "Triggered by 71",
-      "best_timing": "AK, GM"
+      "best_timing": "AK, GM",
+      "timing_desc": "URGENT: Next Draw"
     }
   ],
   "master_target": {
@@ -203,7 +207,8 @@
     "confidence": 120,
     "trick": "Elite Expert Signal",
     "reason": "Triggered by 81",
-    "best_timing": "AK, GM"
+    "best_timing": "AK, GM",
+    "timing_desc": "URGENT: Next Draw"
   },
   "gm_ls3_trick": {
     "sum": 7,
@@ -258,102 +263,122 @@
   "active_expert_signals": [
     {
       "trigger": "50",
+      "trigger_draw": "GM",
       "targets": [
         78,
         5,
         26
       ],
       "accuracy": "75.00%",
-      "avg_delay": 1.25
+      "avg_delay": 1.25,
+      "timing": "URGENT: Next Draw"
     },
     {
       "trigger": "51",
+      "trigger_draw": "LS1",
       "targets": [
         44,
         99
       ],
       "accuracy": "36.00%",
-      "avg_delay": 1.27
+      "avg_delay": 1.27,
+      "timing": "URGENT: Next Draw"
     },
     {
       "trigger": "97",
+      "trigger_draw": "LS2",
       "targets": [
         47,
         24,
         92
       ],
       "accuracy": "75.00%",
-      "avg_delay": 1.49
+      "avg_delay": 1.49,
+      "timing": "URGENT: Next Draw"
     },
     {
       "trigger": "71",
+      "trigger_draw": "LS3",
       "targets": [
         67,
         12,
         62
       ],
       "accuracy": "75.00%",
-      "avg_delay": 1.38
+      "avg_delay": 1.38,
+      "timing": "URGENT: Next Draw"
     },
     {
       "trigger": "81",
+      "trigger_draw": "GM",
       "targets": [
         46,
         64,
         22
       ],
       "accuracy": "100.00%",
-      "avg_delay": 0.99
+      "avg_delay": 0.99,
+      "timing": "URGENT: Next Draw"
     },
     {
       "trigger": "40",
+      "trigger_draw": "AK",
       "targets": [
         41,
         87,
         45
       ],
       "accuracy": "71.88%",
-      "avg_delay": 1.21
+      "avg_delay": 1.21,
+      "timing": "URGENT: Next Draw"
     },
     {
       "trigger": "90",
+      "trigger_draw": "LS3",
       "targets": [
         18,
         81,
         9
       ],
       "accuracy": "76.92%",
-      "avg_delay": 1.29
+      "avg_delay": 1.29,
+      "timing": "High Priority: Today"
     },
     {
       "trigger": "42",
+      "trigger_draw": "GM",
       "targets": [
-        47,
-        24,
-        92
+        34,
+        89,
+        93
       ],
       "accuracy": "84.00%",
-      "avg_delay": 1.1
+      "avg_delay": 1.1,
+      "timing": "High Priority: Today"
     },
     {
       "trigger": "25",
+      "trigger_draw": "LS1",
       "targets": [
         70,
         7,
         52
       ],
       "accuracy": "40.00%",
-      "avg_delay": 1.58
+      "avg_delay": 1.58,
+      "timing": "Coming Soon: 1-2 Days"
     },
     {
       "trigger": "84",
+      "trigger_draw": "AK",
       "targets": [
         28,
         34,
         98
       ],
       "accuracy": "68.18%",
-      "avg_delay": 1.51
+      "avg_delay": 1.51,
+      "timing": "Coming Soon: 1-2 Days"
     }
   ],
   "elite_cycle": [

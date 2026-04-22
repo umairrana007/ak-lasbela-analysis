@@ -118,13 +118,27 @@ const App = () => {
           <div className="marquee-content animate-marquee">
             {signals.map((sig, idx) => (
               <div key={idx} className="expert-signal-item">
-                <span className="sig-trigger">[Trigger: <span className="text-white">{sig.trigger}</span>]</span>
+                <span className="sig-trigger">
+                  [Trigger: <span className="text-white">{sig.trigger}</span> 
+                  <small style={{fontSize: '0.7em', color: '#94a3b8', marginLeft: '4px'}}>in {sig.trigger_draw}</small>]
+                </span>
                 <span className="sig-arrow">➜</span>
                 <span className="sig-targets">
                   {sig.targets.join(", ")}
                 </span>
+                <div className="sig-timing" style={{
+                  color: sig.timing?.includes('URGENT') ? '#ef4444' : sig.timing?.includes('High') ? '#fbbf24' : '#60a5fa',
+                  fontSize: '0.85em',
+                  fontWeight: 'bold',
+                  marginRight: '15px',
+                  background: 'rgba(0,0,0,0.3)',
+                  padding: '2px 8px',
+                  borderRadius: '4px'
+                }}>
+                  {sig.timing || "Active"}
+                </div>
                 <div className="sig-accuracy">
-                  <span className="accuracy-label">Accuracy:</span>
+                  <span className="accuracy-label">ACC:</span>
                   <span className="accuracy-value">{sig.accuracy}</span>
                 </div>
               </div>
@@ -132,13 +146,27 @@ const App = () => {
             {/* Duplicate for seamless loop */}
             {signals.map((sig, idx) => (
               <div key={`dup-${idx}`} className="expert-signal-item">
-                <span className="sig-trigger">[Trigger: <span className="text-white">{sig.trigger}</span>]</span>
+                <span className="sig-trigger">
+                   [Trigger: <span className="text-white">{sig.trigger}</span>
+                   <small style={{fontSize: '0.7em', color: '#94a3b8', marginLeft: '4px'}}>in {sig.trigger_draw}</small>]
+                </span>
                 <span className="sig-arrow">➜</span>
                 <span className="sig-targets">
                   {sig.targets.join(", ")}
                 </span>
+                <div className="sig-timing" style={{
+                  color: sig.timing?.includes('URGENT') ? '#ef4444' : sig.timing?.includes('High') ? '#fbbf24' : '#60a5fa',
+                  fontSize: '0.85em',
+                  fontWeight: 'bold',
+                  marginRight: '15px',
+                  background: 'rgba(0,0,0,0.3)',
+                  padding: '2px 8px',
+                  borderRadius: '4px'
+                }}>
+                  {sig.timing || "Active"}
+                </div>
                 <div className="sig-accuracy">
-                  <span className="accuracy-label">Accuracy:</span>
+                  <span className="accuracy-label">ACC:</span>
                   <span className="accuracy-value">{sig.accuracy}</span>
                 </div>
               </div>
@@ -599,7 +627,7 @@ const App = () => {
             {/* ROW 1: ELITE SNIPER & RECOMMENDATIONS */}
             <div className="dashboard-grid">
                 {/* Card 1: Elite Sniper Targets */}
-                {predictions.triple_x_trick && (
+                {predictions && (
                     <div className="neural-card quantum-pulse glow-amber" style={{
                         border: '2px solid #818cf8', 
                         background: 'linear-gradient(135deg, rgba(129, 140, 248, 0.08) 0%, rgba(79, 70, 229, 0.05) 100%)',
@@ -612,11 +640,39 @@ const App = () => {
                             </span>
                             <span style={{fontSize: '0.6em', background: '#fbbf24', color: '#000', padding: '4px 10px', borderRadius: '20px', fontWeight: '900'}}>95.2% ACC.</span>
                         </div>
+
+                        {/* Sniper Jodis Section (Numbers) */}
+                        {predictions.sniper_targets && predictions.sniper_targets.length > 0 && (
+                            <div className="sniper-jodis-section" style={{marginBottom: '20px'}}>
+                                <div style={{fontSize: '0.7em', color: '#818cf8', fontWeight: '900', textTransform: 'uppercase', marginBottom: '10px', letterSpacing: '1px'}}>🔥 Expert Sniper Numbers</div>
+                                <div style={{display: 'flex', flexWrap: 'wrap', gap: '10px'}}>
+                                    {predictions.sniper_targets.map((st, idx) => (
+                                        <div key={idx} style={{
+                                            flex: 1,
+                                            minWidth: '100px',
+                                            background: 'rgba(0,0,0,0.5)',
+                                            border: '1px solid rgba(129, 140, 248, 0.3)',
+                                            borderRadius: '8px',
+                                            padding: '8px',
+                                            display: 'flex',
+                                            flexDirection: 'column',
+                                            alignItems: 'center',
+                                            gap: '4px'
+                                        }}>
+                                            <div style={{fontSize: '1.4em', fontWeight: '950', color: '#fbbf24'}}>{st.number.toString().padStart(2, '0')}</div>
+                                            <div style={{fontSize: '0.6em', color: '#4ade80', fontWeight: 'bold'}}>{st.timing_desc || 'Active'}</div>
+                                            <div style={{fontSize: '0.55em', color: '#94a3b8'}}>{st.best_timing}</div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+
                         <div className="sniper-targets-container">
                             <div className="sniper-column">
                                 <div className="sniper-column-label">OPEN SET</div>
                                 <div className="number-badges">
-                                    {predictions.triple_x_trick.open_set.map(d => (
+                                    {predictions.triple_x_trick?.open_set.map(d => (
                                         <span key={d} className="sniper-badge">{d}</span>
                                     ))}
                                 </div>
@@ -624,7 +680,7 @@ const App = () => {
                             <div className="sniper-column">
                                 <div className="sniper-column-label">CLOSE SET</div>
                                 <div className="number-badges">
-                                    {predictions.triple_x_trick.close_set.map(d => (
+                                    {predictions.triple_x_trick?.close_set.map(d => (
                                         <span key={d} className="sniper-badge">{d}</span>
                                     ))}
                                 </div>
@@ -634,7 +690,7 @@ const App = () => {
                             <div style={{background: 'rgba(0,0,0,0.3)', padding: '12px', borderRadius: '10px', border: '1px solid rgba(129, 140, 248, 0.2)'}}>
                                 <div style={{fontSize: '0.75em', color: '#fff', marginBottom: '10px', fontWeight: '950', textTransform: 'uppercase', letterSpacing: '2px', textAlign: 'center'}}>🎯 Optimal Target Draws</div>
                                 <div style={{display: 'flex', gap: '10px'}}>
-                                    {predictions.triple_x_trick.target_draws.map(draw => (
+                                    {predictions.triple_x_trick?.target_draws.map(draw => (
                                         <span key={draw} style={{flex: 1, background: '#4338ca', color: '#fff', padding: '10px 5px', borderRadius: '8px', textAlign: 'center', fontSize: '1.1em', fontWeight: '950', border: '1px solid #818cf8', boxShadow: '0 4px 15px rgba(0,0,0,0.4)'}}>{draw}</span>
                                     ))}
                                 </div>

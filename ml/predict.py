@@ -82,10 +82,15 @@ def generate_predictions():
     # 1. Identify Active and Pending Expert Signals
     # We look at the last 15 draws (approx 3 days) to see what's active
     history_sequence = []
+    history_slots = [] # To track which draw (GM, LS1, etc) it was
+    draw_names = ["GM", "LS1", "AK", "LS2", "LS3"]
+    
     # Flatten the last 4 days for context
     recent_df = df.tail(4)
     for _, row in recent_df.iterrows():
-        history_sequence.extend([int(row['gm']), int(row['ls1']), int(row['ak']), int(row['ls2']), int(row['ls3'])])
+        for slot in draw_names:
+            history_sequence.append(int(row[slot.lower()]))
+            history_slots.append(slot)
     
     # Load Expert Analysis for hit rates
     analysis_path = 'ml/expert_analysis_results.json'
@@ -109,14 +114,35 @@ def generate_predictions():
             pending_for_this_trigger = [t for t in targets if t not in appeared_after]
             
             if pending_for_this_trigger:
+                # Calculate timing based on history_slots[i] and avg_delay
+                rate_info = analysis_results.get(val_str, {"rate": "75%", "avg_delay_days": 1.1})
+                avg_delay = float(rate_info.get("avg_delay_days", 1.1))
+                
+                # Estimate target window
+                # Each day has 5 draws. 
+                # Current index i is in history_slots[i]
+                # Distance in draws = avg_delay * 5 (approx)
+                target_draw_idx = i + int(avg_delay * 5)
+                # If target_draw_idx is beyond current sequence, it's in the future
+                current_seq_len = len(history_sequence)
+                draws_remaining = target_draw_idx - (current_seq_len - 1)
+                
+                if draws_remaining <= 0:
+                    timing_desc = "URGENT: Next Draw"
+                elif draws_remaining <= 2:
+                    timing_desc = "High Priority: Today"
+                else:
+                    timing_desc = "Coming Soon: 1-2 Days"
+
                 # Add to active signals for the UI banner if not already seen
                 if val_str not in seen_triggers:
-                    rate_info = analysis_results.get(val_str, {"rate": "70%+"})
                     active_expert_signals.append({
                         "trigger": val_str,
+                        "trigger_draw": history_slots[i],
                         "targets": pending_for_this_trigger[:3], # Show top 3
                         "accuracy": rate_info.get("rate", "70%"),
-                        "avg_delay": rate_info.get("avg_delay_days", 1.2)
+                        "avg_delay": avg_delay,
+                        "timing": timing_desc
                     })
                     seen_triggers.add(val_str)
 
@@ -130,7 +156,8 @@ def generate_predictions():
                             "count": 1, 
                             "reasons": [f"Triggered by {val_str}"], 
                             "triggers": [val_str],
-                            "best_slots": best_slots
+                            "best_slots": best_slots,
+                            "timing": timing_desc
                         }
                     else:
                         if val_str not in pending_targets[t]["triggers"]:
@@ -140,6 +167,7 @@ def generate_predictions():
                             # Update best slots if more specific info found
                             if "ANY" in pending_targets[t]["best_slots"]:
                                 pending_targets[t]["best_slots"] = best_slots
+                                pending_targets[t]["timing"] = timing_desc
 
     # 2. Logic Groups (Repeat Mode)
     for group in logic_groups:
@@ -233,7 +261,8 @@ def generate_predictions():
             "confidence": int(70 + (p_data['count'] * 10)),
             "trick": "Elite Expert Signal",
             "reason": p_data['reasons'][0],
-            "best_timing": ", ".join(p_data.get('best_slots', [])[:2])
+            "best_timing": ", ".join(p_data.get('best_slots', [])[:2]),
+            "timing_desc": p_data.get('timing', "Active Now")
         })
     
     # Sort and take top 4
