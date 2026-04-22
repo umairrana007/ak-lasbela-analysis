@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { collection, query, orderBy, limit, onSnapshot, doc, setDoc, deleteDoc } from "firebase/firestore";
 import { db } from "./firebase";
 import parsedRecords from "./parsed_records.json";
@@ -512,97 +512,9 @@ const App = () => {
     );
   };
 
-  const calculateNeuralStats = (allRecords) => {
-    const counts = {};
-    const lastSeenDate = {}; // actual date store karega
-
-    const sortedByDate = [...allRecords].sort((a, b) => new Date(a.date) - new Date(b.date));
-
-    sortedByDate.forEach((r) => {
-      ['gm', 'ls1', 'ak', 'ls2', 'ls3'].forEach(key => {
-        const val = r[key];
-        if (val && val !== '--' && val !== '??' && !isNaN(val) && val.length === 2) {
-          counts[val] = (counts[val] || 0) + 1;
-          // Har number ki last appearance ki actual date save karo
-          if (!lastSeenDate[val] || new Date(r.date) > new Date(lastSeenDate[val])) {
-            lastSeenDate[val] = r.date;
-          }
-        }
-      });
-    });
-
-    // Aaj ki date se actual calendar days ka farq calculate karo
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-
-    const overdueWithDays = Object.entries(lastSeenDate).map(([num, date]) => {
-      const lastDate = new Date(date);
-      lastDate.setHours(0, 0, 0, 0);
-      const diffDays = Math.floor((today - lastDate) / (1000 * 60 * 60 * 24));
-      return [num, diffDays];
-    });
-
-    const freqSorted = Object.entries(counts).sort((a, b) => b[1] - a[1]);
-    const overdueSorted = overdueWithDays.sort((a, b) => b[1] - a[1]);
-
-    setNeuralStats({
-      hot: freqSorted.slice(0, 8),
-      cold: freqSorted.slice(-8).reverse(),
-      overdue: overdueSorted.slice(0, 8)
-    });
-  };
-  
-  const calculateOddEvenDistribution = (allRecords) => {
-    let oddCount = 0;
-    let evenCount = 0;
-    const recent = allRecords.slice(-50); // Last 50 draws for relevant parity analysis
-    
-    recent.forEach(r => {
-      ['gm', 'ls1', 'ak', 'ls2', 'ls3'].forEach(key => {
-        const val = parseInt(r[key]);
-        if (!isNaN(val)) {
-          if (val % 2 === 0) evenCount++;
-          else oddCount++;
-        }
-      });
-    });
-
-    const total = oddCount + evenCount;
-    const oddPercent = total > 0 ? Math.round((oddCount / total) * 100) : 50;
-    const evenPercent = 100 - oddPercent;
-
-    setOddEvenStats({
-      odd: oddPercent,
-      even: evenPercent,
-      ratio: `${oddPercent}/${evenPercent}`
-    });
-  };
-
-  const calculateAccuracy = () => {
-    // Basic accuracy logic
-  };
-
-  const calculateDigitHeatmap = (allRecords) => {
-    if (!allRecords || allRecords.length === 0) return;
-    const last100 = allRecords.slice(0, 100);
-    const counts = Array(10).fill(0);
-    
-    last100.forEach(r => {
-        ['gm', 'ls1', 'ak', 'ls2', 'ls3'].forEach(key => {
-            if (r[key] && r[key] !== '--') {
-                const val = String(r[key]).padStart(2, '0');
-                if (val.length === 2) {
-                    counts[parseInt(val[0])]++;
-                    counts[parseInt(val[1])]++;
-                }
-            }
-        });
-    });
-    
-    const max = Math.max(...counts);
-    const normalized = counts.map(c => max === 0 ? 0 : Math.round((c / max) * 100));
-    setHeatmapData(normalized);
-  };
+  // NOTE: calculateNeuralStats, calculateOddEvenDistribution, calculateDigitHeatmap
+  // were removed — they called non-existent state setters (setNeuralStats, setOddEvenStats, setHeatmapData)
+  // causing React to crash. These are now handled by useMemo hooks above (neuralStats, oddEvenStats, heatmapData).
 
   useEffect(() => {
     // We fetch from firebase, but we also append parsed_records.
