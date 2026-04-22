@@ -5,8 +5,19 @@ from datetime import datetime
 
 def get_firestore_client():
     try:
-        # Use explicit project ID for consistency
-        return firestore.Client(project='ak-analysis-system-umair')
+        import glob
+        key_files = glob.glob("*.json")
+        key_file = next((f for f in key_files if "firebase-adminsdk" in f), None)
+        creds_json = os.environ.get("GOOGLE_APPLICATION_CREDENTIALS_JSON")
+        
+        if key_file:
+            return firestore.Client.from_service_account_json(key_file)
+        elif creds_json:
+            with open("temp_creds.json", "w") as f:
+                f.write(creds_json)
+            return firestore.Client.from_service_account_json("temp_creds.json")
+        else:
+            return firestore.Client(project='ak-analysis-system-umair')
     except Exception as e:
         print(f"Failed to connect to Firestore: {e}")
         return None

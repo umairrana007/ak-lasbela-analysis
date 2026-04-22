@@ -233,13 +233,28 @@ def generate_predictions():
 
     try:
         from google.cloud import firestore
+        import glob
+        
+        # Look for local service account key
+        key_files = glob.glob("*.json")
+        key_file = next((f for f in key_files if "firebase-adminsdk" in f), None)
         creds_json = os.environ.get("GOOGLE_APPLICATION_CREDENTIALS_JSON")
-        if creds_json:
+        
+        if key_file:
+            db = firestore.Client.from_service_account_json(key_file)
+            print(f"Using local credentials: {key_file}")
+        elif creds_json:
             with open("temp_creds.json", "w") as f: f.write(creds_json)
             db = firestore.Client.from_service_account_json("temp_creds.json")
+            print("Using credentials from environment variable")
         else:
             db = firestore.Client(project='ak-analysis-system-umair')
+            print("Using default credentials")
+            
+        # Update both locations for redundancy
         db.collection('metadata').document('predictions').set(final_output)
+        db.collection('predictions').document('latest').set(final_output)
+        
         print("Firestore Sync Success")
     except Exception as e:
         print(f"Firestore Sync Error: {e}")

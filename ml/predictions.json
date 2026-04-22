@@ -1,88 +1,88 @@
 {
-  "last_updated": "2026-04-21T11:33:23.673560",
-  "target_date": "2026-04-21",
+  "last_updated": "2026-04-22T10:00:34.720183",
+  "target_date": "2026-04-22",
   "final_recommendations": {
     "gm": [
       {
-        "val": 49,
+        "val": 35,
         "type": "MAIN",
-        "confidence": 68
+        "confidence": 69
       },
       {
-        "val": 6,
+        "val": 47,
         "type": "SUPPORT",
         "confidence": 70
       },
       {
-        "val": 7,
+        "val": 60,
         "type": "SUPPORT",
         "confidence": 70
       }
     ],
     "ls1": [
       {
-        "val": 39,
+        "val": 62,
         "type": "MAIN",
-        "confidence": 62
+        "confidence": 67
       },
       {
-        "val": 6,
+        "val": 60,
         "type": "ELITE",
         "confidence": 85
       },
       {
-        "val": 7,
+        "val": 61,
         "type": "SUPPORT",
         "confidence": 70
       }
     ],
     "ak": [
       {
-        "val": 50,
+        "val": 62,
         "type": "MAIN",
-        "confidence": 71
+        "confidence": 72
       },
       {
-        "val": 6,
+        "val": 60,
         "type": "ELITE",
         "confidence": 85
       },
       {
-        "val": 7,
+        "val": 61,
         "type": "SUPPORT",
         "confidence": 70
       }
     ],
     "ls2": [
       {
-        "val": 45,
+        "val": 49,
         "type": "MAIN",
-        "confidence": 68
+        "confidence": 67
       },
       {
-        "val": 6,
-        "type": "SUPPORT",
-        "confidence": 70
+        "val": 24,
+        "type": "ELITE",
+        "confidence": 85
       },
       {
-        "val": 7,
+        "val": 47,
         "type": "SUPPORT",
         "confidence": 70
       }
     ],
     "ls3": [
       {
-        "val": 35,
+        "val": 44,
         "type": "MAIN",
-        "confidence": 79
+        "confidence": 72
       },
       {
-        "val": 6,
+        "val": 60,
         "type": "SUPPORT",
         "confidence": 70
       },
       {
-        "val": 7,
+        "val": 61,
         "type": "SUPPORT",
         "confidence": 70
       }
@@ -90,133 +90,134 @@
   },
   "results": {
     "gm": {
-      "primary": 49,
-      "confidence": "68%",
-      "confidence_val": 68,
+      "primary": 35,
+      "confidence": "69%",
+      "confidence_val": 69,
       "pattern_found": "Neural Sequence",
       "recommendations": [
-        6,
-        7,
-        49
+        35,
+        47,
+        60
       ],
-      "reasoning": "Predicting 49 for GM based on Neural Sequence logic."
+      "reasoning": "Predicting 35 for GM based on Neural Sequence logic."
     },
     "ls1": {
-      "primary": 39,
-      "confidence": "62%",
-      "confidence_val": 62,
+      "primary": 62,
+      "confidence": "67%",
+      "confidence_val": 67,
       "pattern_found": "Neural Sequence",
       "recommendations": [
-        6,
-        7,
-        39
+        60,
+        61,
+        62
       ],
-      "reasoning": "Predicting 39 for LS1 based on Neural Sequence logic."
+      "reasoning": "Predicting 62 for LS1 based on Neural Sequence logic."
     },
     "ak": {
-      "primary": 50,
-      "confidence": "71%",
-      "confidence_val": 71,
+      "primary": 62,
+      "confidence": "72%",
+      "confidence_val": 72,
       "pattern_found": "Neural Sequence",
       "recommendations": [
-        6,
-        7,
-        50
+        60,
+        61,
+        62
       ],
-      "reasoning": "Predicting 50 for AK based on Neural Sequence logic."
+      "reasoning": "Predicting 62 for AK based on Neural Sequence logic."
     },
     "ls2": {
-      "primary": 45,
-      "confidence": "68%",
-      "confidence_val": 68,
+      "primary": 49,
+      "confidence": "67%",
+      "confidence_val": 67,
       "pattern_found": "Neural Sequence",
       "recommendations": [
-        6,
-        7,
-        45
+        24,
+        47,
+        49
       ],
-      "reasoning": "Predicting 45 for LS2 based on Neural Sequence logic."
+      "reasoning": "Predicting 49 for LS2 based on Neural Sequence logic."
     },
     "ls3": {
-      "primary": 35,
-      "confidence": "79%",
-      "confidence_val": 79,
+      "primary": 44,
+      "confidence": "72%",
+      "confidence_val": 72,
       "pattern_found": "Neural Sequence",
       "recommendations": [
-        6,
-        7,
-        35
+        44,
+        60,
+        61
       ],
-      "reasoning": "Predicting 35 for LS3 based on Neural Sequence logic."
+      "reasoning": "Predicting 44 for LS3 based on Neural Sequence logic."
     }
   },
   "sniper_targets": [
     {
-      "number": 35,
-      "draw": "LS3",
-      "confidence": 79,
-      "trick": "Neural Sequence"
-    },
-    {
-      "number": 50,
+      "number": 62,
       "draw": "AK",
-      "confidence": 71,
+      "confidence": 72,
       "trick": "Neural Sequence"
     },
     {
-      "number": 49,
+      "number": 44,
+      "draw": "LS3",
+      "confidence": 72,
+      "trick": "Neural Sequence"
+    },
+    {
+      "number": 35,
       "draw": "GM",
-      "confidence": 68,
+      "confidence": 69,
       "trick": "Neural Sequence"
     },
     {
-      "number": 45,
-      "draw": "LS2",
-      "confidence": 68,
+      "number": 62,
+      "draw": "LS1",
+      "confidence": 67,
       "trick": "Neural Sequence"
     }
   ],
   "master_target": {
-    "number": 35,
-    "draw": "LS3",
-    "confidence": 79,
+    "number": 62,
+    "draw": "AK",
+    "confidence": 72,
     "trick": "Neural Sequence"
   },
   "gm_ls3_trick": {
-    "sum": 18,
+    "sum": 7,
     "digits": [
-      1,
-      8
+      0,
+      7
     ],
     "hit_rate": "87.3%",
-    "target_date": "2026-04-21",
+    "target_date": "2026-04-22",
     "best_draws": [
       "LS1",
       "LS2",
       "LS3"
     ],
     "best_location": "Close Side",
-    "reasoning": "Based on GM (98) and LS3 (90) Open digits sum."
+    "reasoning": "Based on GM (42) and LS3 (35) Open digits sum."
   },
   "triple_x_trick": {
     "open_set": [
-      5,
-      8,
-      9
-    ],
-    "close_set": [
-      0,
+      2,
+      4,
       8
     ],
+    "close_set": [
+      2,
+      4,
+      5
+    ],
     "top_pairs": [
-      5,
-      8,
-      9,
-      50,
-      58,
-      80,
-      85,
-      88
+      22,
+      24,
+      25,
+      28,
+      42,
+      44,
+      45,
+      48
     ],
     "hit_rate_digits": "95.2%",
     "hit_rate_jodi": "56.3%",
@@ -224,7 +225,7 @@
       "LS2",
       "LS3"
     ],
-    "reasoning": "Derived from GM(98), LS1(50), AK(88) Haroofs."
+    "reasoning": "Derived from GM(42), LS1(25), AK(84) Haroofs."
   },
   "yesterday_match": {
     "status": "Hit Confirmed",
@@ -233,9 +234,28 @@
   },
   "elite_cycle": [
     {
+      "val": 56,
+      "source_info": "Base: LS1 on 19/04",
+      "target_date": "2026-04-22",
+      "target_draws": [
+        "LS1",
+        "AK"
+      ],
+      "family": [
+        1,
+        6,
+        10,
+        15,
+        51,
+        56,
+        60,
+        65
+      ]
+    },
+    {
       "val": 51,
       "source_info": "Base: LS1 on 18/04",
-      "target_date": "2026-04-21",
+      "target_date": "2026-04-22",
       "target_draws": [
         "LS1",
         "AK"
@@ -254,7 +274,7 @@
     {
       "val": 94,
       "source_info": "Base: LS1 on 17/04",
-      "target_date": "2026-04-21",
+      "target_date": "2026-04-22",
       "target_draws": [
         "LS1",
         "AK"
@@ -269,7 +289,7 @@
     {
       "val": 92,
       "source_info": "Base: LS1 on 16/04",
-      "target_date": "2026-04-21",
+      "target_date": "2026-04-22",
       "target_draws": [
         "LS1",
         "AK"
@@ -283,25 +303,6 @@
         79,
         92,
         97
-      ]
-    },
-    {
-      "val": 35,
-      "source_info": "Base: LS1 on 15/04",
-      "target_date": "2026-04-21",
-      "target_draws": [
-        "LS1",
-        "AK"
-      ],
-      "family": [
-        3,
-        8,
-        30,
-        35,
-        53,
-        58,
-        80,
-        85
       ]
     }
   ]
