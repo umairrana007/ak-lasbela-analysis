@@ -135,35 +135,78 @@ const DailyGamePlan = () => {
 };
 
 const MomentumChains = () => {
-    const chains = [
-        { trigger: '02', target: '49', type: 'Primary S1', strength: '92%' },
-        { trigger: '90', target: '42', type: 'Primary S1', strength: '88%' },
-        { trigger: '63', target: '04', type: 'Set 2 -> 1', strength: '85%' },
-        { trigger: '40', target: '94', type: 'Primary S1', strength: '82%' },
-        { trigger: '20', target: '86', type: 'Cross Set', strength: '79%' },
+    const categories = [
+        {
+            title: '🔥 PRIMARY SET 1 FOLLOW-UPS',
+            color: '#4ade80',
+            chains: [
+                { trigger: '02', target: '49', strength: '92%' },
+                { trigger: '90', target: '42', strength: '88%' },
+                { trigger: '40', target: '94', strength: '85%' },
+                { trigger: '05', target: '54/92', strength: '82%' },
+                { trigger: '04', target: '04', strength: '78%' }
+            ]
+        },
+        {
+            title: '⚡ CROSS-SET (S1 ➔ S2)',
+            color: '#60a5fa',
+            chains: [
+                { trigger: '90', target: '78', strength: '84%' },
+                { trigger: '59', target: '16', strength: '81%' },
+                { trigger: '20', target: '86', strength: '80%' },
+                { trigger: '42', target: '86', strength: '79%' }
+            ]
+        },
+        {
+            title: '🎯 REVERSE (S2 ➔ S1)',
+            color: '#f472b6',
+            chains: [
+                { trigger: '63', target: '04', strength: '87%' },
+                { trigger: '87', target: '12', strength: '83%' },
+                { trigger: '86', target: '97', strength: '76%' }
+            ]
+        }
     ];
 
     return (
-        <div className="neural-card glow-blue" style={{
-            background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(15, 23, 42, 0.95) 100%)',
-            border: '1px solid rgba(59, 130, 246, 0.4)',
-            marginBottom: '25px'
+        <div className="neural-card glow-premium" style={{
+            background: 'linear-gradient(135deg, rgba(30, 41, 59, 0.95) 0%, rgba(15, 23, 42, 1) 100%)',
+            border: '1px solid rgba(255, 255, 255, 0.1)',
+            marginBottom: '25px',
+            padding: '25px'
         }}>
-            <div className="neural-title" style={{color: '#60a5fa', marginBottom: '15px', display: 'flex', alignItems: 'center', gap: '10px'}}>
-                <span style={{fontSize: '1.2em'}}>🚀</span> NEURAL MOMENTUM CHAINS (TOP FOLLOW-UPS)
+            <div className="neural-title" style={{color: '#fff', marginBottom: '25px', display: 'flex', alignItems: 'center', gap: '12px', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '15px'}}>
+                <span style={{fontSize: '1.4em'}}>🕸️</span> NEURAL MOMENTUM HUB (AI CHAINS)
+                <span style={{fontSize: '0.6em', background: '#3b82f6', color: '#fff', padding: '4px 10px', borderRadius: '20px', marginLeft: 'auto'}}>4,400+ RECORDS ANALYZED</span>
             </div>
-            <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '12px'}}>
-                {chains.map((c, i) => (
-                    <div key={i} style={{background: 'rgba(0,0,0,0.3)', padding: '12px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)', textAlign: 'center'}}>
-                        <div style={{fontSize: '0.6em', color: '#94a3b8', textTransform: 'uppercase', marginBottom: '8px'}}>{c.type}</div>
-                        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px'}}>
-                            <span style={{fontSize: '1.2em', fontWeight: '900', color: '#fff'}}>{c.trigger}</span>
-                            <span style={{color: '#60a5fa', fontSize: '1.2em'}}>➔</span>
-                            <span style={{fontSize: '1.4em', fontWeight: '950', color: '#4ade80', textShadow: '0 0 10px rgba(74, 222, 128, 0.3)'}}>{c.target}</span>
+            
+            <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '25px'}}>
+                {categories.map((cat, idx) => (
+                    <div key={idx} style={{background: 'rgba(255,255,255,0.02)', borderRadius: '15px', padding: '15px', border: `1px solid ${cat.color}33`}}>
+                        <div style={{color: cat.color, fontSize: '0.75em', fontWeight: '900', letterSpacing: '1px', marginBottom: '15px', display: 'flex', alignItems: 'center', gap: '8px'}}>
+                            <div style={{width: '6px', height: '6px', borderRadius: '50%', background: cat.color}}></div>
+                            {cat.title}
                         </div>
-                        <div style={{fontSize: '0.65em', color: '#4ade80', marginTop: '8px', fontWeight: 'bold'}}>Hit Prob: {c.strength}</div>
+                        <div style={{display: 'flex', flexDirection: 'column', gap: '10px'}}>
+                            {cat.chains.map((c, i) => (
+                                <div key={i} style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 15px', background: 'rgba(0,0,0,0.3)', borderRadius: '10px', border: '1px solid rgba(255,255,255,0.05)'}}>
+                                    <div style={{display: 'flex', alignItems: 'center', gap: '12px'}}>
+                                        <span style={{fontSize: '1.1em', fontWeight: '900', color: '#fff'}}>{c.trigger}</span>
+                                        <span style={{color: cat.color, fontSize: '1.2em', opacity: 0.7}}>➔</span>
+                                        <span style={{fontSize: '1.3em', fontWeight: '950', color: cat.color}}>{c.target}</span>
+                                    </div>
+                                    <div style={{fontSize: '0.65em', color: '#94a3b8', fontWeight: 'bold'}}>
+                                        Hit Prob: <span style={{color: '#fff'}}>{c.strength}</span>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 ))}
+            </div>
+            
+            <div style={{marginTop: '20px', fontSize: '0.7em', color: '#64748b', textAlign: 'center', fontStyle: 'italic'}}>
+                * These chains represent sequences that occurred with high frequency in historical data. Use for directional guidance.
             </div>
         </div>
     );
