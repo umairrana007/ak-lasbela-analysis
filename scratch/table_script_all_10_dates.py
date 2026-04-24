@@ -1,0 +1,140 @@
+import re
+from datetime import datetime, timedelta
+
+data = """
+01/03..68.89.82.83.48..Sun
+02/03..00.87.83.29.87.Mon
+03/03..51.19.03.28.49.Tue
+04/03..57.54.41.13.55.Wed
+05/03..96.22.23.91.41.Thur
+06/03.14.89.26.26.91.Fri
+07/03..08.13.88.84.03.Sat
+08/03..67.14.29.30.72.Sun
+09/03..40.85.32.00.91.Mon
+10/03..29.85.87.27.58.Tue
+11/03..48.48.64.08.38.Wed
+12/03..92.68.29.65.87.Thur
+13/03.96.29.71.45.07.Fri
+14/03..47.04.22.46.76.Sat
+15/03..40.66.75.68.26.Sun
+16/03..56.03.67.90.46.Mon
+17/03..89.56.05.72.07.Tue
+18/03..63.91.22.14.63.Wed
+19/03.92.23.05.17.68.Thur
+20/03.82.40.54.52.21.Fri
+23/03..20.25.44.15.87.Sat
+24/03..12.12.12.36.08.Sun
+25/03..40.06.94.04.45.Mon
+26/03..55.87.62.40.51.Thur
+27/03..81.99.56.44.43.Fri
+28/03..86.16.98.98.95.Sat
+29/03..61.12.09.83.61.Sun
+30/03..58.92.25.03.06.Mon
+31/03..76.55.20.59.44.Wed
+01/04.97.92.69.06.23.Thur
+02/04..52.46.06.30.76.Fri
+03/04..22.63.19.03.56.Fri
+04/04..86.88.04.92.96.Sat
+05/04..75.53.06.13.96.Sun
+06/04..61.76.17.05.79.Mon
+07/04..59.16.99.58.93.Tue
+08/04..61.81.79.02.49.Wed
+09/04.65.62.71.56.45.Thur
+10/04..30.17.87.76.63..Fri
+19/04..81.56.40.57.37..Sun
+"""
+
+records = []
+for line in data.strip().split('\n'):
+    parts = re.findall(r'[a-zA-Z0-9]+', line)
+    if len(parts) >= 8:
+        nums = re.findall(r'\d+', line)
+        day_match = re.search(r'[A-Za-z]+', line)
+        if len(nums) >= 7 and day_match:
+            date = f"{nums[0]}/{nums[1]}"
+            game_nums = nums[2:7]
+            day = day_match.group(0)
+            records.append({'date': date, 'nums': game_nums, 'day': day, 'idx': len(records)})
+
+all_10_pairs = [
+    ('712', '059'),
+    ('710', '259'),
+    ('715', '209'),
+    ('719', '205'),
+    ('120', '759'),
+    ('105', '927'),
+    ('109', '527'),
+    ('207', '159'),
+    ('907', '125'),
+    ('507', '129')
+]
+
+columns = ['GM', 'LS1', 'AK', 'LS2', 'LS3']
+
+def get_expected_date(base_date_str):
+    # base_date_str format: "13/03"
+    d = datetime.strptime(f"{base_date_str}/2026", "%d/%m/%Y")
+    d_expected = d + timedelta(days=7)
+    day_map = {0: 'Mon', 1: 'Tue', 2: 'Wed', 3: 'Thur', 4: 'Fri', 5: 'Sat', 6: 'Sun'}
+    return d_expected.strftime("%d/%m"), day_map[d_expected.weekday()]
+
+def get_counterpart_hits(start_idx, counterpart_set):
+    # Search within the next ~10 days
+    results = []
+    for i in range(start_idx + 1, min(start_idx + 10, len(records))):
+        row = records[i]
+        for c_idx, num in enumerate(row['nums']):
+            if num[0] in counterpart_set and num[1] in counterpart_set:
+                results.append((row['date'], row['day'], columns[c_idx], num))
+    return results
+
+print("| Target | Match Date & Day | Match Type | Match Details | Result Expected On | Actual Hit Status |")
+print("|---|---|---|---|---|---|")
+
+for target_str, counterpart_str in all_10_pairs:
+    target_digits = set(list(target_str))
+    counterpart_set = set(list(counterpart_str))
+    
+    # Horizontal Matches
+    for r_idx, row in enumerate(records):
+        for i in range(4):
+            pair_digits = set(row['nums'][i] + row['nums'][i+1])
+            if target_digits.issubset(pair_digits):
+                match_str = f"{row['date']} ({row['day']})"
+                match_details = f"Aamne-Samne: {columns[i]}[{row['nums'][i]}] & {columns[i+1]}[{row['nums'][i+1]}]"
+                
+                exp_date, exp_day = get_expected_date(row['date'])
+                expected_str = f"{exp_date} ({exp_day})"
+                
+                future_matches = get_counterpart_hits(r_idx, counterpart_set)
+                
+                actual_hit = ""
+                for f_date, f_day, f_col, f_num in future_matches[:1]:
+                    actual_hit += f"Hit on {f_date} ({f_day}) in {f_col}[{f_num}]"
+                    
+                if not actual_hit:
+                    actual_hit = f"**Wait for {exp_date} ({exp_day})**"
+                
+                print(f"| **{target_str}** | {match_str} | {match_details} | **{counterpart_str}** | Expected: {expected_str} | {actual_hit} |")
+                
+    # Vertical Matches
+    for r in range(len(records) - 1):
+        for c in range(5):
+            pair_digits = set(records[r]['nums'][c] + records[r+1]['nums'][c])
+            if target_digits.issubset(pair_digits):
+                match_str = f"{records[r]['date']} ({records[r]['day']}) & {records[r+1]['date']} ({records[r+1]['day']})"
+                match_details = f"Upar-Neechay: {columns[c]} [{records[r]['nums'][c]} & {records[r+1]['nums'][c]}]"
+                
+                exp_date, exp_day = get_expected_date(records[r+1]['date'])
+                expected_str = f"{exp_date} ({exp_day})"
+                
+                future_matches = get_counterpart_hits(r + 1, counterpart_set)
+                
+                actual_hit = ""
+                for f_date, f_day, f_col, f_num in future_matches[:1]:
+                    actual_hit += f"Hit on {f_date} ({f_day}) in {f_col}[{f_num}]"
+                    
+                if not actual_hit:
+                    actual_hit = f"**Wait for {exp_date} ({exp_day})**"
+                    
+                print(f"| **{target_str}** | {match_str} | {match_details} | **{counterpart_str}** | Expected: {expected_str} | {actual_hit} |")

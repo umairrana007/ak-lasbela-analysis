@@ -1,0 +1,33 @@
+import json
+
+def analyze_cross_pair_frequency():
+    with open('c:/Users/Muhammad.Umair/Desktop/akwebapp/frontend/src/parsed_records.json', 'r', encoding='utf-8') as f:
+        records = json.load(f)
+
+    set1 = {'2', '0', '4', '9', '5'}
+    set2 = {'1', '3', '6', '7', '8'}
+    draw_keys = ['gm', 'ls1', 'ak', 'ls2', 'ls3']
+
+    pair_counts = {}
+
+    for record in records:
+        for k in draw_keys:
+            val = record.get(k)
+            if not val or val == '--' or val == '??':
+                continue
+            val_str = str(val).zfill(2)
+            d1, d2 = val_str[0], val_str[1]
+            
+            # Check if it's cross-set
+            if (d1 in set1 and d2 in set2) or (d1 in set2 and d2 in set1):
+                pair_counts[val_str] = pair_counts.get(val_str, 0) + 1
+
+    # Sort by frequency
+    sorted_pairs = sorted(pair_counts.items(), key=lambda x: x[1], reverse=True)
+
+    print("Top Frequencies for Cross-Set Pairs (S1 <-> S2):")
+    for pair, count in sorted_pairs[:10]:
+        print(f"  {pair}: {count} hits")
+
+if __name__ == "__main__":
+    analyze_cross_pair_frequency()

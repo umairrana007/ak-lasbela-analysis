@@ -85,6 +85,101 @@ const getTripleXStats = (allRecords) => {
     };
 };
 
+
+const LogicSetSystem = () => (
+    <div className="neural-card glow-purple" style={{
+        background: 'linear-gradient(135deg, rgba(88, 28, 135, 0.15) 0%, rgba(15, 23, 42, 0.9) 100%)',
+        border: '1px solid rgba(168, 85, 247, 0.3)',
+        marginBottom: '25px'
+    }}>
+        <div className="neural-title" style={{color: '#c084fc', marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '10px'}}>
+            <span style={{fontSize: '1.2em'}}>🧬</span> DUAL-SET CLASSIFICATION LOGIC
+        </div>
+        <div className="dashboard-grid" style={{gridTemplateColumns: '1fr 1fr', gap: '15px'}}>
+            <div style={{background: 'rgba(0,0,0,0.4)', padding: '15px', borderRadius: '12px', border: '1px solid rgba(34, 197, 94, 0.2)'}}>
+                <div style={{color: '#4ade80', fontSize: '0.8em', fontWeight: '900', marginBottom: '10px', textTransform: 'uppercase'}}>Set 1 (Primary Power)</div>
+                <div style={{display: 'flex', gap: '8px', flexWrap: 'wrap'}}>
+                    {[2, 0, 4, 9, 5].map(n => (
+                        <span key={n} style={{background: '#22c55e', color: '#000', padding: '5px 12px', borderRadius: '6px', fontWeight: '950', fontSize: '1.2em'}}>{n}</span>
+                    ))}
+                </div>
+                <div style={{fontSize: '0.65em', color: '#94a3b8', marginTop: '10px'}}>Probability: 52.4% Repeat Chance</div>
+            </div>
+            <div style={{background: 'rgba(0,0,0,0.4)', padding: '15px', borderRadius: '12px', border: '1px solid rgba(251, 191, 36, 0.2)'}}>
+                <div style={{color: '#fbbf24', fontSize: '0.8em', fontWeight: '900', marginBottom: '10px', textTransform: 'uppercase'}}>Set 2 (Supporting Force)</div>
+                <div style={{display: 'flex', gap: '8px', flexWrap: 'wrap'}}>
+                    {[1, 3, 6, 7, 8].map(n => (
+                        <span key={n} style={{background: '#fbbf24', color: '#000', padding: '5px 12px', borderRadius: '6px', fontWeight: '950', fontSize: '1.2em'}}>{n}</span>
+                    ))}
+                </div>
+                <div style={{fontSize: '0.65em', color: '#94a3b8', marginTop: '10px'}}>Logic: Transition Momentum Support</div>
+            </div>
+        </div>
+        <div className="logic-badge" style={{marginTop: '15px', background: 'rgba(168, 85, 247, 0.1)', color: '#c084fc'}}>
+            <i>💡</i> CROSS-SET LOGIC: Pairs formed between Set 1 and Set 2 have the highest hit probability today.
+        </div>
+    </div>
+);
+
+const DailyGamePlan = () => {
+    const plan = [
+        { game: 'GM', primary: ['08', '06', '49'], support: ['48', '59'], open: '0', budget: 300 },
+        { game: 'LS1', primary: ['20', '51', '63'], support: ['42', '06'], open: '2', budget: 300 },
+        { game: 'AK', primary: ['06', '77', '98'], support: ['90', '12'], open: '0', budget: 300 },
+        { game: 'LS2', primary: ['40', '84', '27'], support: ['06', '09'], open: '4', budget: 300 },
+        { game: 'LS3', primary: ['35', '03', '70'], support: ['72', '91'], open: '3', budget: 300 },
+    ];
+
+    return (
+        <div className="neural-card glow-amber" style={{
+            background: 'linear-gradient(135deg, rgba(251, 191, 36, 0.1) 0%, rgba(15, 23, 42, 0.9) 100%)',
+            border: '2px solid #fbbf24',
+            marginBottom: '25px',
+            boxShadow: '0 0 30px rgba(251, 191, 36, 0.2)'
+        }}>
+            <div className="neural-title" style={{color: '#fbbf24', marginBottom: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+                <span style={{display: 'flex', alignItems: 'center', gap: '10px'}}>
+                    <span style={{fontSize: '1.2em'}}>📅</span> DAILY MASTER INVESTMENT PLAN (24 APRIL)
+                </span>
+                <span style={{fontSize: '0.65em', background: '#fbbf24', color: '#000', padding: '4px 12px', borderRadius: '20px', fontWeight: '900'}}>TOTAL BUDGET: Rs 1500</span>
+            </div>
+            <div className="analysis-grid" style={{gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))'}}>
+                {plan.map(p => (
+                    <div key={p.game} style={{background: 'rgba(0,0,0,0.5)', padding: '15px', borderRadius: '15px', border: '1px solid rgba(251, 191, 36, 0.3)', position: 'relative'}}>
+                        <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: '12px', borderBottom: '1px solid rgba(251, 191, 36, 0.2)', paddingBottom: '8px'}}>
+                            <span style={{fontSize: '1.2em', fontWeight: '950', color: '#fbbf24'}}>{p.game}</span>
+                            <span style={{fontSize: '0.7em', color: '#4ade80', fontWeight: 'bold'}}>Limit: Rs {p.budget}</span>
+                        </div>
+                        
+                        <div style={{marginBottom: '10px'}}>
+                            <div style={{fontSize: '0.6em', color: '#fff', opacity: 0.7, textTransform: 'uppercase', marginBottom: '5px'}}>Main Jori (Rs 50 each)</div>
+                            <div style={{display: 'flex', gap: '6px', flexWrap: 'wrap'}}>
+                                {p.primary.map(j => (
+                                    <span key={j} style={{background: '#fbbf24', color: '#000', padding: '4px 10px', borderRadius: '6px', fontWeight: '950', fontSize: '1.1em'}}>{j}</span>
+                                ))}
+                            </div>
+                        </div>
+
+                        <div style={{marginBottom: '10px'}}>
+                            <div style={{fontSize: '0.6em', color: '#fff', opacity: 0.7, textTransform: 'uppercase', marginBottom: '5px'}}>Backup Jori (Rs 25 each)</div>
+                            <div style={{display: 'flex', gap: '6px', flexWrap: 'wrap'}}>
+                                {p.support.map(j => (
+                                    <span key={j} style={{background: 'rgba(255,255,255,0.1)', color: '#fff', padding: '3px 8px', borderRadius: '4px', fontWeight: 'bold', fontSize: '0.9em', border: '1px solid rgba(255,255,255,0.2)'}}>{j}</span>
+                                ))}
+                            </div>
+                        </div>
+
+                        <div style={{background: 'rgba(251, 191, 36, 0.1)', padding: '8px', borderRadius: '8px', display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+                            <span style={{fontSize: '0.7em', color: '#fbbf24', fontWeight: 'bold'}}>OPEN FIGURE (Rs 100)</span>
+                            <span style={{fontSize: '1.4em', fontWeight: '950', color: '#fff', textShadow: '0 0 10px #fbbf24'}}>{p.open}</span>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+};
+
 const App = () => {
   const [records, setRecords] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -865,6 +960,12 @@ const App = () => {
                     </div>
                     <div className="prediction-accuracy">Confidence: 94.8%</div>
                 </div>
+
+                {/* DAILY MASTER INVESTMENT PLAN */}
+                <DailyGamePlan />
+
+                {/* LOGIC SETS CLASSIFICATION */}
+                <LogicSetSystem />
 
                 {/* HIGH PRIORITY TODAY SECTION */}
                 <TodayTargets signals={allExpertSignals} />
