@@ -135,37 +135,23 @@ const DailyGamePlan = () => {
 };
 
 const MomentumChains = () => {
-    const categories = [
-        {
-            title: '🔥 PRIMARY SET 1 FOLLOW-UPS',
-            color: '#4ade80',
-            chains: [
-                { trigger: '02', target: '49', strength: '92%' },
-                { trigger: '90', target: '42', strength: '88%' },
-                { trigger: '40', target: '94', strength: '85%' },
-                { trigger: '05', target: '54/92', strength: '82%' },
-                { trigger: '04', target: '04', strength: '78%' }
-            ]
-        },
-        {
-            title: '⚡ CROSS-SET (S1 ➔ S2)',
-            color: '#60a5fa',
-            chains: [
-                { trigger: '90', target: '78', strength: '84%' },
-                { trigger: '59', target: '16', strength: '81%' },
-                { trigger: '20', target: '86', strength: '80%' },
-                { trigger: '42', target: '86', strength: '79%' }
-            ]
-        },
-        {
-            title: '🎯 REVERSE (S2 ➔ S1)',
-            color: '#f472b6',
-            chains: [
-                { trigger: '63', target: '04', strength: '87%' },
-                { trigger: '87', target: '12', strength: '83%' },
-                { trigger: '86', target: '97', strength: '76%' }
-            ]
-        }
+    const eliteChains = [
+        { trigger: '02', target: '49', note: 'S1 Elite', hits: 3 },
+        { trigger: '90', target: '42', note: 'S1 Elite', hits: 3 },
+        { trigger: '63', target: '04', note: 'S2 ➔ S1', hits: 3 },
+        { trigger: '86', target: '97', note: 'S2 ➔ S1/2', hits: 3 },
+        { trigger: '87', target: '12', note: 'S2 ➔ S1', hits: 3 },
+        { trigger: '98', target: '74', note: 'S1 ➔ S2', hits: 3 },
+        { trigger: '74', target: '55', note: 'S2 ➔ S1', hits: 3 },
+        { trigger: '41', target: '14', note: 'S1 ➔ S2', hits: 3 }
+    ];
+
+    const potentialChains = [
+        { trigger: '40', target: '94', hits: 2 },
+        { trigger: '20', target: '86', hits: 2 },
+        { trigger: '54', target: '69', hits: 2 },
+        { trigger: '24', target: '27', hits: 2 },
+        { trigger: '29', target: '38', hits: 2 }
     ];
 
     return (
@@ -175,38 +161,33 @@ const MomentumChains = () => {
             marginBottom: '25px',
             padding: '25px'
         }}>
-            <div className="neural-title" style={{color: '#fff', marginBottom: '25px', display: 'flex', alignItems: 'center', gap: '12px', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '15px'}}>
-                <span style={{fontSize: '1.4em'}}>🕸️</span> NEURAL MOMENTUM HUB (AI CHAINS)
-                <span style={{fontSize: '0.6em', background: '#3b82f6', color: '#fff', padding: '4px 10px', borderRadius: '20px', marginLeft: 'auto'}}>4,400+ RECORDS ANALYZED</span>
+            <div className="neural-title" style={{color: '#fff', marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '12px'}}>
+                <span style={{fontSize: '1.4em'}}>🕸️</span> NEURAL MOMENTUM HUB
+                <span style={{fontSize: '0.65em', background: '#4ade80', color: '#000', padding: '4px 12px', borderRadius: '20px', marginLeft: 'auto', fontWeight: '900'}}>ELITE PATTERNS (3+ HITS)</span>
             </div>
             
-            <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '25px'}}>
-                {categories.map((cat, idx) => (
-                    <div key={idx} style={{background: 'rgba(255,255,255,0.02)', borderRadius: '15px', padding: '15px', border: `1px solid ${cat.color}33`}}>
-                        <div style={{color: cat.color, fontSize: '0.75em', fontWeight: '900', letterSpacing: '1px', marginBottom: '15px', display: 'flex', alignItems: 'center', gap: '8px'}}>
-                            <div style={{width: '6px', height: '6px', borderRadius: '50%', background: cat.color}}></div>
-                            {cat.title}
-                        </div>
-                        <div style={{display: 'flex', flexDirection: 'column', gap: '10px'}}>
-                            {cat.chains.map((c, i) => (
-                                <div key={i} style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 15px', background: 'rgba(0,0,0,0.3)', borderRadius: '10px', border: '1px solid rgba(255,255,255,0.05)'}}>
-                                    <div style={{display: 'flex', alignItems: 'center', gap: '12px'}}>
-                                        <span style={{fontSize: '1.1em', fontWeight: '900', color: '#fff'}}>{c.trigger}</span>
-                                        <span style={{color: cat.color, fontSize: '1.2em', opacity: 0.7}}>➔</span>
-                                        <span style={{fontSize: '1.3em', fontWeight: '950', color: cat.color}}>{c.target}</span>
-                                    </div>
-                                    <div style={{fontSize: '0.65em', color: '#94a3b8', fontWeight: 'bold'}}>
-                                        Hit Prob: <span style={{color: '#fff'}}>{c.strength}</span>
-                                    </div>
-                                </div>
-                            ))}
+            <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '15px', marginBottom: '25px'}}>
+                {eliteChains.map((c, i) => (
+                    <div key={i} style={{background: 'linear-gradient(135deg, rgba(74, 222, 128, 0.05) 0%, rgba(0,0,0,0.4) 100%)', padding: '15px', borderRadius: '15px', border: '1px solid rgba(74, 222, 128, 0.2)', textAlign: 'center', position: 'relative'}}>
+                        <div style={{fontSize: '0.55em', color: '#94a3b8', position: 'absolute', top: '8px', left: '12px', textTransform: 'uppercase'}}>{c.note}</div>
+                        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', marginTop: '5px'}}>
+                            <span style={{fontSize: '1.2em', fontWeight: '900', color: '#fff'}}>{c.trigger}</span>
+                            <span style={{color: '#4ade80', fontSize: '1.2em'}}>➔</span>
+                            <span style={{fontSize: '1.5em', fontWeight: '950', color: '#4ade80', textShadow: '0 0 15px rgba(74, 222, 128, 0.4)'}}>{c.target}</span>
                         </div>
                     </div>
                 ))}
             </div>
-            
-            <div style={{marginTop: '20px', fontSize: '0.7em', color: '#64748b', textAlign: 'center', fontStyle: 'italic'}}>
-                * These chains represent sequences that occurred with high frequency in historical data. Use for directional guidance.
+
+            <div style={{borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: '15px'}}>
+                <div style={{fontSize: '0.7em', color: '#94a3b8', marginBottom: '12px', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '1px'}}>📡 High Potential Signals (2 Hits)</div>
+                <div style={{display: 'flex', flexWrap: 'wrap', gap: '10px'}}>
+                    {potentialChains.map((c, i) => (
+                        <div key={i} style={{background: 'rgba(255,255,255,0.03)', padding: '6px 12px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.05)', fontSize: '0.85em', color: '#cbd5e1'}}>
+                            <span style={{fontWeight: 'bold', color: '#fff'}}>{c.trigger}</span> ➔ <span style={{color: '#60a5fa'}}>{c.target}</span>
+                        </div>
+                    ))}
+                </div>
             </div>
         </div>
     );
