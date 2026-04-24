@@ -42,10 +42,11 @@ def analyze_sequences():
         pairs.append((draw_sequence[i], draw_sequence[i+1]))
 
     counter = Counter(pairs)
-    most_common = counter.most_common(50)
+    most_common = counter.most_common(150)
 
-    print("--- Top 20 Hit Chains (Jodi followed by Jodi) ---")
-    for (prev, curr), count in most_common[:20]:
+    print("--- All Hit Chains (Hits >= 2) ---")
+    for (prev, curr), count in most_common:
+        if count < 2: break
         p_set = get_set(prev)
         c_set = get_set(curr)
         print(f"{prev} ({p_set}) -> {curr} ({c_set}) | Hits: {count}")
