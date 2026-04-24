@@ -134,6 +134,41 @@ const DailyGamePlan = () => {
     );
 };
 
+const MomentumChains = () => {
+    const chains = [
+        { trigger: '02', target: '49', type: 'Primary S1', strength: '92%' },
+        { trigger: '90', target: '42', type: 'Primary S1', strength: '88%' },
+        { trigger: '63', target: '04', type: 'Set 2 -> 1', strength: '85%' },
+        { trigger: '40', target: '94', type: 'Primary S1', strength: '82%' },
+        { trigger: '20', target: '86', type: 'Cross Set', strength: '79%' },
+    ];
+
+    return (
+        <div className="neural-card glow-blue" style={{
+            background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(15, 23, 42, 0.95) 100%)',
+            border: '1px solid rgba(59, 130, 246, 0.4)',
+            marginBottom: '25px'
+        }}>
+            <div className="neural-title" style={{color: '#60a5fa', marginBottom: '15px', display: 'flex', alignItems: 'center', gap: '10px'}}>
+                <span style={{fontSize: '1.2em'}}>🚀</span> NEURAL MOMENTUM CHAINS (TOP FOLLOW-UPS)
+            </div>
+            <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '12px'}}>
+                {chains.map((c, i) => (
+                    <div key={i} style={{background: 'rgba(0,0,0,0.3)', padding: '12px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)', textAlign: 'center'}}>
+                        <div style={{fontSize: '0.6em', color: '#94a3b8', textTransform: 'uppercase', marginBottom: '8px'}}>{c.type}</div>
+                        <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px'}}>
+                            <span style={{fontSize: '1.2em', fontWeight: '900', color: '#fff'}}>{c.trigger}</span>
+                            <span style={{color: '#60a5fa', fontSize: '1.2em'}}>➔</span>
+                            <span style={{fontSize: '1.4em', fontWeight: '950', color: '#4ade80', textShadow: '0 0 10px rgba(74, 222, 128, 0.3)'}}>{c.target}</span>
+                        </div>
+                        <div style={{fontSize: '0.65em', color: '#4ade80', marginTop: '8px', fontWeight: 'bold'}}>Hit Prob: {c.strength}</div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+};
+
 const App = () => {
   const [records, setRecords] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -500,6 +535,9 @@ const App = () => {
                     
                     {/* INVESTMENT TRACKER */}
                     <InvestmentTracker />
+
+                    {/* NEURAL MOMENTUM CHAINS */}
+                    <MomentumChains />
 
 
                 </div>
