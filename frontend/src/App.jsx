@@ -1021,7 +1021,6 @@ const App = () => {
                         <div className="pulse"></div>
                         <span>Neural Processing Active</span>
                     </div>
-                    </div>
                 </div>
 
                 {/* ROW 1: MASTER ACTION CENTER */}
@@ -1147,6 +1146,7 @@ const App = () => {
                     </button>
                 </div>
             )}
+        </div>
         </div>
 
         {/* Modal for Admin Login */}
