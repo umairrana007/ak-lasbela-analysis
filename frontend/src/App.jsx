@@ -3,123 +3,14 @@ import { collection, query, orderBy, limit, onSnapshot, doc, setDoc, deleteDoc }
 import { db } from "./firebase";
 import parsedRecords from "./parsed_records.json";
 import predictionsData from "./predictions.json";
-import masterChart from "./data/masterChart.json";
 
 // High Accuracy Lookup (Calculated from 450+ records)
-const accuracyScores = {
-    "21": 84, "15": 83, "16": 82, "82": 82, "98": 81, "32": 80, "48": 80, "09": 79, "37": 79, "19": 79, "75": 79, "65": 78, "55": 78, "73": 78, "68": 77, "56": 75, "92": 73, "95": 73, "14": 73, "99": 73, "54": 90, "06": 86, "42": 86, "13": 82
-};
+// Accuracy lookup removed (unused)
 
-const getGMLSTrickStats = (allRecords) => {
-    if (!allRecords || allRecords.length < 50) return { hitRate: "87.3%", confidence: "High", glow: "glow-emerald" };
-    
-    const rashiMap = { 0: 5, 1: 6, 2: 7, 3: 8, 4: 9, 5: 0, 6: 1, 7: 2, 8: 3, 9: 4 };
-    const sorted = [...allRecords].sort((a, b) => new Date(a.date) - new Date(b.date));
-    
-    let total = 0;
-    let hits = 0;
-    
-    for (let i = 0; i < sorted.length - 1; i++) {
-        const current = sorted[i];
-        const next = sorted[i + 1];
-        if (!current.gm || !current.ls3 || !next.ls1 || !next.ls2 || !next.ls3) continue;
-        if (current.gm === '--' || current.ls3 === '--') continue;
-        
-        const gmOpen = parseInt(current.gm[0]);
-        const ls3Open = parseInt(current.ls3[0]);
-        if (isNaN(gmOpen) || isNaN(ls3Open)) continue;
-        
-        const sum = gmOpen + ls3Open;
-        const baseDigits = [...new Set(String(sum).padStart(2, '0').split('').map(Number))];
-        const targetDigits = [...new Set(baseDigits.flatMap(d => [d, rashiMap[d]]))];
-        
-        const nextCloses = [parseInt(next.ls1[1]), parseInt(next.ls2[1]), parseInt(next.ls3[1])];
-        
-        total++;
-        if (targetDigits.some(d => nextCloses.includes(d))) hits++;
-    }
-    
-    const rate = parseFloat(((hits / total) * 100).toFixed(1));
-    let glow = "glow-blue";
-    if (rate > 85) glow = "glow-emerald";
-    else if (rate > 70) glow = "glow-amber";
-
-    return {
-      hitRate: `${rate}%`,
-      confidence: rate > 85 ? "Ultra" : rate > 75 ? "High" : "Medium",
-      glow
-    };
-};
-
-const getTripleXStats = (allRecords) => {
-    if (!allRecords || allRecords.length < 50) return { hitRate: "91.5%", glow: "glow-blue" };
-    
-    const rashiMap = { 0: 5, 1: 6, 2: 7, 3: 8, 4: 9, 5: 0, 6: 1, 7: 2, 8: 3, 9: 4 };
-    const sorted = [...allRecords].sort((a, b) => new Date(a.date) - new Date(b.date));
-    
-    let total = 0;
-    let hits = 0;
-    
-    for (let i = 0; i < sorted.length - 1; i++) {
-        const current = sorted[i];
-        const next = sorted[i + 1];
-        if (!current.gm || !current.ls1 || !current.ak || !next.ls2 || !next.ls3) continue;
-        
-        const sum = parseInt(current.gm[0]) + parseInt(current.ls1[0]) + parseInt(current.ak[0]);
-        if (isNaN(sum)) continue;
-        
-        const digits = [...new Set(String(sum).padStart(2, '0').split('').map(Number))];
-        const targetDigits = [...new Set(digits.flatMap(d => [d, rashiMap[d]]))];
-        
-        const nextCloses = [parseInt(next.ls2[1]), parseInt(next.ls3[1])];
-        
-        total++;
-        if (targetDigits.some(d => nextCloses.includes(d))) hits++;
-    }
-    
-    const rate = parseFloat(((hits / total) * 100).toFixed(1));
-    return {
-      hitRate: `${rate}%`,
-      glow: "glow-blue",
-      digits: [Math.floor((parseInt(sorted[sorted.length-1].gm[0]) + parseInt(sorted[sorted.length-1].ls1[0]) + parseInt(sorted[sorted.length-1].ak[0])))].flatMap(s => String(s).padStart(2, '0').split('').map(Number))
-    };
-};
+// GMLSTrick and TripleX helper functions removed (unused)
 
 
-const LogicSetSystem = () => (
-    <div className="neural-card glow-purple" style={{
-        background: 'linear-gradient(135deg, rgba(88, 28, 135, 0.15) 0%, rgba(15, 23, 42, 0.9) 100%)',
-        border: '1px solid rgba(168, 85, 247, 0.3)',
-        marginBottom: '25px'
-    }}>
-        <div className="neural-title" style={{color: '#c084fc', marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '10px'}}>
-            <span style={{fontSize: '1.2em'}}>🧬</span> DUAL-SET CLASSIFICATION LOGIC
-        </div>
-        <div className="dashboard-grid" style={{gridTemplateColumns: '1fr 1fr', gap: '15px'}}>
-            <div style={{background: 'rgba(0,0,0,0.4)', padding: '15px', borderRadius: '12px', border: '1px solid rgba(34, 197, 94, 0.2)'}}>
-                <div style={{color: '#4ade80', fontSize: '0.8em', fontWeight: '900', marginBottom: '10px', textTransform: 'uppercase'}}>Set 1 (Primary Power)</div>
-                <div style={{display: 'flex', gap: '8px', flexWrap: 'wrap'}}>
-                    {[2, 0, 4, 9, 5].map(n => (
-                        <span key={n} style={{background: '#22c55e', color: '#000', padding: '5px 12px', borderRadius: '6px', fontWeight: '950', fontSize: '1.2em'}}>{n}</span>
-                    ))}
-                </div>
-                <div style={{fontSize: '0.65em', color: '#94a3b8', marginTop: '10px'}}>Probability: 52.4% Repeat Chance</div>
-            </div>
-            <div style={{background: 'rgba(0,0,0,0.4)', padding: '15px', borderRadius: '12px', border: '1px solid rgba(251, 191, 36, 0.2)'}}>
-                <div style={{color: '#fbbf24', fontSize: '0.8em', fontWeight: '900', marginBottom: '10px', textTransform: 'uppercase'}}>Set 2 (Supporting Force)</div>
-                <div style={{display: 'flex', gap: '8px', flexWrap: 'wrap'}}>
-                    {[1, 3, 6, 7, 8].map(n => (
-                        <span key={n} style={{background: '#fbbf24', color: '#000', padding: '5px 12px', borderRadius: '6px', fontWeight: '950', fontSize: '1.2em'}}>{n}</span>
-                    ))}
-                </div>
-                <div style={{fontSize: '0.65em', color: '#94a3b8', marginTop: '10px'}}>Logic: Transition Momentum Support</div>
-            </div>
-        </div>
-        <div className="logic-badge" style={{marginTop: '15px', background: 'rgba(168, 85, 247, 0.1)', color: '#c084fc'}}>
-            <i>💡</i> CROSS-SET LOGIC: Pairs formed between Set 1 and Set 2 have the highest hit probability today.
-        </div>
-    </div>
-);
+
 
 const InvestmentTracker = () => {
     const plan = [
@@ -249,10 +140,8 @@ const App = () => {
   const [showModal, setShowModal] = useState(false);
   const [editIndex, setEditIndex] = useState('-1');
   const [predictions, setPredictions] = useState(predictionsData);
-  const [activeSignals, setActiveSignals] = useState([]);
   const [isAdmin, setIsAdmin] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
-  const [calibrationTime, setCalibrationTime] = useState(new Date().toLocaleTimeString());
   const [loginPass, setLoginPass] = useState('');
   const [isSyncing, setIsSyncing] = useState(false);
   const [visibleRecords, setVisibleRecords] = useState(20);
@@ -260,44 +149,7 @@ const App = () => {
   const [formData, setFormData] = useState({ date: '', day: '', gm: '', ls1: '', ak: '', ls2: '', ls3: '' });
 
   
-  const detectExpertLogic = (allRecords) => {
-    if (!allRecords || allRecords.length === 0) return [];
-    const triggers = [];
-    const checks = [
-      { num: '81', name: 'Master Chart Trigger (81)', targets: ['94', '50'], target_draws: ['LS1', 'LS2', 'LS3'], logic: '81 reversal trigger. Expecting 94/50 within 48h.' },
-      { num: '24', name: '24/42 Lifetime Formula', targets: ['34', '89', '39', '84', '24', '29', '74', '79', '12', '17', '62', '67'], target_draws: ['GM', 'AK', 'LS1'], logic: '24/42 reversal. Expecting 34-Family.' },
-      { num: '42', name: '24/42 Lifetime Formula', targets: ['34', '89', '39', '84', '24', '29', '74', '79', '12', '17', '62', '67'], target_draws: ['GM', 'AK', 'LS1'], logic: '24/42 reversal. Expecting 34-Family.' },
-      { num: '17', name: '17/71 Royal Signal', targets: ['01', '06', '51', '56', '17', '12', '67', '62'], target_draws: ['LS1', 'LS2', 'LS3'], logic: '17/71 Royal trigger.' },
-      { num: '71', name: '17/71 Royal Signal', targets: ['01', '06', '51', '56', '17', '12', '67', '62'], target_draws: ['LS1', 'LS2', 'LS3'], logic: '17/71 Royal trigger.' },
-      { num: '97', name: '97/79 Success Pattern', targets: ['82', '87', '32', '37', '85', '80', '35', '30'], target_draws: ['AK', 'GM'], logic: '97 Pattern detected.' }
-    ];
-
-    // Scan last 15 draws (approx 3 days)
-    const recentDraws = allRecords.slice(0, 15);
-    recentDraws.forEach((record, recordIdx) => {
-        if (!record) return;
-        ['gm', 'ls1', 'ak', 'ls2', 'ls3'].forEach(key => {
-            const val = String(record[key] || '').padStart(2, '0');
-            if (val === '00' || val === 'undefined') return;
-            const match = checks.find(c => c.num === val);
-            if (match) {
-                const isDuplicate = triggers.find(t => t.num === val && t.draw === key.toUpperCase());
-                if (!isDuplicate) {
-                    triggers.push({ 
-                        ...match, 
-                        draw: key.toUpperCase(), 
-                        date: record.date,
-                        isToday: recordIdx === 0,
-                        age: recordIdx,
-                        // Provide more specific timing based on draw age
-                        timing_desc: recordIdx === 0 ? 'URGENT: Today' : (recordIdx < 5 ? 'High: Next 24h' : 'Active: 48h')
-                    });
-                }
-            }
-        });
-    });
-    return triggers;
-  };
+  // detectExpertLogic removed (unused)
 
   // 1. Memoized Filtered Records (prevents lag on scroll/re-render)
   const filteredRecords = useMemo(() => {
@@ -315,133 +167,9 @@ const App = () => {
   }, [records, searchTerm]);
 
   // 2. Memoized Neural Stats (Heavy calculation on 4000+ records)
-  const neuralStats = useMemo(() => {
-    const counts = {};
-    const lastSeenDate = {};
-    const sortedByDate = [...records].sort((a, b) => new Date(a.date) - new Date(b.date));
-
-    sortedByDate.forEach((r) => {
-      ['gm', 'ls1', 'ak', 'ls2', 'ls3'].forEach(key => {
-        const val = r[key];
-        if (val && val !== '--' && val !== '??' && !isNaN(val) && val.length === 2) {
-          counts[val] = (counts[val] || 0) + 1;
-          if (!lastSeenDate[val] || new Date(r.date) > new Date(lastSeenDate[val])) {
-            lastSeenDate[val] = r.date;
-          }
-        }
-      });
-    });
-
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-
-    const overdueWithDays = Object.entries(lastSeenDate).map(([num, date]) => {
-      const lastDate = new Date(date);
-      lastDate.setHours(0, 0, 0, 0);
-      const diffDays = Math.floor((today - lastDate) / (1000 * 60 * 60 * 24));
-      return [num, diffDays];
-    });
-
-    const freqSorted = Object.entries(counts).sort((a, b) => b[1] - a[1]);
-    const overdueSorted = overdueWithDays.sort((a, b) => b[1] - a[1]);
-
-    return {
-      hot: freqSorted.slice(0, 8),
-      cold: freqSorted.slice(-8).reverse(),
-      overdue: overdueSorted.slice(0, 8)
-    };
-  }, [records]);
-
-  // 3. Memoized Heatmap Data
-  const heatmapData = useMemo(() => {
-    if (!records || records.length === 0) return Array(10).fill(0);
-    const last100 = records.slice(0, 100);
-    const counts = Array(10).fill(0);
-    
-    last100.forEach(r => {
-        ['gm', 'ls1', 'ak', 'ls2', 'ls3'].forEach(key => {
-            if (r[key] && r[key] !== '--') {
-                const val = String(r[key]).padStart(2, '0');
-                if (val.length === 2) {
-                    counts[parseInt(val[0])]++;
-                    counts[parseInt(val[1])]++;
-                }
-            }
-        });
-    });
-    
-    const max = Math.max(...counts);
-    return counts.map(c => max === 0 ? 0 : Math.round((c / max) * 100));
-  }, [records]);
-
-  // 4. Memoized Odd/Even Parity
-  const oddEvenStats = useMemo(() => {
-    let oddCount = 0;
-    let evenCount = 0;
-    const recent = records.slice(0, 50); 
-    
-    recent.forEach(r => {
-      ['gm', 'ls1', 'ak', 'ls2', 'ls3'].forEach(key => {
-        const val = parseInt(r[key]);
-        if (!isNaN(val)) {
-          if (val % 2 === 0) evenCount++;
-          else oddCount++;
-        }
-      });
-    });
-
-    const total = oddCount + evenCount;
-    const oddPercent = total > 0 ? Math.round((oddCount / total) * 100) : 50;
-    const evenPercent = 100 - oddPercent;
-
-    return {
-      odd: oddPercent,
-      even: evenPercent,
-      ratio: `${oddPercent}/${evenPercent}`
-    };
-  }, [records]);
-
-  // Memoized stats to prevent UI lag
-  const gmLsStats = useMemo(() => getGMLSTrickStats(records), [records]);
-  const tripleXStats = useMemo(() => getTripleXStats(records), [records]);
+  // Neural stats, Heatmap, and Odd/Even calculations removed (unused in current UI)
   
-  const allExpertSignals = useMemo(() => {
-    const detected = detectExpertLogic(records);
-    const fireSignals = (predictions?.active_expert_signals || []).map(sig => ({
-      ...sig,
-      trigger: sig.trigger,
-      trigger_draw: sig.trigger_draw,
-      trigger_date: sig.trigger_date || 'AI Analysis',
-      targets: sig.targets || [],
-      target_draws: sig.target_draws || ['AK', 'GM', 'LS1'],
-      target_date: sig.target_date || 'Today',
-      timing: sig.timing || 'ACTIVE',
-      accuracy: sig.accuracy || '92%',
-      logic: sig.logic || `Triggered by ${sig.trigger} in ${sig.trigger_draw}. High probability movement.`,
-      status: sig.status || (sig.timing?.includes('URGENT') ? '🔥 HIGH PROBABILITY' : '📡 ANALYZING')
-    }));
-
-    const scanSignals = detected.map(d => ({
-        trigger: d.num,
-        trigger_draw: d.draw,
-        trigger_date: d.date,
-        targets: d.targets,
-        target_draws: d.target_draws,
-        timing: d.timing_desc,
-        accuracy: '98%',
-        logic: d.logic,
-        status: d.age < 5 ? '🔥 HIGH PROBABILITY' : '📡 ANALYZING'
-    }));
-
-    // Deduplicate
-    const combined = [...fireSignals];
-    scanSignals.forEach(s => {
-      const exists = combined.find(c => c.trigger === s.trigger && c.trigger_draw === s.trigger_draw);
-      if (!exists) combined.push(s);
-    });
-    
-    return combined;
-  }, [records, predictions]);
+  // allExpertSignals removed (unused)
 
 
 
@@ -467,25 +195,6 @@ const App = () => {
         .sort((a, b) => new Date(b.date) - new Date(a.date));
       
       setRecords(combined);
-      setCalibrationTime(new Date().toLocaleTimeString());
-      
-      // Update Master Chart Signals based on latest record
-      if (combined.length > 0) {
-        const latest = combined[0];
-        const signals = [];
-        ['gm', 'ls1', 'ak', 'ls2', 'ls3'].forEach(key => {
-            const val = latest[key];
-            if (val && masterChart[val]) {
-                signals.push({
-                    trigger: val,
-                    center: key.toUpperCase(),
-                    targets: masterChart[val],
-                    accuracy: accuracyScores[val] || 60
-                });
-            }
-        });
-        setActiveSignals(signals);
-      }
     });
     return () => unsubscribe();
   }, []);
@@ -791,8 +500,7 @@ const App = () => {
                     {/* INVESTMENT TRACKER */}
                     <InvestmentTracker />
 
-                    {/* LOGIC SETS CLASSIFICATION */}
-                    <LogicSetSystem />
+
                 </div>
 
 

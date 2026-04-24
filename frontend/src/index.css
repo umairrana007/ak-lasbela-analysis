@@ -10,7 +10,7 @@ body {
     color: #f1f5f9;
     min-height: 100vh;
     padding: 20px;
-    padding-top: 80px; /* Space for fixed Expert Banner */
+    padding-top: 20px;
 }
 
 .dashboard-grid {
@@ -293,28 +293,9 @@ tbody tr:nth-child(even) .day-column {
     margin-top: 5px;
 }
 
-/* Neural Center Styling */
-.neural-center {
-    padding: 20px;
-    background: #ffffff;
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 20px;
-    border-bottom: 3px solid #e9ecef;
-}
+/* Neural Center and Grids removed (unused) */
 
-.neural-grid-layout {
-    display: grid;
-    grid-template-columns: 1.2fr 1fr;
-    gap: 25px;
-}
-
-@media (max-width: 900px) {
-    .neural-grid-layout {
-        grid-template-columns: 1fr;
-    }
-}
-
+/* Neural card base styles */
 .neural-card {
     background: linear-gradient(135deg, #1e1e2f 0%, #2d2d44 100%);
     color: white;
@@ -322,21 +303,6 @@ tbody tr:nth-child(even) .day-column {
     border-radius: 15px;
     position: relative;
     box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-}
-
-.dashboard-container {
-    padding: 0 20px;
-}
-
-.neural-card::after {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(245, 87, 108, 0.1) 0%, transparent 70%);
-    pointer-events: none;
 }
 
 .neural-title {
@@ -349,128 +315,7 @@ tbody tr:nth-child(even) .day-column {
     color: #f093fb;
 }
 
-.prediction-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 15px;
-}
-
-.prediction-item {
-    background: rgba(255, 255, 255, 0.03);
-    padding: 15px;
-    border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    transition: transform 0.3s ease;
-}
-
-.prediction-item:hover {
-    transform: translateY(-5px);
-    border-color: rgba(99, 102, 241, 0.5);
-}
-
-.prediction-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-    padding-bottom: 8px;
-}
-
-.draw-name {
-    font-weight: 900;
-    font-size: 0.9em;
-    color: #818cf8;
-    letter-spacing: 1px;
-}
-
-.main-section {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: rgba(251, 191, 36, 0.1);
-    padding: 10px;
-    border-radius: 8px;
-}
-
-.main-label {
-    font-size: 0.6em;
-    font-weight: 900;
-    color: #fbbf24;
-    background: rgba(251, 191, 36, 0.2);
-    padding: 2px 6px;
-    border-radius: 4px;
-}
-
-.main-value {
-    font-size: 2em;
-    font-weight: 950;
-    color: #fff;
-    text-shadow: 0 0 15px rgba(251, 191, 36, 0.4);
-}
-
-.support-section {
-    background: rgba(255,255,255,0.02);
-    padding: 10px;
-    border-radius: 8px;
-}
-
-.support-header {
-    font-size: 0.55em;
-    color: #94a3b8;
-    font-weight: bold;
-    margin-bottom: 5px;
-    text-transform: uppercase;
-}
-
-.support-numbers {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 4px;
-}
-
-.sniper-targets-container {
-    display: flex;
-    gap: 15px;
-    margin-top: 10px;
-}
-
-.sniper-column {
-    flex: 1;
-}
-
-.sniper-column-label {
-    font-size: 0.75em;
-    color: #fff;
-    margin-bottom: 8px;
-    font-weight: 950;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    border-left: 3px solid #fbbf24;
-    padding-left: 8px;
-}
-
-.sniper-badge {
-    background: #fff;
-    color: #000;
-    padding: 6px 12px;
-    border-radius: 6px;
-    border: 2px solid #818cf8;
-    font-weight: 950;
-    font-size: 1.2em;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-}
-
-.support-number {
-    font-size: 0.8em;
-    font-weight: bold;
-    color: #cbd5e1;
-    background: rgba(255,255,255,0.05);
-    padding: 2px 5px;
-    border-radius: 4px;
-}
+/* Prediction grid and sniper badges removed (unused) */
 
 .stats-grid {
     display: grid;
@@ -478,54 +323,7 @@ tbody tr:nth-child(even) .day-column {
     gap: 20px;
 }
 
-.frequency-card {
-    background: rgba(0,0,0,0.2);
-    padding: 20px;
-    border-radius: 15px;
-    border: 1px solid rgba(255,255,255,0.05);
-}
-
-.frequency-title {
-    font-weight: bold;
-    color: #fff;
-    opacity: 0.9;
-    margin-bottom: 15px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.number-badges {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-
-.badge {
-    padding: 8px 15px;
-    border-radius: 20px;
-    font-weight: bold;
-    font-size: 1.1em;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.badge-hot {
-    background: linear-gradient(135deg, #f5576c 0%, #f093fb 100%);
-    color: white;
-}
-
-.badge-cold {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-}
-
-.badge-count {
-    font-size: 0.6em;
-    opacity: 0.8;
-    margin-top: 2px;
-}
+/* Frequency and hot/cold badges removed (unused) */
 
 @media (max-width: 1100px) {
     .neural-center {
@@ -681,8 +479,8 @@ tbody tr:nth-child(even) .day-column {
         overflow: visible !important; /* Allow swipe grids to bleed out to padding if needed */
     }
 
-    /* Swipe Containers Fix - Preventing Clipping */
-    .prediction-grid, .dashboard-grid {
+    /* Mobile Grid Adjustments */
+    .dashboard-grid {
         display: flex !important;
         overflow-x: auto !important;
         scroll-snap-type: x mandatory !important;
@@ -691,40 +489,8 @@ tbody tr:nth-child(even) .day-column {
         margin: 0 -5px !important;
         -webkit-overflow-scrolling: touch;
         scrollbar-width: none;
-        grid-template-columns: none !important;
         width: calc(100% + 10px) !important;
         box-sizing: border-box !important;
-    }
-
-    .neural-card {
-        padding: 15px !important;
-        overflow: visible !important;
-        width: calc(100vw - 30px) !important; /* Fixed width for swipe */
-        min-width: calc(100vw - 30px) !important;
-        scroll-snap-align: center !important;
-        flex-shrink: 0 !important;
-    }
-
-    .analysis-grid {
-        display: flex !important;
-        overflow-x: auto !important;
-        scroll-snap-type: x mandatory !important;
-        gap: 12px !important;
-        padding: 10px 0 !important;
-        margin: 0 -10px !important;
-        width: calc(100% + 20px) !important;
-        -webkit-overflow-scrolling: touch !important;
-        scrollbar-width: none;
-    }
-
-    .prediction-item {
-        width: calc(100vw - 50px) !important;
-        min-width: calc(100vw - 50px) !important;
-        scroll-snap-align: center !important;
-        flex-shrink: 0 !important;
-        margin: 0 !important;
-        box-sizing: border-box !important;
-        padding: 15px !important;
     }
 
     .main-value {
@@ -790,14 +556,7 @@ tbody tr:nth-child(even) .day-column {
         padding: 12px !important;
     }
 
-    .sniper-targets-container {
-        flex-direction: column !important;
-        gap: 20px !important;
-    }
-
-    .sniper-badge {
-        padding: 5px 10px !important;
-        font-size: 1.1em !important;
+/* Sniper styles removed */
     }
 
     .neural-title {
@@ -837,38 +596,7 @@ tbody tr:nth-child(even) .day-column {
         font-size: 0.9em !important;
     }
 
-    .intelligence-footer {
-        padding: 15px 10px !important;
-        justify-content: center !important;
-        gap: 10px !important;
-    }
-
-    .footer-divider {
-        display: none !important;
-    }
-
-    .footer-stat {
-        flex: 1 1 30% !important;
-        min-width: 80px !important;
-        text-align: center !important;
-    }
-
-    .footer-stat-label {
-        font-size: 0.6em !important;
-        opacity: 0.6 !important;
-        text-transform: uppercase !important;
-        letter-spacing: 1px !important;
-        margin-bottom: 5px !important;
-    }
-
-    .footer-stat-value {
-        font-size: 1.2em !important;
-        font-weight: 950 !important;
-    }
-
-    .intelligence-footer [style*="font-size: 1.5em"] {
-        display: none !important; /* Cleanup old inline */
-    }
+/* Footer styles removed */
 
     /* Heatmap Label Fix */
     .neural-card [style*="height: 80px"] + div {
@@ -998,133 +726,4 @@ tbody tr:nth-child(even) .day-column {
     50% { opacity: 0.7; transform: scale(0.98); }
     100% { opacity: 1; transform: scale(1); }
 }
-/* Expert Trigger Banner Styles */
-.expert-trigger-banner {
-    background: rgba(15, 23, 42, 0.95);
-    border-bottom: 2px solid #ef4444;
-    display: flex;
-    align-items: center;
-    padding: 12px 0;
-    margin-bottom: 0;
-    backdrop-filter: blur(20px);
-    overflow: hidden;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
-    z-index: 9999;
-}
-
-.expert-trigger-banner.scanning {
-    border-color: #3b82f6;
-    background: rgba(15, 23, 42, 0.9);
-    box-shadow: 0 0 20px rgba(59, 130, 246, 0.1);
-}
-
-.expert-trigger-banner.scanning .expert-trigger-label {
-    background: #3b82f6;
-    box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
-}
-
-.expert-trigger-label {
-    background: #dc2626;
-    color: white;
-    font-size: 10px;
-    font-weight: 900;
-    padding: 4px 12px;
-    border-radius: 4px;
-    margin-left: 15px;
-    flex-shrink: 0;
-    z-index: 10;
-    box-shadow: 0 0 15px rgba(220, 38, 38, 0.5);
-    animation: pulse 2s infinite;
-    letter-spacing: 1px;
-}
-
-.marquee-wrapper {
-    flex: 1;
-    overflow: hidden;
-    display: flex;
-}
-
-.marquee-content {
-    display: flex;
-    white-space: nowrap;
-    will-change: transform;
-}
-
-.animate-marquee {
-    animation: marquee-scroll 60s linear infinite;
-}
-
-.animate-marquee:hover {
-    animation-play-state: paused;
-}
-
-@keyframes marquee-scroll {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-}
-
-.expert-signal-item {
-    display: flex;
-    align-items: center;
-    margin: 0 40px;
-    gap: 12px;
-}
-
-.sig-trigger {
-    font-size: 11px;
-    color: #94a3b8;
-    text-transform: uppercase;
-    font-weight: bold;
-}
-
-.sig-arrow {
-    color: #ef4444;
-    font-weight: bold;
-}
-
-.sig-targets {
-    color: #4ade80; /* emerald-400 */
-    font-size: 16px;
-    font-weight: 900;
-    letter-spacing: 2px;
-    text-shadow: 0 0 10px rgba(74, 222, 128, 0.3);
-}
-
-.sig-accuracy {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    background: rgba(255, 255, 255, 0.05);
-    padding: 2px 8px;
-    border-radius: 4px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.accuracy-label {
-    font-size: 9px;
-    color: #64748b;
-    text-transform: uppercase;
-}
-
-.accuracy-value {
-    font-size: 10px;
-    color: #fff;
-    font-weight: bold;
-}
-
-@media (max-width: 768px) {
-    .expert-trigger-banner {
-        padding: 8px 0;
-    }
-    .expert-trigger-label {
-        font-size: 8px;
-        padding: 3px 8px;
-    }
-    .sig-targets {
-        font-size: 14px;
-    }
-}
+/* Expert Banner and Marquee Styles Purged */
