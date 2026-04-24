@@ -148,6 +148,7 @@ const App = () => {
   const [syncStatus, setSyncStatus] = useState('');
   const [formData, setFormData] = useState({ date: '', day: '', gm: '', ls1: '', ak: '', ls2: '', ls3: '' });
 
+  const fileInputRef = useRef(null);
   
   // detectExpertLogic removed (unused)
 
