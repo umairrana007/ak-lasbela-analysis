@@ -183,6 +183,8 @@ const InvestmentTracker = () => {
         </div>
     );
 };
+
+const DailyGamePlan = () => {
     const plan = [
         { game: 'GM', primary: ['08', '06', '49'], support: ['48', '59'], open: '0', budget: 300 },
         { game: 'LS1', primary: ['20', '51', '63'], support: ['42', '06'], open: '2', budget: 300 },
@@ -1019,7 +1021,10 @@ const App = () => {
                         <div className="pulse"></div>
                         <span>Neural Processing Active</span>
                     </div>
-                    <div                 {/* ROW 1: MASTER ACTION CENTER */}
+                    </div>
+                </div>
+
+                {/* ROW 1: MASTER ACTION CENTER */}
                 <div style={{display: 'grid', gridTemplateColumns: '1fr', gap: '25px'}}>
                     {/* MAIN ACTIONABLE PLAN */}
                     <DailyGamePlan />
