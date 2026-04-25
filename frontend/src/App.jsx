@@ -525,20 +525,22 @@ const App = () => {
             </button>
         </div>
 
-        <div className="stats">
-            <div className="stat-card">
-                <div className="stat-value" id="totalRecords">{stats.total}</div>
-                <div className="stat-label">Total Records</div>
+        {isAdmin && (
+            <div className="stats">
+                <div className="stat-card">
+                    <div className="stat-value" id="totalRecords">{stats.total}</div>
+                    <div className="stat-label">Total Records</div>
+                </div>
+                <div className="stat-card">
+                    <div className="stat-value" id="thisMonth">{stats.thisMonth}</div>
+                    <div className="stat-label">This Month</div>
+                </div>
+                <div className="stat-card">
+                    <div className="stat-value" id="lastRecord">{stats.lastRecord}</div>
+                    <div className="stat-label">Last Entry</div>
+                </div>
             </div>
-            <div className="stat-card">
-                <div className="stat-value" id="thisMonth">{stats.thisMonth}</div>
-                <div className="stat-label">This Month</div>
-            </div>
-            <div className="stat-card">
-                <div className="stat-value" id="lastRecord">{stats.lastRecord}</div>
-                <div className="stat-label">Last Entry</div>
-            </div>
-        </div>
+        )}
 
             {/* ELITE DASHBOARD SECTION */}
             {isAdmin && (
