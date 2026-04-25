@@ -488,7 +488,7 @@ const App = () => {
         <div className="container">
 
         {/* YESTERDAY MATCH ALERT - ENHANCED VISIBILITY */}
-        {predictions && predictions.yesterday_match && (
+        {isAdmin && predictions && predictions.yesterday_match && (
             <div className="ai-status-banner yesterday-match-banner" style={{
                 background: predictions.yesterday_match.type === 'Direct' 
                     ? 'linear-gradient(90deg, rgba(34, 197, 94, 0.15) 0%, rgba(34, 197, 94, 0.05) 100%)' 
@@ -541,45 +541,38 @@ const App = () => {
         </div>
 
             {/* ELITE DASHBOARD SECTION */}
-            <div className="dashboard-container">
+            {isAdmin && (
+                <div className="dashboard-container">
+                    {/* AI Status Banner */}
+                    <div className="ai-status-banner">
+                        <div className="status-indicator">
+                            <div className="pulse"></div>
+                            <span>Neural Processing Active</span>
+                        </div>
+                    </div>
 
-                {/* AI Status Banner */}
-                <div className="ai-status-banner">
-                    <div className="status-indicator">
-                        <div className="pulse"></div>
-                        <span>Neural Processing Active</span>
+                    {/* ROW 1: MASTER ACTION CENTER */}
+                    <div style={{display: 'grid', gridTemplateColumns: '1fr', gap: '25px'}}>
+                        <DailyGamePlan />
+                        <InvestmentTracker />
+                        <MomentumChains />
+                    </div>
+
+                    <div className="resync-container" style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '15px', padding: '0 5px'}}>
+                        <div style={{fontSize: '0.75em', opacity: 0.6, fontStyle: 'italic'}}>*Quantum Intelligence Sync Active</div>
+                        <div style={{display: 'flex', alignItems: 'center', gap: '15px'}}>
+                            {predictions.last_updated && (
+                                <div style={{fontSize: '0.65em', color: '#666', fontWeight: 'bold'}}>
+                                    Last Re-Sync: {new Date(predictions.last_updated).toLocaleString()}
+                                </div>
+                            )}
+                            <button className={`btn ${isSyncing ? 'btn-disabled' : 'btn-primary'}`} onClick={triggerSync} disabled={isSyncing} style={{padding: '6px 18px', fontSize: '0.85em', fontWeight: '900'}}>
+                                {isSyncing ? 'Synchronizing...' : '⚡ Re-Sync Neural Hub'}
+                            </button>
+                        </div>
                     </div>
                 </div>
-
-                {/* ROW 1: MASTER ACTION CENTER */}
-                <div style={{display: 'grid', gridTemplateColumns: '1fr', gap: '25px'}}>
-                    {/* MAIN ACTIONABLE PLAN */}
-                    <DailyGamePlan />
-                    
-                    {/* INVESTMENT TRACKER */}
-                    <InvestmentTracker />
-
-                    {/* NEURAL MOMENTUM CHAINS */}
-                    <MomentumChains />
-
-
-                </div>
-
-
-                <div className="resync-container" style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '15px', padding: '0 5px'}}>
-                    <div style={{fontSize: '0.75em', opacity: 0.6, fontStyle: 'italic'}}>*Quantum Intelligence Sync Active</div>
-                    <div style={{display: 'flex', alignItems: 'center', gap: '15px'}}>
-                        {predictions.last_updated && (
-                            <div style={{fontSize: '0.65em', color: '#666', fontWeight: 'bold'}}>
-                                Last Re-Sync: {new Date(predictions.last_updated).toLocaleString()}
-                            </div>
-                        )}
-                        <button className={`btn ${isSyncing ? 'btn-disabled' : 'btn-primary'}`} onClick={triggerSync} disabled={isSyncing} style={{padding: '6px 18px', fontSize: '0.85em', fontWeight: '900'}}>
-                            {isSyncing ? 'Synchronizing...' : '⚡ Re-Sync Neural Hub'}
-                        </button>
-                    </div>
-                </div>
-        </div>
+            )}
 
         {isAdmin && (
             <div className="controls">
