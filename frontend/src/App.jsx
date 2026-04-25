@@ -77,11 +77,11 @@ const InvestmentTracker = () => {
 
 const DailyGamePlan = () => {
     const plan = [
-        { game: 'GM', primary: ['08', '06', '49'], support: ['48', '59'], open: '0', budget: 300 },
-        { game: 'LS1', primary: ['20', '51', '63'], support: ['42', '06'], open: '2', budget: 300 },
-        { game: 'AK', primary: ['06', '77', '98'], support: ['90', '12'], open: '0', budget: 300 },
-        { game: 'LS2', primary: ['40', '84', '27'], support: ['06', '09'], open: '4', budget: 300 },
-        { game: 'LS3', primary: ['35', '03', '70'], support: ['72', '91'], open: '3', budget: 300 },
+        { game: 'GM', primary: ['06', '96', '03'], support: ['52', '18'], open: '0', budget: 300 },
+        { game: 'LS1', primary: ['52', '18', '91'], support: ['96', '06'], open: '5', budget: 300 },
+        { game: 'AK', primary: ['49', '42', '94'], support: ['04', '02'], open: '4', budget: 300 },
+        { game: 'LS2', primary: ['06', '03', '96'], support: ['52', '91'], open: '0', budget: 300 },
+        { game: 'LS3', primary: ['18', '52', '91'], support: ['03', '96'], open: '1', budget: 300 },
     ];
 
     return (
@@ -93,7 +93,7 @@ const DailyGamePlan = () => {
         }}>
             <div className="neural-title" style={{color: '#fbbf24', marginBottom: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
                 <span style={{display: 'flex', alignItems: 'center', gap: '10px'}}>
-                    <span style={{fontSize: '1.2em'}}>📅</span> DAILY MASTER INVESTMENT PLAN (24 APRIL)
+                    <span style={{fontSize: '1.2em'}}>📅</span> DAILY MASTER INVESTMENT PLAN (25 APRIL)
                 </span>
                 <span style={{fontSize: '0.65em', background: '#fbbf24', color: '#000', padding: '4px 12px', borderRadius: '20px', fontWeight: '900'}}>TOTAL BUDGET: Rs 1500</span>
             </div>
