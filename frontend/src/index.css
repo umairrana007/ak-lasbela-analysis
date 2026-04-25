@@ -518,18 +518,24 @@ tbody tr:hover .day-column {
         -webkit-overflow-scrolling: touch !important;
         background: rgba(0,0,0,0.3) !important;
         border-radius: 12px !important;
-        margin: 15px 10px !important;
-        width: calc(100% - 20px) !important;
+        margin: 15px 5px !important;
+        width: calc(100% - 10px) !important;
     }
 
     table {
-        min-width: 650px !important; /* Force scroll for readability */
+        min-width: 100% !important;
+        width: 100% !important;
+        table-layout: fixed; /* Ensures columns stay tight */
     }
 
     th, td {
-        padding: 12px 10px !important;
-        font-size: 0.85em !important;
+        padding: 10px 4px !important; /* Minimal horizontal padding */
+        font-size: 0.75em !important; /* Smaller font to fit 7 columns */
+        word-break: break-all;
     }
+
+    .date-column { width: 75px !important; } /* Tighten specific columns */
+    .day-column { width: 45px !important; }
 
     /* Heatmap Digits Fix */
     .neural-card [style*="height: 80px"] + div {
