@@ -203,7 +203,6 @@ const App = () => {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [loginPass, setLoginPass] = useState('');
   const [isSyncing, setIsSyncing] = useState(false);
-  const [visibleRecords, setVisibleRecords] = useState(20);
   const [syncStatus, setSyncStatus] = useState('');
   const [formData, setFormData] = useState({ date: '', day: '', gm: '', ls1: '', ak: '', ls2: '', ls3: '' });
 
@@ -252,7 +251,7 @@ const App = () => {
         .map(r => ({ ...r, id: `hist-${r.date}`, isFirebase: false }));
 
       const combined = [...data, ...historicalData]
-        .sort((a, b) => new Date(b.date) - new Date(a.date));
+        .sort((a, b) => new Date(a.date) - new Date(b.date));
       
       setRecords(combined);
     });
@@ -295,7 +294,7 @@ const App = () => {
 
     let lastRecord = '-';
     if (records.length > 0) {
-        lastRecord = new Date(records[0].date).toLocaleDateString('en-US', { 
+        lastRecord = new Date(records[records.length - 1].date).toLocaleDateString('en-US', { 
             day: '2-digit', 
             month: 'short' 
         });
@@ -517,7 +516,7 @@ const App = () => {
         )}
 
         <div className="header header-responsive">
-            <div className="header-title">🎮 AK Lasbela Records 2025-2026 🎮</div>
+            <div className="header-title">🎮 AK Lasbela Records 2023-2026 🎮</div>
             <button 
                 className="admin-toggle-btn"
                 onClick={isAdmin ? () => setIsAdmin(false) : handleAdminLogin}
@@ -638,7 +637,7 @@ const App = () => {
                     </tr>
                 </thead>
                 <tbody id="tableBody">
-                    {filteredRecords.length > 0 ? filteredRecords.slice(0, visibleRecords).map((record, index) => (
+                    {filteredRecords.length > 0 ? filteredRecords.map((record, index) => (
                         <tr key={record.id || index}>
                             <td className="date-column">{formatDate(record.date)}</td>
                             <td className="gm-column">{record.gm || '-'}</td>
@@ -665,18 +664,6 @@ const App = () => {
                     )}
                 </tbody>
             </table>
-
-            {visibleRecords < filteredRecords.length && (
-                <div style={{textAlign: 'center', marginTop: '20px', paddingBottom: '40px'}}>
-                    <button 
-                        className="btn btn-primary" 
-                        onClick={() => setVisibleRecords(prev => prev + 50)}
-                        style={{padding: '12px 40px', fontSize: '1.1em', fontWeight: '900', background: 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)', border: 'none', boxShadow: '0 4px 15px rgba(59, 130, 246, 0.3)'}}
-                    >
-                        📂 Show More Records ({filteredRecords.length - visibleRecords} Remaining)
-                    </button>
-                </div>
-            )}
         </div>
         </div>
 
