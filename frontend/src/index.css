@@ -140,7 +140,7 @@ thead {
 th, td {
     padding: 15px 12px;
     text-align: center;
-    border: 1px solid #dee2e6;
+    border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 th {
@@ -155,12 +155,13 @@ tbody tr {
 }
 
 tbody tr:nth-child(even) {
-    background: #f8f9fa;
+    background: rgba(255, 255, 255, 0.02);
 }
 
 tbody tr:hover {
-    background: #e3f2fd;
-    transform: scale(1.01);
+    background: rgba(59, 130, 246, 0.15) !important;
+    transform: scale(1.002);
+    box-shadow: inset 0 0 10px rgba(59, 130, 246, 0.1);
 }
 
 .gm-column { color: #f5576c; font-weight: bold; font-size: 1.1em; }
@@ -168,11 +169,12 @@ tbody tr:hover {
 .ak-column { color: #667eea; font-weight: 600; }
 .ls2-column { color: #667eea; font-weight: 600; }
 .ls3-column { color: #667eea; font-weight: 600; }
-.date-column, .day-column { font-weight: 600; }
+.date-column, .day-column { color: #94a3b8; font-weight: 600; transition: color 0.2s; }
 
-tbody tr:nth-child(even) .date-column,
-tbody tr:nth-child(even) .day-column {
-    color: #000 !important;
+tbody tr:hover .date-column,
+tbody tr:hover .day-column {
+    color: #ffffff !important;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
 }
 
 .modal {
